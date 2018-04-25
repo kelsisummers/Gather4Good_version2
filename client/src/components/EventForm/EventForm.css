@@ -1,0 +1,66 @@
+.component-wrapper {
+  border: 1px solid #39d1b4;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.form-head {
+  padding: 1.5em;
+  background: #fff;
+  background-color: #f8f3f3;
+}
+
+.form-head h2 {
+  font-size: 2em;
+  color: #39d1b4;
+  font-family: 'Old Standard TT', serif;
+}
+
+.form-container {
+  padding: 0.5em 2em 2.5em;
+  background-color: #39d1b4;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: 'Old Standard TT', serif;
+}
+
+form h3 {
+  color: white;
+}
+
+.form-step-wrapper {
+  padding: 1.5em;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid white;
+  width: 93%;
+  background: none;
+  font-size: 1.5em;
+  padding: .6em 0;
+  margin-bottom: 1em;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  transition: 0.5s all;
+  color: white;
+}
+
+input::placeholder {
+  color: #f8f3f3;
+  opacity: .8;
+}
+
+input:focus::placeholder {
+  color: white;
+  text-shadow: 0px 0px 1px white;
+}
