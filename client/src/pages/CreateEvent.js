@@ -8,7 +8,7 @@ class CreateEvent extends Component {
         <Grid>
           <Row>
             <Col xs={12}>
-              <EventForm/>
+              <EventForm />
             </Col>
           </Row>
         </Grid>
