@@ -11,139 +11,200 @@ import * as Datetime from 'react-datetime';
 
 class EventForm extends Component {
 
-  state = {
-    date: moment(),
-    eventTime: moment(),
-    focused: false,
-    format: 'h:mm a',
-    now: moment().hour(0).minute(0)
-  };
 
-  onTimeChange = (value) => {
-    console.log(value && value.format('h:mm a'));
-    this.setState({eventTime: value}, () => {
-      console.log("eventime state");
-      console.log(this.state.eventTime);
-    });
-  }
+  // state = {
+  //   date: moment(),
+  //   time: moment(),
+  //   focused: false,
+  //   causeType: "",
+  //   eventName: "",
+  //   imgUrl: "",
+  //   eventDescription: "",
+  //   streetAddress: "",
+  //   city: "",
+  //   USstate: "",
+  //   zipcode: ""
+  // };
+  //
+  // //Handles change from timepicker, date change handle in-line
+  // handleTimeChange = (value) => {
+  //   console.log(value._d.getTime());
+  //   console.log(value._d.toTimeString());
+  //   console.log(value._d.toDateString());
+  //   console.log(value && value.format('h:mm a'));
+  //   this.setState({time: value}, () => {
+  //     console.log("Time state");
+  //     console.log(this.state.time);
+  //   });
+  // }
+  //
+  // handleInputChange = (event) =>  {
+  //   const { name, value } = event.target;
+  //   console.log("Name: " + name);
+  //   console.log("Value: " + value);
+  //
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // }
+  //
+  // handleDateChange = (date) => {
+  //   //const ISOdate = date._d.toISOString()
+  //   console.log("CHANGED DATE");
+  //   console.log(date);
+  //   //console.log(date._d);
+  //   //console.log(ISOdate);
+  //   this.setState({date}, () => {
+  //     console.log("Updated date state in CB")
+  //     console.log(this.state.date);
+  //   });
+  // }
+  //
+  // handleDateFocusChange = ({focused}) =>  {
+  //   console.log("FOCUS CHANGE");
+  //   console.log(focused);
+  //   this.setState({focused: focused}, () => {
+  //     console.log("Updated focused state in CB")
+  //     console.log(this.state.focused);
+  //   });
+  // }
 
-  onDateChange = (event) => {
-    console.log(event)
-  }
-
-  onChange = date => this.setState({ date })
 
   render() {
-    console.log(this.state.date);
 
-      return (
+    return (
       <div className="component-wrapper">
         <div className="form-head">
           <h2>Create an Event</h2>
         </div>
         <div className="form-container">
-          <form>
+          <form autoComplete="random">
 
             <h3>Step 1: Tell Us About Your Event </h3>
             <div className="form-step-wrapper">
   						<input
+                autoComplete="random"
                 type="text"
                 name="eventName"
                 placeholder="Event Name"
+                value={this.props.eventName}
+                onChange={this.props.handleInputChange}
               />
               <textarea
+                autoComplete="random"
                 rows="2"
                 name="eventDescription"
-                placeholder="Description of your event">
+                placeholder="Description of your event"
+                value={this.props.eventDescription}
+                onChange={this.props.handleInputChange}>
               </textarea>
-					  </div>
+  				  </div>
 
-          <h3>{`Step 2: What's Your Event's Cause?`}</h3>
-          <div className="form-step-wrapper">
-            <select
-              defaultValue="Choose Your Cause"
-              type="text"
-              name="causeType"
-              placeholder="Event Name">
-                <option value="" disabled={true} hidden={true}> Choose Your Cause</option>
-                <option value="Gender Equality">Gender Equality</option>
-                <option value="LGBTQ">LGBTQ</option>
-                <option value="Environment">Environment</option>
-                <option value="Racial Equality">Racial Equality</option>
-                <option value="Animal Rights">Animal Rights</option>
-                <option value="Education">Education</option>
-                <option value="Human Rights">Human Rights</option>
-                <option value="Public Health">Public Health</option>
-                <option value="Economic Equality ">Economic Equality</option>
-            </select>
-          </div>
+            <h3>{`Step 2: What's Your Event's Cause?`}</h3>
+            <div className="form-step-wrapper">
+              <select
+                defaultValue="Choose Your Cause"
+                type="text"
+                name="causeType"
+                placeholder="Event Name"
+                onChange={this.props.handleInputChange}>
+                  <option value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
+                  <option value="Gender Equality">Gender Equality</option>
+                  <option value="LGBTQ">LGBTQ</option>
+                  <option value="Environment">Environment</option>
+                  <option value="Racial Equality">Racial Equality</option>
+                  <option value="Animal Rights">Animal Rights</option>
+                  <option value="Education">Education</option>
+                  <option value="Human Rights">Human Rights</option>
+                  <option value="Public Health">Public Health</option>
+                  <option value="Economic Equality ">Economic Equality</option>
+              </select>
+            </div>
 
-          <h3>Step 3: Upload An Image (Optional)</h3>
-          <div className="form-step-wrapper">
-            <input
-              type="text"
-              name="imgUrl"
-              placeholder="Image URL"
-            />
-          </div>
+            <h3>Step 3: Upload An Image (Optional)</h3>
+            <div className="form-step-wrapper">
+              <input
+                type="text"
+                name="imgUrl"
+                placeholder="Image URL"
+                value={this.props.imgUrl}
+                onChange={this.props.handleInputChange}
+              />
+            </div>
 
-          <h3>Step 4: Event Date and Time</h3>
-          <div id="date-time-wrapper" className="form-step-wrapper">
-
-            <Datetime />;
-
-
+            <h3>Step 4: Event Date and Time</h3>
+            <div id="date-time-wrapper" className="form-step-wrapper">
               <SingleDatePicker
-                date={this.state.date} // momentPropTypes.momentObj or null
-                onDateChange={date => {console.log(date); this.setState({ date })}} // PropTypes.func.isRequired
-                focused={this.state.focused} // PropTypes.bool
-                onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                date={this.props.date}
+                onDateChange={this.props.handleDateChange}
+                focused={this.props.focused}
+                onFocusChange={this.props.handleDateFocusChange}
                 numberOfMonths={1}
               />
-
               <TimePicker
+                name="timepicker"
                 showSecond={false}
-                value={this.state.eventTime}
+                value={this.props.time}
                 className="xxx"
-                onChange={this.onTimeChange}
+                onChange={this.props.handleTimeChange}
                 format={'h:mm a'}
                 use12Hours
                 inputReadOnly
               />
-
-          </div>
-
-          <h3>Step 5: Event Location</h3>
-            <div id="date-time-wrapper" className="form-step-wrapper">
-            <div className="form-step-wrapper">
-              <input
-                type="text"
-                name="streetAdress"
-                placeholder="Street Address"
-              />
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-              />
-              <select
-                defaultValue="State"
-                type="text"
-                name="state"
-                placeholder="State">
-                  <option value="State" disabled={true} hidden={true}>State</option>
-                  <option value="AL">Alabama</option>
-                  <option value="AK">Alaska</option>
-                  <option value="AR">Arizona</option>
-              </select>
-              <input
-                type="text"
-                name="zipcode"
-                placeholder="Zipcode"
-              />
             </div>
 
-          </div>
+            <h3>Step 5: Event Location</h3>
+              <div className="form-step-wrapper">
+                <input
+                  autoComplete="random"
+                  type="text"
+                  name="streetAddress"
+                  placeholder="Street Address"
+                  value={this.props.streetAddress}
+                  onChange={this.props.handleInputChange}
+                />
+                <input
+                  autoComplete="random"
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={this.props.city}
+                  onChange={this.props.handleInputChange}
+                />
+                <input
+                  autoComplete="random"
+                  name="USstate"
+                  list="USstates"
+                  type="text"
+                  placeholder="Select a state"
+                  id="USstate"
+                  value={this.props.USstate}
+                  onChange={this.props.handleInputChange}
+                />
+                <datalist id="USstates">
+                  <option value="Alabama"/>
+                  <option value="Alaska"/>
+                  <option value="Arizona"/>
+                  <option value="Arkansas"/>
+                  <option value="California"/>
+                  <option value="Colorado"/>
+                  <option value="Connecticut"/>
+                </datalist>
+                <input
+                  type="text"
+                  name="zipcode"
+                  placeholder="Zipcode"
+                  value={this.props.zipcode}
+                  onChange={this.props.handleInputChange}
+                />
+              </div>
+
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={this.props.handleFormSubmit}>
+                Create Event
+            </button>
 
           </form>
         </div>
