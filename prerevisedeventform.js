@@ -42,18 +42,16 @@ class EventForm extends Component {
           <h2>Create an Event</h2>
         </div>
         <div className="form-container">
-          <form autoComplete="random">
+          <form>
 
             <h3>Step 1: Tell Us About Your Event </h3>
             <div className="form-step-wrapper">
   						<input
-                autoComplete="random"
                 type="text"
                 name="eventName"
                 placeholder="Event Name"
               />
               <textarea
-                autoComplete="random"
                 rows="2"
                 name="eventDescription"
                 placeholder="Description of your event">
@@ -92,6 +90,9 @@ class EventForm extends Component {
           <h3>Step 4: Event Date and Time</h3>
           <div id="date-time-wrapper" className="form-step-wrapper">
 
+            <Datetime />;
+
+
               <SingleDatePicker
                 date={this.state.date} // momentPropTypes.momentObj or null
                 onDateChange={date => {console.log(date); this.setState({ date })}} // PropTypes.func.isRequired
@@ -116,35 +117,25 @@ class EventForm extends Component {
             <div id="date-time-wrapper" className="form-step-wrapper">
             <div className="form-step-wrapper">
               <input
-                autoComplete="random"
                 type="text"
                 name="streetAdress"
                 placeholder="Street Address"
               />
               <input
-                autoComplete="random"
                 type="text"
                 name="city"
                 placeholder="City"
               />
-              <input
-                autoComplete="random"
-                name="state"
-                list="states"
+              <select
+                defaultValue="State"
                 type="text"
-                placeholder="Select a state"
-                id="state"
-              />
-              <datalist id="states">
-                <option value="Alabama"/>
-                <option value="Alaska"/>
-                <option value="Arizona"/>
-                <option value="Arkansas"/>
-                <option value="California"/>
-                <option value="Colorado"/>
-                <option value="Connecticut"/>
-              </datalist>
-
+                name="state"
+                placeholder="State">
+                  <option value="State" disabled={true} hidden={true}>State</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AR">Arizona</option>
+              </select>
               <input
                 type="text"
                 name="zipcode"
@@ -153,11 +144,6 @@ class EventForm extends Component {
             </div>
 
           </div>
-
-          <button
-            type="submit"
-            className="btn btn-success"> Create Event
-          </button>
 
           </form>
         </div>
