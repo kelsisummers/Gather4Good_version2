@@ -19,6 +19,7 @@ class CreateEvent extends Component {
     zipcode: ""
   };
 
+
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
     console.log("Name: " + name);
@@ -52,6 +53,7 @@ class CreateEvent extends Component {
     });
   }
 
+
   handleTimeChange = (value) => {
     console.log(value._d.getTime());
     console.log(value._d.toTimeString());
@@ -62,6 +64,7 @@ class CreateEvent extends Component {
       console.log(this.state.time);
     });
   }
+
 
   createDateTimeStr = () => {
     const dateStr = this.state.date._d.toDateString();
@@ -76,6 +79,7 @@ class CreateEvent extends Component {
     console.log("timeStr: " + timeStr);
     console.log(ISO_DATE_TIME);
 
+    //Rest of function for testing purposes
     const mom_date = moment(ISO_DATE_TIME);
     const formattedDate = mom_date.format("ddd, DD MMM YYYY h:mm:ss a");
     console.log(formattedDate);
@@ -86,6 +90,7 @@ class CreateEvent extends Component {
     console.log("hello world");
     this.createDateTimeStr();
   }
+
 
   render() {
       return (
