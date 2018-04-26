@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import CreateEvent from "./pages/CreateEvent";
+import CreateEvent from "./pages/CreateEvent/CreateEvent.js";
 import Container from "./pages/SingleEvent/Container.js";
 import Home from "./pages/Home";
 

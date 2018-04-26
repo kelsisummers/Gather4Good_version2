@@ -3,9 +3,14 @@ const db = require("../models");
 // Defining methods for the booksController
 const causesController = {
   findAll: function(req, res) {
-    db.Event
+    console.log("find all causes function called - backend");
+    db.Cause
       .find(req.query)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        console.log("Causes returned:");
+        console.log(dbModel);
+        res.json(dbModel);
+      })
       .catch(err => res.status(422).json(err));
   }
 };
