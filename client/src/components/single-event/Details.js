@@ -5,13 +5,14 @@ export const Details = (props) => {
         <div className="boxes">
             <h2>Details</h2>
             <ul>
-                <li>props.title</li>
-                <li>props.date</li>
-                <li>props.time</li>
-                <li>props.description</li>
-                <li>props.organizer</li>
-                <li>props.locationName</li>
-                <li>props.address</li>
+                <li>{props.data.title}</li>
+                <li>{props.data.dateTime}</li>
+                <li>{props.data.description}</li>
+                <li>{props.data.location_city}</li>
+                <li>{props.data.location_name}</li>
+                <li>{props.data.location_state}</li>
+                <li>{props.data.location_street}</li>
+                <li>{props.data.location_zip}</li>
             </ul>
         </div>
     )

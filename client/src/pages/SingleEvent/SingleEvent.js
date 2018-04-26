@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./SingleEventPage.css";
+import "./SingleEvent.css";
 import { Header, Details, Controls, Discussion, RelatedEvents } from "../../components/single-event";
 
-class SingleEventPage extends Component {
+class SingleEvent extends Component {
 
 state = {
     // currentEvent : {eventJSON}
@@ -33,16 +33,10 @@ render() {
     return (
         <div>
             <Header
-                image="event.JSON.image"
+                data={this.props.events[1]}
             />
             <Details
-                title="eventJSON.title"
-                date="eventJSON.date"
-                time="eventJSON.time"
-                description="eventJSON.description"
-                organizer="eventJSON.organizer"
-                locationName="eventJSON.locationName"
-                address="eventJSON.address"
+                data={this.props.events[1]}
             />
             <Controls
                 handleButtonClick={this.handleButtonClick}
@@ -59,4 +53,4 @@ render() {
 
 }
 
-export default SingleEventPage;
+export default SingleEvent;

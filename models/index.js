@@ -1,6 +1,6 @@
 module.exports = {
   Event: require("./event"),
   Cause: require("./cause"),
-  Attendee: require("./attendee"),
-  User: require("./user")
+  User: require("./user"),
+  Comment: require("./comment")
 };
