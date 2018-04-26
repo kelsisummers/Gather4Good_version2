@@ -9,9 +9,10 @@ export default {
   },
 
   // Saves a new event to db
-  saveEvent: function(eventData) {
+  createEvent: function(eventData) {
+    console.log("create event called - front end");
+    console.log("event data in create event fucntion - front end:")
     console.log(eventData);
-    console.log("save event called - front end");
     return axios.post("/api/events", eventData);
   }
 

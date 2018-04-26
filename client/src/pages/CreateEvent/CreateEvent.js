@@ -13,9 +13,11 @@ class CreateEvent extends Component {
     time: moment(),
     focused: false,
     causeType: "",
+    causeId: "",
     eventName: "",
     imgUrl: "",
     eventDescription: "",
+    locationName: "",
     streetAddress: "",
     city: "",
     USstate: "",
@@ -23,27 +25,41 @@ class CreateEvent extends Component {
     causes: []
   };
 
+
   loadCauses = () => {
     API.getCauses()
       .then(res => {
-        console.log(res);
+        console.log("Results returned when requesting causes")
+        console.log(res.data);
+        this.setState({causes: res.data});
       })
       .catch(err => console.log(err))
   }
 
 
   componentDidMount = () => {
-    //Make API calls here - this.loadCauses();
-
+    this.loadCauses();
   }
 
 
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
+    let cause_id;
 
-    this.setState({
-      [name]: value
+    this.setState({[name]: value}, () => {
+      console.log("Update Value State");
+      console.log(this.state.causeType);
     });
+
+    if(name === "causeType") {
+      const option = event.target.options[event.target.selectedIndex];
+      const causeId = option.attributes.getNamedItem("data-cause-id").value;
+
+      this.setState({causeId: causeId}, () => {
+        console.log("Update CauseId State:");
+        console.log(this.state.causeId);
+      });
+    }
   }
 
 
@@ -88,19 +104,69 @@ class CreateEvent extends Component {
     console.log("timeStr: " + timeStr);
     console.log(ISO_DATE_TIME);
 
-    //Rest of function for testing purposes
+    //Following three lines of function are only for testing purposes
+    //To confirm the ISO date is being properly generated
     const mom_date = moment(ISO_DATE_TIME);
     const formattedDate = mom_date.format("ddd, DD MMM YYYY h:mm:ss a");
     console.log(formattedDate);
+
+    //Return value
     return ISO_DATE_TIME;
   }
 
 
   handleFormSubmit = (event) =>  {
-    console.log("hello world");
 
-    //Implement form submission logic here
-    this.createDateTimeStr();
+    const ISO_DATE_TIME = this.createDateTimeStr();
+    const {eventName, eventDescription, imgUrl, locationName} = {...this.state};
+    const {streetAddress, city, USstate, zipcode, causeId} = {...this.state};
+
+    // console.log("DATE ON FORM SUBMIT");
+    // console.log(ISO_DATE_TIME);
+    // console.log(eventName);
+    // console.log(eventDescription);
+    // console.log(imgUrl);
+    // console.log(locationName);
+    // console.log(streetAddress);
+    // console.log(city);
+    // console.log(USstate);
+    // console.log(zipcode);
+    // console.log(causeId);
+
+    // date: moment(),
+    // time: moment(),
+    // focused: false,
+    // causeType: "",
+    // eventName: "",
+    // imgUrl: "",
+    // eventDescription: "",
+    // streetAddress: "",
+    // city: "",
+    // USstate: "",
+    // zipcode: "",
+    // causes: []
+
+    const eventData = {
+      title: eventName,
+      dateTime: ISO_DATE_TIME,
+      description: eventDescription,
+      img_url: imgUrl,
+      location_name: locationName,
+      location_street: streetAddress,
+      location_city: city,
+      location_state: USstate,
+      location_zip: zipcode,
+      cause: causeId
+    }
+
+    console.log(eventData);
+
+    API.createEvent(eventData)
+      .then(res => {
+        console.log("Results returned when requesting causes")
+        console.log(res);
+      })
+      .catch(err => console.log(err))
   }
 
 

@@ -7,8 +7,7 @@ router.route("/")
   .post(eventsController.create);
 
 // Matches with "/api/events/:id"
-router
-  .route("/:id")
+router.route("/:id")
   .get(eventsController.findById)
   .put(eventsController.update)
   .delete(eventsController.remove);

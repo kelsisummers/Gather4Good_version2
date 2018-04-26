@@ -11,7 +11,7 @@ import * as Datetime from 'react-datetime';
 class EventForm extends Component {
 
   render() {
-
+    console.log(this.props);
     return (
       <div className="component-wrapper">
         <div className="form-head">
@@ -48,16 +48,17 @@ class EventForm extends Component {
                 name="causeType"
                 placeholder="Event Name"
                 onChange={this.props.handleInputChange}>
-                  <option value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
-                  <option value="Gender Equality">Gender Equality</option>
-                  <option value="LGBTQ">LGBTQ</option>
-                  <option value="Environment">Environment</option>
-                  <option value="Racial Equality">Racial Equality</option>
-                  <option value="Animal Rights">Animal Rights</option>
-                  <option value="Education">Education</option>
-                  <option value="Human Rights">Human Rights</option>
-                  <option value="Public Health">Public Health</option>
-                  <option value="Economic Equality ">Economic Equality</option>
+
+                  <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
+                  {this.props.causes.map(cause => (
+                    <option
+                      value={cause.name}
+                      data-cause-id={cause._id}
+                      key={cause._id}>
+                      {cause.name}
+                    </option>
+                  ))}
+
               </select>
             </div>
 
@@ -95,6 +96,14 @@ class EventForm extends Component {
 
             <h3>Step 5: Event Location</h3>
               <div className="form-step-wrapper">
+                <input
+                  autoComplete="random"
+                  type="text"
+                  name="locationName"
+                  placeholder="Location Name"
+                  value={this.props.locationName}
+                  onChange={this.props.handleInputChange}
+                />
                 <input
                   autoComplete="random"
                   type="text"
