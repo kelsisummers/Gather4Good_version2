@@ -1,19 +1,21 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import SingleEventPage from "./pages/SingleEventPage/SingleEventPage.js";
+import CreateEvent from "./pages/CreateEvent";
+import TestPage from "./pages/TestPage";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <Router>
+        <div style={{height: "100%"}}>
+            <h1> G4G </h1>
+            <Switch>
+              <Route exact path="/" component={TestPage} />
+              <Route exact path="/create" component={CreateEvent} />
+            </Switch>
         </div>
-        <p className="App-intro"></p>
-        <SingleEventPage />
-      </div>
+      </Router>
     );
   }
 }
