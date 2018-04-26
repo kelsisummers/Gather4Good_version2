@@ -11,56 +11,68 @@ import * as Datetime from 'react-datetime';
 
 class EventForm extends Component {
 
-  state = {
-    date: moment(),
-    time: moment(),
-    focused: false,
-    causeType: "",
-    eventName: "",
-    imgUrl: "",
-    eventDescription: "",
-    streetAddress: "",
-    city: "",
-    USstate: "",
-    zipcode: ""
-  };
 
-  //Handles change from timepicker, date change handle in-line
-  handleTimeChange = (value) => {
-    console.log(value._d.getTime());
-    console.log(value._d.toTimeString());
-    console.log(value._d.toDateString());
-    console.log(value && value.format('h:mm a'));
-    this.setState({time: value}, () => {
-      console.log("Time state");
-      console.log(this.state.time);
-    });
-  }
+  // state = {
+  //   date: moment(),
+  //   time: moment(),
+  //   focused: false,
+  //   causeType: "",
+  //   eventName: "",
+  //   imgUrl: "",
+  //   eventDescription: "",
+  //   streetAddress: "",
+  //   city: "",
+  //   USstate: "",
+  //   zipcode: ""
+  // };
+  //
+  // //Handles change from timepicker, date change handle in-line
+  // handleTimeChange = (value) => {
+  //   console.log(value._d.getTime());
+  //   console.log(value._d.toTimeString());
+  //   console.log(value._d.toDateString());
+  //   console.log(value && value.format('h:mm a'));
+  //   this.setState({time: value}, () => {
+  //     console.log("Time state");
+  //     console.log(this.state.time);
+  //   });
+  // }
+  //
+  // handleInputChange = (event) =>  {
+  //   const { name, value } = event.target;
+  //   console.log("Name: " + name);
+  //   console.log("Value: " + value);
+  //
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // }
+  //
+  // handleDateChange = (date) => {
+  //   //const ISOdate = date._d.toISOString()
+  //   console.log("CHANGED DATE");
+  //   console.log(date);
+  //   //console.log(date._d);
+  //   //console.log(ISOdate);
+  //   this.setState({date}, () => {
+  //     console.log("Updated date state in CB")
+  //     console.log(this.state.date);
+  //   });
+  // }
+  //
+  // handleDateFocusChange = ({focused}) =>  {
+  //   console.log("FOCUS CHANGE");
+  //   console.log(focused);
+  //   this.setState({focused: focused}, () => {
+  //     console.log("Updated focused state in CB")
+  //     console.log(this.state.focused);
+  //   });
+  // }
 
-  handleInputChange = (event) =>  {
-    const { name, value } = event.target;
-    console.log("Name: " + name);
-    console.log("Value: " + value);
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleDateChange = (date) => {
-    const ISOdate = date._d.toISOString()
-    console.log("CHANGED DATE");
-    console.log(date);
-    console.log(date._d);
-    console.log(ISOdate);
-    this.setState({date}, () => {
-      console.log("Updated date state in CB")
-      console.log(this.state.date);
-    });
-  }
 
   render() {
-    console.log(this.state.date);
+    console.log(this.props.date);
+    console.log(this.props.time);
     console.log(this.props);
     console.log(this.props.focused);
 
@@ -79,16 +91,16 @@ class EventForm extends Component {
                 type="text"
                 name="eventName"
                 placeholder="Event Name"
-                value={this.state.eventName}
-                onChange={this.handleInputChange}
+                value={this.props.eventName}
+                onChange={this.props.handleInputChange}
               />
               <textarea
                 autoComplete="random"
                 rows="2"
                 name="eventDescription"
                 placeholder="Description of your event"
-                value={this.state.eventDescription}
-                onChange={this.handleInputChange}>
+                value={this.props.eventDescription}
+                onChange={this.props.handleInputChange}>
               </textarea>
   				  </div>
 
@@ -99,7 +111,7 @@ class EventForm extends Component {
                 type="text"
                 name="causeType"
                 placeholder="Event Name"
-                onChange={this.handleInputChange}>
+                onChange={this.props.handleInputChange}>
                   <option value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
                   <option value="Gender Equality">Gender Equality</option>
                   <option value="LGBTQ">LGBTQ</option>
@@ -119,26 +131,26 @@ class EventForm extends Component {
                 type="text"
                 name="imgUrl"
                 placeholder="Image URL"
-                value={this.state.imgUrl}
-                onChange={this.handleInputChange}
+                value={this.props.imgUrl}
+                onChange={this.props.handleInputChange}
               />
             </div>
 
             <h3>Step 4: Event Date and Time</h3>
             <div id="date-time-wrapper" className="form-step-wrapper">
               <SingleDatePicker
-                date={this.state.date}
-                onDateChange={this.handleDateChange}
-                focused={this.state.focused}
-                onFocusChange={({ focused }) => this.setState({ focused })}
+                date={this.props.date}
+                onDateChange={this.props.handleDateChange}
+                focused={this.props.focused}
+                onFocusChange={this.props.handleDateFocusChange}
                 numberOfMonths={1}
               />
               <TimePicker
                 name="timepicker"
                 showSecond={false}
-                value={this.state.time}
+                value={this.props.time}
                 className="xxx"
-                onChange={this.handleTimeChange}
+                onChange={this.props.handleTimeChange}
                 format={'h:mm a'}
                 use12Hours
                 inputReadOnly
@@ -152,16 +164,16 @@ class EventForm extends Component {
                   type="text"
                   name="streetAddress"
                   placeholder="Street Address"
-                  value={this.state.streetAddress}
-                  onChange={this.handleInputChange}
+                  value={this.props.streetAddress}
+                  onChange={this.props.handleInputChange}
                 />
                 <input
                   autoComplete="random"
                   type="text"
                   name="city"
                   placeholder="City"
-                  value={this.state.city}
-                  onChange={this.handleInputChange}
+                  value={this.props.city}
+                  onChange={this.props.handleInputChange}
                 />
                 <input
                   autoComplete="random"
@@ -170,8 +182,8 @@ class EventForm extends Component {
                   type="text"
                   placeholder="Select a state"
                   id="USstate"
-                  value={this.state.USstate}
-                  onChange={this.handleInputChange}
+                  value={this.props.USstate}
+                  onChange={this.props.handleInputChange}
                 />
                 <datalist id="USstates">
                   <option value="Alabama"/>
@@ -186,13 +198,13 @@ class EventForm extends Component {
                   type="text"
                   name="zipcode"
                   placeholder="Zipcode"
-                  value={this.state.zipcode}
-                  onChange={this.handleInputChange}
+                  value={this.props.zipcode}
+                  onChange={this.props.handleInputChange}
                 />
               </div>
 
             <button
-              type="submit"
+              type="button"
               className="btn btn-success"
               onClick={this.props.handleFormSubmit}>
                 Create Event
