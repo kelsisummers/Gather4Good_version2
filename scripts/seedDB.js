@@ -14,8 +14,7 @@ mongoose.connect(
 const eventSeed = [
   {
     title: "Earth Day Columbus",
-    date: new Date(Date.now()),
-    time: new Date(Date.now()),
+    dateTime: new Date(Date.now()),
     description:
       "Earth Day Columbus is the largest volunteer-led Earth Day service effort in the U.S. Organized annually by Green Columbus, a Central Ohio nonprofit.",
     img_url: "https://static1.squarespace.com/static/580ac286be6594479600b400/t/586e453fbe659461a743ad52/1516552077692/",
@@ -27,8 +26,7 @@ const eventSeed = [
   },
   {
     title: "Save the Chinchillas!",
-    date: new Date(Date.now()),
-    time: new Date(Date.now()),
+    dateTime: new Date(Date.now()),
     description:
       "We're fighting to conserve this beautiful species. Let's come together to raise money and awareness to help protect the chinchillas!",
     img_url: "https://www.petmd.com/sites/default/files/chinchilla-fun-facts.jpg",
