@@ -1,0 +1,22 @@
+.boxes{
+    width: 300px;
+    height: 300px;
+    border-style: solid;
+    border-color: red;
+    float: left;
+}
+
+.miniEvent{
+    width: 100px;
+    height: 100px;
+    border-style: solid;
+    border-color: blue;
+    float: left
+}
+
+.miniComment{
+    width: 100px;
+    height: 50px;
+    border-style: solid;
+    border-color: green;
+}
