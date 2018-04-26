@@ -6,69 +6,9 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
-// import DateTimePicker from 'react-datetime-picker';
 import * as Datetime from 'react-datetime';
 
 class EventForm extends Component {
-
-
-  // state = {
-  //   date: moment(),
-  //   time: moment(),
-  //   focused: false,
-  //   causeType: "",
-  //   eventName: "",
-  //   imgUrl: "",
-  //   eventDescription: "",
-  //   streetAddress: "",
-  //   city: "",
-  //   USstate: "",
-  //   zipcode: ""
-  // };
-  //
-  // //Handles change from timepicker, date change handle in-line
-  // handleTimeChange = (value) => {
-  //   console.log(value._d.getTime());
-  //   console.log(value._d.toTimeString());
-  //   console.log(value._d.toDateString());
-  //   console.log(value && value.format('h:mm a'));
-  //   this.setState({time: value}, () => {
-  //     console.log("Time state");
-  //     console.log(this.state.time);
-  //   });
-  // }
-  //
-  // handleInputChange = (event) =>  {
-  //   const { name, value } = event.target;
-  //   console.log("Name: " + name);
-  //   console.log("Value: " + value);
-  //
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // }
-  //
-  // handleDateChange = (date) => {
-  //   //const ISOdate = date._d.toISOString()
-  //   console.log("CHANGED DATE");
-  //   console.log(date);
-  //   //console.log(date._d);
-  //   //console.log(ISOdate);
-  //   this.setState({date}, () => {
-  //     console.log("Updated date state in CB")
-  //     console.log(this.state.date);
-  //   });
-  // }
-  //
-  // handleDateFocusChange = ({focused}) =>  {
-  //   console.log("FOCUS CHANGE");
-  //   console.log(focused);
-  //   this.setState({focused: focused}, () => {
-  //     console.log("Updated focused state in CB")
-  //     console.log(this.state.focused);
-  //   });
-  // }
-
 
   render() {
 
