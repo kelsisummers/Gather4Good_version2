@@ -2,14 +2,7 @@ const mongoose = require("mongoose");
 const db = require("../models");
 mongoose.Promise = global.Promise;
 
-// This file empties the Books collection and inserts the books below
-
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/gather4goodevents",
-  {
-    useMongoClient: true
-  }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/gather4goodevents");
 
 const eventSeed = [
   {
@@ -22,7 +15,8 @@ const eventSeed = [
     location_street: "605 N High St, Suite 229",
     location_city: "Columbus",
     location_state: "OH",
-    location_zip: "43215"
+    location_zip: "43215",
+    cause: "1"
   },
   {
     title: "Save the Chinchillas!",
@@ -34,7 +28,8 @@ const eventSeed = [
     location_street: "123 Main St",
     location_city: "Portland",
     location_state: "OR",
-    location_zip: "97204"
+    location_zip: "97204",
+    cause: "2"
   }
 ];
 
@@ -52,15 +47,29 @@ const causeSeed = [
   { name: "Gun Control" },
 ]
 
+
+const seedCauses = () => {
+  db.Cause
+    .remove({})
+    .then(() => db.Cause.collection.insertMany(causeSeed))
+    .then(data => {
+      console.log(data);
+      console.log(data.insertedIds.length + " records inserted!");
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+}
+
 db.Event
   .remove({})
-  .then(() => {
-    db.Event.collection.insertMany(eventSeed);
-    db.Cause.collection.insertMany(causeSeed);
-  })
+  .then(() => db.Event.collection.insertMany(eventSeed))
   .then(data => {
+    console.log(data);
     console.log(data.insertedIds.length + " records inserted!");
-    process.exit(0);
+    seedCauses();
   })
   .catch(err => {
     console.error(err);

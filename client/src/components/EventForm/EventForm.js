@@ -122,13 +122,9 @@ class EventForm extends Component {
                   onChange={this.props.handleInputChange}
                 />
                 <datalist id="USstates">
-                  <option value="Alabama"/>
-                  <option value="Alaska"/>
-                  <option value="Arizona"/>
-                  <option value="Arkansas"/>
-                  <option value="California"/>
-                  <option value="Colorado"/>
-                  <option value="Connecticut"/>
+                  {this.props.stateList.map(state => (
+                    <option value={state} key={state} />
+                  ))}
                 </datalist>
                 <input
                   type="text"

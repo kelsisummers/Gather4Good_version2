@@ -1,7 +1,10 @@
 import React, {Component} from "react";
 import { Grid, Row, Col } from 'react-bootstrap';
-import EventForm from "../components/EventForm"
+import EventForm from "../../components/EventForm"
 import moment from "moment";
+import StateList from "./States";
+import API from "../../utils/API.js";
+import axios from "axios";
 
 class CreateEvent extends Component {
 
@@ -16,8 +19,23 @@ class CreateEvent extends Component {
     streetAddress: "",
     city: "",
     USstate: "",
-    zipcode: ""
+    zipcode: "",
+    causes: []
   };
+
+  loadCauses = () => {
+    API.getCauses()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err))
+  }
+
+
+  componentDidMount = () => {
+    //Make API calls here - this.loadCauses();
+
+  }
 
 
   handleInputChange = (event) =>  {
@@ -74,6 +92,7 @@ class CreateEvent extends Component {
     const mom_date = moment(ISO_DATE_TIME);
     const formattedDate = mom_date.format("ddd, DD MMM YYYY h:mm:ss a");
     console.log(formattedDate);
+    return ISO_DATE_TIME;
   }
 
 
@@ -91,6 +110,7 @@ class CreateEvent extends Component {
           <Row>
             <Col xs={12}>
               <EventForm {...this.state}
+                stateList={StateList}
                 handleFormSubmit={this.handleFormSubmit}
                 handleInputChange={this.handleInputChange}
                 handleDateChange={this.handleDateChange}
