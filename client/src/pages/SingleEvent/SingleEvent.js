@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Header, Details, Controls, Discussion, RelatedEvents } from "../../components/single-event";
+import { Header, Details, Controls, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 
 class SingleEvent extends Component {
 
@@ -41,8 +41,8 @@ render() {
             <Controls
                 handleButtonClick={this.handleButtonClick}
             />
-            <Discussion
-                comments="eventJSON.comments"
+            <DiscussionContainer
+                data={this.props.event}
             />
             <RelatedEvents
                 eventCause="eventJSON.cause"

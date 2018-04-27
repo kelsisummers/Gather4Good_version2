@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import SingleEvent from "./SingleEvent.js";
 import API from "../../utils/API.js";
-const axios = require("axios");
-
 
 class Container extends Component {
     state = {
@@ -15,7 +13,7 @@ class Container extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
         // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae16172e3eddf0a58b5e0ca")
+        API.getEvent("5ae161abe3eddf0a58b5e0cb")
             .then((event) => {
                 console.log(event.data);
                 this.setState({

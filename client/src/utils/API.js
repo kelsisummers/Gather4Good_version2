@@ -20,6 +20,11 @@ export default {
   getEvent: function(id) {
     console.log("get event called - front end");
     return axios.get(`/api/events/${id}`);
+  },
+
+  getCommentsByEvent: function(id) {
+    console.log("get comments called - front end");
+    return axios.get(`/api/comments/${id}`);
   }
 
 };
