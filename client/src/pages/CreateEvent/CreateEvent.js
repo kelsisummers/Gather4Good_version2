@@ -45,6 +45,8 @@ class CreateEvent extends Component {
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
     let cause_id;
+    console.log(name);
+    console.log(value);
 
     this.setState({[name]: value}, () => {
       console.log("Update Value State");
@@ -117,6 +119,8 @@ class CreateEvent extends Component {
 
   handleFormSubmit = (event) =>  {
 
+    event.preventDefault();
+
     const ISO_DATE_TIME = this.createDateTimeStr();
     const {eventName, eventDescription, imgUrl, locationName} = {...this.state};
     const {streetAddress, city, USstate, zipcode, causeId} = {...this.state};
@@ -163,7 +167,7 @@ class CreateEvent extends Component {
 
     API.createEvent(eventData)
       .then(res => {
-        console.log("Results returned when requesting causes")
+        console.log("Result returned when generating new event")
         console.log(res);
       })
       .catch(err => console.log(err))

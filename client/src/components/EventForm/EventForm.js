@@ -18,7 +18,7 @@ class EventForm extends Component {
           <h2>Create an Event</h2>
         </div>
         <div className="form-container">
-          <form autoComplete="random">
+          <form autoComplete="random" onSubmit={this.props.handleFormSubmit}>
 
             <h3>Step 1: Tell Us About Your Event </h3>
             <div className="form-step-wrapper">
@@ -145,9 +145,8 @@ class EventForm extends Component {
               </div>
 
             <button
-              type="button"
-              className="btn btn-success"
-              onClick={this.props.handleFormSubmit}>
+              type="submit"
+              className="btn btn-success">
                 Create Event
             </button>
 

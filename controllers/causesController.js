@@ -4,8 +4,9 @@ const db = require("../models");
 const causesController = {
   findAll: function(req, res) {
     console.log("find all causes function called - backend");
+    console.log(req.query);
     db.Cause
-      .find(req.query)
+      .find({})
       .then(dbModel => {
         console.log("Causes returned:");
         console.log(dbModel);
