@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Header, Details, Controls, Discussion, RelatedEvents } from "../../components/single-event";
+import { Header, Details, Controls, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 
 class SingleEvent extends Component {
 
 state = {
-    // currentEvent : {eventJSON}
+    // button logic goes here
 
 }
 
@@ -33,16 +33,16 @@ render() {
     return (
         <div>
             <Header
-                data={this.props.events[1]}
+                data={this.props.event}
             />
             <Details
-                data={this.props.events[1]}
+                data={this.props.event}
             />
             <Controls
                 handleButtonClick={this.handleButtonClick}
             />
-            <Discussion
-                comments="eventJSON.comments"
+            <DiscussionContainer
+                data={this.props.event}
             />
             <RelatedEvents
                 eventCause="eventJSON.cause"

@@ -1,6 +1,6 @@
 .boxes{
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     border-style: solid;
     border-color: red;
     float: left;
@@ -15,8 +15,8 @@
 }
 
 .miniComment{
-    width: 100px;
-    height: 50px;
+    width: 100x;
+    height: 100px;
     border-style: solid;
     border-color: green;
 }

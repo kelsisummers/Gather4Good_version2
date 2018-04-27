@@ -17,10 +17,10 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 // Connect to the Mongo DB (Ben's local db)
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/g4gdev");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/g4gdev");
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/gather4goodevents");
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/gather4goodevents");
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> Server now on port ${PORT}!`);

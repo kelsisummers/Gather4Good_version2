@@ -2,10 +2,9 @@ import React, {Component } from "react";
 import CommentCard from "./CommentCard.js";
 import CommentForm from "./CommentForm.js";
 
-
-export class Discussion extends Component {
+class Discussion extends Component {
     state = {
-        comments: [{ id: 1, body: "Comment 1"}, { id: 2, body: "Comment 2" }]
+        comments: this.props.data
         // will grab "this.props.comments" and setState to current comments.
     }
 
@@ -35,3 +34,5 @@ export class Discussion extends Component {
         )
     }
 }
+
+export default Discussion
