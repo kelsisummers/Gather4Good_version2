@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import SingleEvent from "./SingleEvent.js";
-let axios = require("axios");
+import API from "../../utils/API.js";
+const axios = require("axios");
+
 
 class Container extends Component {
     state = {
         error: null,
         isLoaded: false,
-        events: []
+        event: []
     };
     
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
-        axios.get("/api/events")
-            .then((events) => {
-                console.log(events.data);
+        // will pass "this.props.id" to API.getEvent as arg.
+        API.getEvent("5ae16172e3eddf0a58b5e0ca")
+            .then((event) => {
+                console.log(event.data);
                 this.setState({
                     isLoaded: true,
-                    events: events.data
+                    event: event.data
                 });
             },
                 (error) => {
@@ -38,7 +41,7 @@ class Container extends Component {
         } else {
             return (
                 <SingleEvent
-                    events = {this.state.events}
+                    event = {this.state.event}
                 />
             );
         }

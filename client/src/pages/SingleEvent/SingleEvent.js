@@ -5,7 +5,7 @@ import { Header, Details, Controls, Discussion, RelatedEvents } from "../../comp
 class SingleEvent extends Component {
 
 state = {
-    // currentEvent : {eventJSON}
+    // button logic goes here
 
 }
 
@@ -33,10 +33,10 @@ render() {
     return (
         <div>
             <Header
-                data={this.props.events[1]}
+                data={this.props.event}
             />
             <Details
-                data={this.props.events[1]}
+                data={this.props.event}
             />
             <Controls
                 handleButtonClick={this.handleButtonClick}
