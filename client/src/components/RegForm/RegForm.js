@@ -2,23 +2,7 @@ import React, {Component} from "react";
 import "./RegForm.css";
 import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 
-class RegForm extends Component {
-
-  state = {
-    regFirstName: "",
-    regLastName: "",
-    regEmail: "",
-    regPassword: ""
-  }
-
-  handleChange = (event) => {
-    const {name, value} = event.target;
-    console.log(name)
-    console.log(value)
-    this.setState({[name]: value});
-  }
-
-  render() {
+const RegForm = (props) => {
     return (
       <Form horizontal style={{marginTop: "20px"}}>
         <FormGroup controlId="formHorizontalFirstNameInput">
@@ -29,10 +13,11 @@ class RegForm extends Component {
             <FormControl
               name="regFirstName"
               type="text"
-              value={this.state.regFirstName}
+              value={props.regFirstName}
               placeholder="First Name"
-              onChange={this.handleChange}
-              required="required" />
+              onChange={props.handleInputChange}
+              required="required"
+              pattern=".*\S+.*"/ >
           </Col>
         </FormGroup>
 
@@ -44,10 +29,11 @@ class RegForm extends Component {
             <FormControl
               name="regLastName"
               type="text"
-              value={this.state.regLastName}
+              value={props.regLastName}
               placeholder="Last Name"
-              onChange={this.handleChange}
-              required="required" />
+              onChange={props.handleInputChange}
+              required="required"
+              pattern=".*\S+.*" />
           </Col>
         </FormGroup>
 
@@ -59,10 +45,11 @@ class RegForm extends Component {
             <FormControl
               name="regEmail"
               type="email"
-              value={this.state.regEmail}
+              value={props.regEmail}
               placeholder="Email"
-              onChange={this.handleChange}
-              required="required" />
+              onChange={props.handleInputChange}
+              required="required"
+              pattern=".*\S+.*" />
           </Col>
         </FormGroup>
 
@@ -74,10 +61,11 @@ class RegForm extends Component {
             <FormControl
               name="regPassword"
               type="password"
-              value={this.state.regPassword}
+              value={props.regPassword}
               placeholder="Password"
-              onChange={this.handleChange}
-              required="required" />
+              onChange={props.handleInputChange}
+              required="required"
+              pattern=".*\S+.*" />
           </Col>
         </FormGroup>
 
@@ -89,8 +77,7 @@ class RegForm extends Component {
 
       </Form>
     );
-  }
-
 }
+
 
 export default RegForm;

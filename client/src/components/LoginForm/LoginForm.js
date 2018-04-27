@@ -2,21 +2,8 @@ import React, {Component} from "react";
 import "./LoginForm.css";
 import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-class LoginForm extends Component {
-
-  state = {
-    loginEmail: "",
-    loginPassword: ""
-  }
-
-  handleChange = (event) => {
-    const {name, value} = event.target;
-    console.log(name)
-    console.log(value)
-    this.setState({[name]: value});
-  }
-
-  render() {
+const LoginForm = (props) => {
+    console.log(props);
     return (
       <Form horizontal style={{marginTop: "20px"}}>
         <FormGroup controlId="formHorizontalLoginEmail">
@@ -27,10 +14,11 @@ class LoginForm extends Component {
             <FormControl
               name="loginEmail"
               type="email"
-              value={this.state.loginEmail}
+              value={props.loginEmail}
               placeholder="Email"
-              onChange={this.handleChange}
-              required="required" />
+              onChange={props.handleInputChange}
+              required="required"
+              pattern=".*\S+.*" />
           </Col>
         </FormGroup>
 
@@ -42,11 +30,12 @@ class LoginForm extends Component {
             <FormControl
               name="loginPassword"
               type="password"
-              value={this.state.loginPassword}
+              value={props.loginPassword}
               placeholder="Password"
-              onChange={this.handleChange}
+              onChange={props.handleInputChange}
               required="required"
-              title="This field is required"/>
+              title="This field is required"
+              pattern=".*\S+.*"/>
           </Col>
         </FormGroup>
 
@@ -57,8 +46,6 @@ class LoginForm extends Component {
         </FormGroup>
       </Form>
     );
-  }
-
 }
 
 export default LoginForm;
