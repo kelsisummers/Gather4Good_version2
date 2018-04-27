@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import "./AuthModal.css";
 import { Row, Col, Nav, NavItem, Button, Modal, Tab } from 'react-bootstrap';
+import LoginForm from "../LoginForm";
+import RegForm from "../RegForm";
 
 class AuthModal extends Component {
 
@@ -21,6 +23,12 @@ class AuthModal extends Component {
     console.log(`selected ${key}`);
     this.setState({ key });
   }
+
+  // {this.state.key === 1 ? (
+  //   <Button onClick={this.handleClose}>Login</Button>
+  // ) : (
+  //   <Button onClick={this.handleClose}>Register</Button>
+  // )}
 
   render() {
     return (
@@ -47,8 +55,8 @@ class AuthModal extends Component {
               </Col>
               <Col sm={12}>
                 <Tab.Content>
-                  <Tab.Pane eventKey={1}>Tab 1 content</Tab.Pane>
-                  <Tab.Pane eventKey={2}>Tab 2 content</Tab.Pane>
+                  <Tab.Pane eventKey={1}> <LoginForm /> </Tab.Pane>
+                  <Tab.Pane eventKey={2}> <RegForm /> </Tab.Pane>
                 </Tab.Content>
               </Col>
             </Row>
@@ -56,11 +64,7 @@ class AuthModal extends Component {
 
           </Modal.Body>
           <Modal.Footer>
-            {this.state.key === 1 ? (
-              <Button onClick={this.handleClose}>Login</Button>
-            ) : (
-              <Button onClick={this.handleClose}>Register</Button>
-            )}
+
           </Modal.Footer>
         </Modal>
       </div>
