@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const db = require("../models");
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/gather4goodevents");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/g4gdev");
 
 const eventSeed = [
   {
@@ -16,7 +16,7 @@ const eventSeed = [
     location_city: "Columbus",
     location_state: "OH",
     location_zip: "43215",
-    cause: "1"
+    cause: "5ae289a76ff9501210d708bb"
   },
   {
     title: "Save the Chinchillas!",
@@ -29,7 +29,7 @@ const eventSeed = [
     location_city: "Portland",
     location_state: "OR",
     location_zip: "97204",
-    cause: "2"
+    cause: "5ae289a76ff9501210d708bb"
   }
 ];
 
@@ -45,7 +45,30 @@ const causeSeed = [
   { name: "Public Health" },
   { name: "Economic Equality" },
   { name: "Gun Control" },
-]
+];
+
+const commentSeed = [
+  {
+    body: "This is the body for comment 1, on 'Earth Day Columbus.'",
+    eventId: "5ae28a9def135723b8e5525d"
+  },
+  {
+    body: "This is the body for comment 2, on 'Earth Day Columbus.'",
+    eventId: "5ae28a9def135723b8e5525d"
+  },
+  {
+    body: "This is the body for comment 3, on 'Earth Day Columbus.'",
+    eventId: "5ae28a9def135723b8e5525d"
+  },
+  {
+    body: "This is the body for comment 1, on 'Save the Chinchillas!.'",
+    eventId: "5ae28a9def135723b8e5525e"
+  },
+  {
+    body: "This is the body for comment 2, on 'Save the Chinchillas!.'",
+    eventId: "5ae28a9def135723b8e5525e"
+  }
+];
 
 
 const seedCauses = () => {
@@ -63,15 +86,36 @@ const seedCauses = () => {
     });
 }
 
-db.Event
-  .remove({})
-  .then(() => db.Event.collection.insertMany(eventSeed))
-  .then(data => {
-    console.log(data);
-    console.log(data.insertedIds.length + " records inserted!");
-    seedCauses();
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+const seedEvents = () => {
+  db.Event
+    .remove({})
+    .then(() => db.Event.collection.insertMany(eventSeed))
+    .then(data => {
+      console.log(data);
+      console.log(data.insertedIds.length + " records inserted!");
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+
+}
+
+const seedComments = () => {
+  db.Comment
+    .remove({})
+    .then(() => db.Comment.collection.insertMany(commentSeed))
+    .then(data => {
+      console.log(data);
+      console.log(data.insertedIds.length + " records inserted!");
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+
+}
+
+seedCauses();
+seedEvents();
+seedComments();
