@@ -24,6 +24,12 @@ class AuthModal extends Component {
     this.setState({ key });
   }
 
+  // {this.state.key === 1 ? (
+  //   <Button onClick={this.handleClose}>Login</Button>
+  // ) : (
+  //   <Button onClick={this.handleClose}>Register</Button>
+  // )}
+
   render() {
     return (
       <div>
@@ -58,11 +64,7 @@ class AuthModal extends Component {
 
           </Modal.Body>
           <Modal.Footer>
-            {this.state.key === 1 ? (
-              <Button onClick={this.handleClose}>Login</Button>
-            ) : (
-              <Button onClick={this.handleClose}>Register</Button>
-            )}
+
           </Modal.Footer>
         </Modal>
       </div>

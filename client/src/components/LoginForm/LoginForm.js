@@ -4,28 +4,49 @@ import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 're
 
 class LoginForm extends Component {
 
+  state = {
+    loginEmail: "",
+    loginPassword: ""
+  }
+
+  handleChange = (event) => {
+    const {name, value} = event.target;
+    console.log(name)
+    console.log(value)
+    this.setState({[name]: value});
+  }
+
   render() {
     return (
       <Form horizontal style={{marginTop: "20px"}}>
-        <FormGroup controlId="formHorizontalEmail">
+        <FormGroup controlId="formHorizontalLoginEmail">
           <Col componentClass={ControlLabel} sm={2}>
             Email
           </Col>
           <Col sm={10}>
             <FormControl
+              name="loginEmail"
               type="email"
-              placeholder="Email" />
+              value={this.state.loginEmail}
+              placeholder="Email"
+              onChange={this.handleChange}
+              required="required" />
           </Col>
         </FormGroup>
 
-        <FormGroup controlId="formHorizontalPassword">
+        <FormGroup controlId="formHorizontalLoginPassword">
           <Col componentClass={ControlLabel} sm={2}>
             Password
           </Col>
           <Col sm={10}>
             <FormControl
+              name="loginPassword"
               type="password"
-              placeholder="Password" />
+              value={this.state.loginPassword}
+              placeholder="Password"
+              onChange={this.handleChange}
+              required="required"
+              title="This field is required"/>
           </Col>
         </FormGroup>
 
