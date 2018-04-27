@@ -8,23 +8,74 @@ import Home from "./pages/Home";
 
 class App extends Component {
 
-  // -- STATE - loggedIn (bool), showModal (bool), modalTriggerType (str)
-  // -- userId (str), maybe user's name (str)
-  // -- signInValidationErr(bool), signInValidationErrType(str)
-  // -- authError(bool), authErrorType(str)
-  //
-  // -- Set active key in modal based on modalTriggerType (loginBtnClick, RegBtnClick, createEvent, JoinEvent)
-  // -- Make sure to reset modal related state properties on modal close
+  // -- Add to state: userId (str), maybe user's name, authError(bool), authErrorType(str)
+  // -- Set activeModalKey state based on modalTriggerType (loginBtnClick, RegBtnClick, createEvent, JoinEvent)
   // -- Methods - checkTokenOnLogin (call inside ComponentWillMount and set loggedIn based on this)
-  // -- handleLogin, handleReg - each will modify auth state and possibly set authError/authErrorType (wrong password, existing email, blank spaces)
+  // -- handleLogin, handleReg - each will modify authenication state and possibly set authError/authErrorType (wrong password, existing email)
 
+  state = {
+    loginEmail: "",
+    loginPassword: "",
+    regFirstName: "",
+    regLastName: "",
+    regEmail: "",
+    regPassword: "",
+    activeModalKey: 1,
+    showModal: false,
+    modalTriggerType: ""
+  }
+
+  handleInputChange = (event) => {
+    const {name, value} = event.target;
+    console.log(name)
+    console.log(value)
+    this.setState(({[name]: value}), () => {
+      console.log("In callback");
+      console.log("Name: " + name);
+      console.log("Value: " + value);
+    });
+  }
+
+  handleModalClose = () =>  {
+    this.setState(({ showModal: false,
+                     activeModalKey: 1,
+                     loginEmail: "",
+                     loginPassword: "",
+                     regFirstName: "",
+                     regLastName: "",
+                     regEmail: "",
+                     regPassword: ""}), () => {
+        console.log("Updated state for showmodal in callback")
+        console.log(this.state.showModal)
+    });
+  }
+
+  handleModalShow = () => {
+    this.setState(({ showModal: true }), () => {
+        console.log("Updated state for showmodal in callback")
+        console.log(this.state.showModal)
+    });
+  }
+
+  handleTabSelect = (key) => {
+    console.log(key);
+    console.log(`selected ${key}`);
+    this.setState({ activeModalKey: key }, () => {
+      console.log("Updated state for key in callback")
+      console.log(this.state.activeModalKey)
+    });
+  }
 
   render() {
     return (
       <Router>
         <div style={{height: "100%"}}>
             <h1> G4G Nav </h1>
-            <AuthModal activeKey={1}/>
+            <AuthModal {...this.state}
+                      handleInputChange={this.handleInputChange}
+                      handleModalShow={this.handleModalShow}
+                      handleModalClose={this.handleModalClose}
+                      handleTabSelect={this.handleTabSelect}/>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/create" component={CreateEvent} />

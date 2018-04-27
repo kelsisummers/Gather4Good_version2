@@ -4,48 +4,23 @@ import { Row, Col, Nav, NavItem, Button, Modal, Tab } from 'react-bootstrap';
 import LoginForm from "../LoginForm";
 import RegForm from "../RegForm";
 
-class AuthModal extends Component {
+const AuthModal = (props) => {
 
-  state = {
-    show: false,
-    key: this.props.activeKey
-  }
-
-  handleClose = () =>  {
-    this.setState({ show: false });
-  }
-
-  handleShow = () => {
-    this.setState({ show: true });
-  }
-
-  handleSelect = (key) => {
-    console.log(`selected ${key}`);
-    this.setState({ key });
-  }
-
-  // {this.state.key === 1 ? (
-  //   <Button onClick={this.handleClose}>Login</Button>
-  // ) : (
-  //   <Button onClick={this.handleClose}>Register</Button>
-  // )}
-
-  render() {
     return (
       <div>
-      <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
+      <Button bsStyle="primary" bsSize="large" onClick={props.handleModalShow}>
         Test modal
       </Button>
 
-      <Modal show={this.state.show} onHide={this.handleClose}>
+      <Modal show={props.showModal} onHide={props.handleModalClose}>
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
 
           <Tab.Container
               id="tabs"
-              activeKey={this.state.key}
-              onSelect={this.handleSelect}>
+              activeKey={props.activeModalKey}
+              onSelect={props.handleTabSelect}>
             <Row className="clearfix">
               <Col sm={12}>
                 <Nav bsStyle="pills" style={{display: "flex", justifyContent: "center"}}>
@@ -55,8 +30,8 @@ class AuthModal extends Component {
               </Col>
               <Col sm={12}>
                 <Tab.Content>
-                  <Tab.Pane eventKey={1}> <LoginForm /> </Tab.Pane>
-                  <Tab.Pane eventKey={2}> <RegForm /> </Tab.Pane>
+                  <Tab.Pane eventKey={1}> <LoginForm {...props}/> </Tab.Pane>
+                  <Tab.Pane eventKey={2}> <RegForm {...props}/> </Tab.Pane>
                 </Tab.Content>
               </Col>
             </Row>
@@ -69,8 +44,6 @@ class AuthModal extends Component {
         </Modal>
       </div>
     );
-  }
 }
-
 
 export default AuthModal;

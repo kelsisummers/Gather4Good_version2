@@ -8,35 +8,31 @@ import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
 
-class EventForm extends Component {
-
-  render() {
-    console.log(this.props);
+const EventForm = (props) => {
     return (
       <div className="component-wrapper">
         <div className="form-head">
           <h2>Create an Event</h2>
         </div>
         <div className="form-container">
-          <form autoComplete="random" onSubmit={this.props.handleFormSubmit}>
+          <form autoComplete="random" onSubmit={props.handleFormSubmit}>
 
             <h3>Step 1: Tell Us About Your Event </h3>
             <div className="form-step-wrapper">
   						<input
                 autoComplete="random"
-                type="text"
                 name="eventName"
                 placeholder="Event Name"
-                value={this.props.eventName}
-                onChange={this.props.handleInputChange}
+                value={props.eventName}
+                onChange={props.handleInputChange}
               />
               <textarea
                 autoComplete="random"
                 rows="2"
                 name="eventDescription"
                 placeholder="Description of your event"
-                value={this.props.eventDescription}
-                onChange={this.props.handleInputChange}>
+                value={props.eventDescription}
+                onChange={props.handleInputChange}>
               </textarea>
   				  </div>
 
@@ -47,10 +43,10 @@ class EventForm extends Component {
                 type="text"
                 name="causeType"
                 placeholder="Event Name"
-                onChange={this.props.handleInputChange}>
+                onChange={props.handleInputChange}>
 
                   <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
-                  {this.props.causes.map(cause => (
+                  {props.causes.map(cause => (
                     <option
                       value={cause.name}
                       data-cause-id={cause._id}
@@ -68,26 +64,26 @@ class EventForm extends Component {
                 type="text"
                 name="imgUrl"
                 placeholder="Image URL"
-                value={this.props.imgUrl}
-                onChange={this.props.handleInputChange}
+                value={props.imgUrl}
+                onChange={props.handleInputChange}
               />
             </div>
 
             <h3>Step 4: Event Date and Time</h3>
             <div id="date-time-wrapper" className="form-step-wrapper">
               <SingleDatePicker
-                date={this.props.date}
-                onDateChange={this.props.handleDateChange}
-                focused={this.props.focused}
-                onFocusChange={this.props.handleDateFocusChange}
+                date={props.date}
+                onDateChange={props.handleDateChange}
+                focused={props.focused}
+                onFocusChange={props.handleDateFocusChange}
                 numberOfMonths={1}
               />
               <TimePicker
                 name="timepicker"
                 showSecond={false}
-                value={this.props.time}
+                value={props.time}
                 className="xxx"
-                onChange={this.props.handleTimeChange}
+                onChange={props.handleTimeChange}
                 format={'h:mm a'}
                 use12Hours
                 inputReadOnly
@@ -101,24 +97,24 @@ class EventForm extends Component {
                   type="text"
                   name="locationName"
                   placeholder="Location Name"
-                  value={this.props.locationName}
-                  onChange={this.props.handleInputChange}
+                  value={props.locationName}
+                  onChange={props.handleInputChange}
                 />
                 <input
                   autoComplete="random"
                   type="text"
                   name="streetAddress"
                   placeholder="Street Address"
-                  value={this.props.streetAddress}
-                  onChange={this.props.handleInputChange}
+                  value={props.streetAddress}
+                  onChange={props.handleInputChange}
                 />
                 <input
                   autoComplete="random"
                   type="text"
                   name="city"
                   placeholder="City"
-                  value={this.props.city}
-                  onChange={this.props.handleInputChange}
+                  value={props.city}
+                  onChange={props.handleInputChange}
                 />
                 <input
                   autoComplete="random"
@@ -127,11 +123,11 @@ class EventForm extends Component {
                   type="text"
                   placeholder="Select a state"
                   id="USstate"
-                  value={this.props.USstate}
-                  onChange={this.props.handleInputChange}
+                  value={props.USstate}
+                  onChange={props.handleInputChange}
                 />
                 <datalist id="USstates">
-                  {this.props.stateList.map(state => (
+                  {props.stateList.map(state => (
                     <option value={state} key={state} />
                   ))}
                 </datalist>
@@ -139,8 +135,8 @@ class EventForm extends Component {
                   type="text"
                   name="zipcode"
                   placeholder="Zipcode"
-                  value={this.props.zipcode}
-                  onChange={this.props.handleInputChange}
+                  value={props.zipcode}
+                  onChange={props.handleInputChange}
                 />
               </div>
 
@@ -154,7 +150,6 @@ class EventForm extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default EventForm;
