@@ -9,7 +9,7 @@ const AuthModal = (props) => {
     return (
       <div>
       <Button bsStyle="primary" bsSize="large" onClick={props.handleModalShow}>
-        Test modal
+        Login
       </Button>
 
       <Modal show={props.showModal} onHide={props.handleModalClose}>

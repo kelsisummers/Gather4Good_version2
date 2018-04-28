@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
+import Footer from "../components/Footer"
 
 class Home extends Component {
   constructor(props, context) {
@@ -8,16 +9,18 @@ class Home extends Component {
 
     this.state = {
       indicators: false,
+      controls: false
     };
   }
 
   render() {
-    const { indicators } = this.state;
+    const { indicators, controls } = this.state;
     return (
       <div>
 
       <Carousel
         indicators={indicators}
+        controls={controls}
       >
       <Carousel.Item>
         <img width={1440} height={500} alt="900x500" src="../assets/science_color.jpg" />
@@ -37,28 +40,24 @@ class Home extends Component {
     <Badge>Gun Violence</Badge>
     <Row>
     <Col md={8}>
-  <Jumbotron>
-    <h1>Event Title</h1>
-    <p>
-     Event Description
-    </p>
-    <p>
-      <Button bsStyle="primary">Join Event</Button>
-    </p>
-  </Jumbotron>;
+    <Jumbotron>
+      <h1>Event Title</h1>
+      <p>
+      Event Description
+      </p>
+      <p>
+        <Button bsStyle="primary">Join Event</Button>
+      </p>
+    </Jumbotron>
   </Col>
     <Col md={4}>
   <Jumbotron>
     <h1>Sort By</h1>
-    <p>
-     Date
-    </p>
-    <p>
-     Location
-    </p>
-    <p>
-      <Button bsStyle="primary">Sort</Button>
-    </p>
+    <Button bsStyle="primary">My Events</Button>
+    <Button bsStyle="primary">Date</Button>
+    <Button bsStyle="primary">Location</Button>
+    <Button bsStyle="primary">All Events</Button>
+
   </Jumbotron>
   </Col>
     </Row>
