@@ -6,14 +6,13 @@ class Container extends Component {
     state = {
         error: null,
         isLoaded: false,
-        event: []
     };
     
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
         // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae161abe3eddf0a58b5e0cb")
+        API.getEvent("5ae28c48e653ce2ad8cfc935")
             .then((event) => {
                 console.log(event.data);
                 this.setState({
