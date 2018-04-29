@@ -4,7 +4,7 @@ import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock
 
 const RegForm = (props) => {
     return (
-      <Form horizontal style={{marginTop: "20px"}}>
+      <Form horizontal style={{marginTop: "20px"}} onSubmit={props.handleRegSubmit}>
         <FormGroup controlId="formHorizontalFirstNameInput">
           <Col componentClass={ControlLabel} sm={2}>
             First Name

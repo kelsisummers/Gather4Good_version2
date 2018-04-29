@@ -33,6 +33,7 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
+    console.log("removed funciton called");
     db.Event
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())

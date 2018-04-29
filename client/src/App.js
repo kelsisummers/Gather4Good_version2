@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import MainNav from "./components/MainNav";
 import AuthModal from "./components/AuthModal";
+import Auth from "./utils/Auth";
 // import "./App.css";
 
 class App extends Component {
@@ -25,7 +26,12 @@ class App extends Component {
     showModal: false,
     modalTriggerType: "",
   }
-  
+
+  componentDidMount = () => {
+    console.log("Implement check auth status method here");
+
+  }
+
 
   handleInputChange = (event) => {
     const {name, value} = event.target;
@@ -68,10 +74,50 @@ class App extends Component {
     });
   }
 
+  handleRegSubmit = (event) => {
+    event.preventDefault();
+    console.log("handle Reg submit called");
+
+    const userData = {
+      name: `${this.state.regFirstName} ${this.state.regLastName}`,
+      email: this.state.regEmail,
+      password: this.state.regPassword
+
+    }
+
+    const regStatus = Auth.submitRegistration(userData);
+
+    if(regStatus) {
+      console.log("registration successful")
+    } else {
+      console.log("something went wrong with registration")
+    }
+
+  }
+
+  handleLoginSubmit = (event) => {
+    event.preventDefault();
+    console.log("handle login submit called");
+
+    const credentials = {
+      email: this.state.loginEmail,
+      password: this.state.loginPassword
+    }
+
+    const loginStatus = Auth.submitLogin(credentials);
+
+    if(loginStatus) {
+      console.log("login successful");
+    } else {
+      console.log("something went wrong with login");
+    }
+
+  }
+
   render() {
     return (
       <div>
-      <MainNav 
+      <MainNav
       // {...this.state}
       //     handleInputChange={this.handleInputChange}
       //     handleModalShow={this.handleModalShow}
@@ -83,6 +129,8 @@ class App extends Component {
           handleModalShow={this.handleModalShow}
           handleModalClose={this.handleModalClose}
           handleTabSelect={this.handleTabSelect}
+          handleRegSubmit={this.handleRegSubmit}
+          handleLoginSubmit={this.handleLoginSubmit}
       />
       <Router>
         <Switch>
