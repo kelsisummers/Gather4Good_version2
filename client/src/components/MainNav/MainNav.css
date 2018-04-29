@@ -1,0 +1,35 @@
+.navbar-header {
+  height: 75px
+} 
+
+.navbar {
+  border-radius: 0
+}
+.navbar-nav>li>a {
+  padding-top: 24px;
+}
+
+.logo {
+  margin-top: -11px;
+}
+
+.container {
+  width: 100vw;
+}
+
+.navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+  color: #00b9b4;
+  background-color: transparent;
+}
+
+.navbar-toggle {
+  margin-top: 15px;
+}
+
+.navbar-inverse .navbar-toggle {
+  border: 0px;
+}
+
+/* .navbar-inverse .navbar-nav>li>a {
+  color: #f7f7f7;
+} */

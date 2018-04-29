@@ -8,7 +8,7 @@ const AuthModal = (props) => {
 
     return (
       <div>
-      <Button bsStyle="primary" bsSize="large" onClick={props.handleModalShow}>
+      <Button onClick={props.handleModalShow}>
         Login
       </Button>
 
