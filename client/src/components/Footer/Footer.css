@@ -12,6 +12,21 @@ body {
   grid-row-start: 2;
   grid-row-end: 3;
   height: 60px;
-  background-color: black;
+  background-color: #222;
   color: white;
+}
+
+.copyright {
+  padding-top: 20px;
+  padding-left: 20px
+}
+
+.repo{
+  float: right;
+  margin-right: 20px;
+  color: white;
+}
+
+a:hover {  
+  color: #00b9b4;
 }

@@ -1,5 +1,20 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+} */
+
+
+/* Flexbox CSS */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: 'Rubik', sans-serif
+}
+
+main {
+  flex: 1 1 auto;
 }

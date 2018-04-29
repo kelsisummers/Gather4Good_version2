@@ -1,6 +1,7 @@
 import React, {Component } from "react";
 import CommentCard from "./CommentCard.js";
 import CommentForm from "./CommentForm.js";
+import { Panel } from 'react-bootstrap';
 
 class Discussion extends Component {
     state = {
@@ -16,12 +17,14 @@ class Discussion extends Component {
 
     render() {
         return (
-            <div className="boxes">
-                <h2>Discussion</h2>
-                <CommentForm
+            <div>
+                <Panel>
+                  <Panel.Heading>Discussion</Panel.Heading>
+                  <Panel.Body>
+                  <CommentForm
                     newComment = {this.newComment}
                 />
-                <br/>
+                                <br/>
                 {this.state.comments.map(comment => {
                     return (
                         <CommentCard
@@ -30,6 +33,10 @@ class Discussion extends Component {
                         />
                     )
                 })}
+                  </Panel.Body>
+  </Panel>
+
+
             </div>
         )
     }
