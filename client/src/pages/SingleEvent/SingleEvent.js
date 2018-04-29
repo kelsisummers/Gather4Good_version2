@@ -36,9 +36,9 @@ render() {
             <Event
                 data={this.props.event}
             />
-            <DiscussionContainer
+            {/* <DiscussionContainer
                 data={this.props.event}
-            />
+            /> */}
             {/* <RelatedEvents */}
                 {/* eventCause="eventJSON.cause" */}
             {/* /> */}
