@@ -70,6 +70,25 @@ const commentSeed = [
   }
 ];
 
+const userSeed = [
+  {
+    name: "John Doe'",
+    email: "john@email.com",
+    password: "helloworld"
+  },
+  {
+    name: "Jane Doe",
+    email: "jane@email.com",
+    password: "password100"
+  },
+  {
+    name: "Greg Brodzik",
+    email: "greg@email.com",
+    password: "youwillneverguessit!@300"
+  },
+];
+
+
 
 const seedCauses = () => {
   db.Cause
@@ -116,6 +135,23 @@ const seedComments = () => {
 
 }
 
+
+const seedUsers = () => {
+  console.log("seed users called");
+  db.User
+    .remove({})
+    .then(() => db.User.collection.insertMany(userSeed))
+    .then(data => {
+      console.log(data);
+      console.log(data.insertedIds.length + " records inserted!");
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+}
+
 seedCauses();
 seedEvents();
 seedComments();
+seedUsers();

@@ -5,7 +5,7 @@ import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 're
 const LoginForm = (props) => {
     console.log(props);
     return (
-      <Form horizontal style={{marginTop: "20px"}}>
+      <Form horizontal style={{marginTop: "20px"}} onSubmit={props.handleLoginSubmit}>
         <FormGroup controlId="formHorizontalLoginEmail">
           <Col componentClass={ControlLabel} sm={2}>
             Email

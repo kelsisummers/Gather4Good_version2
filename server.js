@@ -5,6 +5,14 @@ const app = express();
 const mongoose =  require("mongoose");
 const routes = require("./routes");
 const bodyParser = require("body-parser");
+require("dotenv").config();
+const verifyToken = require("./server_utils/middleware/VerifyToken.js")
+
+
+const apiRoutes = require("./routes/api/apiRoutes.js");
+const protectedApiRoutes = require("./routes/api/protectedApiRoutes.js");
+const serveIndexRoute = require("./routes/serveIndexRoute.js");
+
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +23,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.use(routes);
+app.use("/api", apiRoutes);
+app.use("/api", verifyToken);
+app.use("/api", protectedApiRoutes);
+app.use(serveIndexRoute);
+
+//app.use(routes);
+
+
 // Connect to the Mongo DB (Ben's local db)
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/g4gdev");
 
