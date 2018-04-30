@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
 import API from "../../utils/API.js";
-import { Header, CauseButtons, EventCard } from "../../components/home";
+import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
+import tempFeatured from "./tempFeaturedEvents.json";
 
 class Home extends Component {
 
@@ -10,8 +11,7 @@ class Home extends Component {
     isLoaded: false,
     events: [],
     causes: [],
-    indicators: false,
-    controls: false
+    featured: tempFeatured,
   };
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
@@ -36,10 +36,40 @@ class Home extends Component {
   // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
   handleCauseButtonClick(event) {
     alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
-  }
+  };
 
+  // For now just alerts event button data, will implement logic to join event.
+  // Will need to conditionally display join button if user logged in, obtain userID through auth.
+  // Is join needed here? Or should we only have it on the single event page?
   handleJoinEventButtonClick(event) {
     alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
+  };
+
+  sortByDate() {
+    // setState to Events sorted by date, need to discuss perameters for this..
+  }
+
+  sortByLocation() {
+    // setState to sort by location, by city? proximity?
+  }
+
+  // Runs get request obtain all events, sets state.events to all events.
+  displayAllEvents() {
+    API.getAllEvents()
+      .then((events) => {
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+  }
+
+  myEvents() {
+    // setState to hold events user is attending or has organized.
+    // Need to discuss how to handle this..
   }
 
   render() {
@@ -51,17 +81,15 @@ class Home extends Component {
     } else {
       return (
         <div>
-          <Header
-            indicators={this.state.indicators}
-            controls={this.state.controls}
-          />
+          <Header/>
           <CauseButtons 
             causes={this.state.causes}
             handleCauseButtonClick={this.handleCauseButtonClick}
           />
           <Row>
 
-            <Col md={8}>
+            {/* Events container */}
+            <Col md={6}>
               <div>
                 {this.state.events.map((event) => {
                   return ( 
@@ -71,18 +99,24 @@ class Home extends Component {
                     />
                   )
                 })}
-                
               </div>
             </Col>
-
+            
+            {/* Controls container */}
+            <Col md={2}>
+              <Controls 
+                sortByDate = {this.sortByDate}
+                sortByLocation = {this.sortByLocation}
+                displayAllEvents = {this.displayAllEvents}
+                myEvents = {this.myEvents}
+              />
+            </Col>
+            
+            {/* Featured Events container */}
             <Col md={4}>
-              <Jumbotron>
-                <h1>Sort By</h1>
-                <Button bsStyle="primary">My Events</Button>
-                <Button bsStyle="primary">Date</Button>
-                <Button bsStyle="primary">Location</Button>
-                <Button bsStyle="primary">All Events</Button>
-              </Jumbotron>
+              <FeaturedEvents 
+                data = {this.state.featured}
+              />
             </Col>
 
           </Row>
