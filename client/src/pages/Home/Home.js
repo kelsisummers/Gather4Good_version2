@@ -1,68 +1,78 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
+import API from "../../utils/API.js";
+import { Header, CauseButtons } from "../../components/home";
 
 class Home extends Component {
-  constructor(props, context) {
-    super(props, context);
 
+  state = {
+    error: null,
+    isLoaded: false,
+    events: [],
+    causes: [],
+    indicators: false,
+    controls: false
+  };
 
-    this.state = {
-      indicators: false,
-      controls: false
-    };
+  componentDidMount() {
+    API.getAllEvents()
+      .then((events) => {
+        console.log(events.data);
+        this.setState({
+          isLoaded: true,
+          events: events.data
+        });
+      },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
   }
 
   render() {
-    const { indicators, controls } = this.state;
-    return (
-      <div>
-
-      <Carousel
-        indicators={indicators}
-        controls={controls}
-      >
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/science_color.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/fullpride.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/immigration.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/protest-header_signs.jpg" />
-      </Carousel.Item>
-    </Carousel>
-
-    <Badge>LGBTQ</Badge>
-    <Badge>Gun Violence</Badge>
-    <Row>
-    <Col md={8}>
-    <Jumbotron>
-      <h1>Event Title</h1>
-      <p>
-      Event Description
+    const { error, isLoaded, events, indicators, controls } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <Header 
+            indicators = {this.state.indicators}
+            controls = {this.state.controls}  
+          />
+          <CauseButtons />
+          <Row>
+            <Col md={8}>
+              <Jumbotron>
+                <h1>Event Title</h1>
+                <p>
+                  Event Description
       </p>
-      <p>
-        <Button bsStyle="primary">Join Event</Button>
-      </p>
-    </Jumbotron>
-  </Col>
-    <Col md={4}>
-  <Jumbotron>
-    <h1>Sort By</h1>
-    <Button bsStyle="primary">My Events</Button>
-    <Button bsStyle="primary">Date</Button>
-    <Button bsStyle="primary">Location</Button>
-    <Button bsStyle="primary">All Events</Button>
+                <p>
+                  <Button bsStyle="primary">Join Event</Button>
+                </p>
+              </Jumbotron>
+            </Col>
+            <Col md={4}>
+              <Jumbotron>
+                <h1>Sort By</h1>
+                <Button bsStyle="primary">My Events</Button>
+                <Button bsStyle="primary">Date</Button>
+                <Button bsStyle="primary">Location</Button>
+                <Button bsStyle="primary">All Events</Button>
 
-  </Jumbotron>
-  </Col>
-    </Row>
-  </div>
-
-    ) 
+              </Jumbotron>
+            </Col>
+          </Row>
+        </div>
+        
+      );
+    }
   }
 }
 
