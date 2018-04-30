@@ -1,34 +1,32 @@
 import axios from "axios";
+import decode from "jwt-decode";
 
 export default {
 
   determineAuthStatus: function() {
 
-    const USER_TOKEN = localStorage.getItem("token");
-    axios.get("/api/auth_status", { headers: { 'x-access-token': USER_TOKEN } })
+    const token = localStorage.getItem("token");
+    return axios.get("/api/auth_status", { headers: { 'x-access-token': token } })
       .then(response => {
-        console.log(response.data);
-        console.log(response.data.message);
+        let data = response.data;
 
-        if(response.data.message === "Authenticated") {
-          //hideLoginAndDismissModal();
-          return true;
-        } else if (response.data.message === "Not authenticated") {
-          //showLoginAndHideLogout();
-          return false;
+        if(data.auth === true) {
+          const decoded = decode(data.token);
+          data._id = decoded._id;
+          data.email = decoded.email;
+          data.name = decoded.name;
         }
 
+        return data;
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        console.log("catch called");
+        let data = error.response.data;
 
-        if(error.response.data.message === "Token expired") {
-          localStorage.removeItem("token");
-          console.log(localStorage.getItem("token"));
-          return false;
-        }
+        localStorage.removeItem("token");
+        console.log(localStorage.getItem("token"));
 
-        //showLoginAndHideLogout();
+        return Promise.reject(data);
       });
   },
 
@@ -40,20 +38,14 @@ export default {
       data: credentials
     }
 
-    axios(options)
+    return axios(options)
       .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("token", response.data.token);
-        console.log(localStorage.getItem("token"));
-        //hideLoginAndDismissModal();
-        return true;
+        let data = this.saveTokenAndSetUserData(response.data);
+        return data;
       })
       .catch((error) => {
-        console.log(error.response.data);
-        console.log(error.response.data.message);
-        var message = error.response.data.message;
-        return false;
-        //setNoUserOrWrongPwDisplay(message);
+        let data = error.response.data;
+        return Promise.reject(data);
       })
   },
 
@@ -65,20 +57,30 @@ export default {
       data: userData
     }
 
-    axios(options)
+    return axios(options)
       .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("token", response.data.token);
-        //hideLoginAndDismissModal();
-        return true;
+        let data = this.saveTokenAndSetUserData(response.data);
+        return data;
       })
       .catch((error) => {
-        console.log(error.response.data);
-        console.log(error.response.data.message);
-        var message = error.response.data.message;
-        //setNoUserOrWrongPwDisplay(message);
-        return false;
+        let data = error.response.data;
+        return Promise.reject(data);
       })
+  },
+
+  saveTokenAndSetUserData: function(data) {
+    localStorage.setItem("token", data.token);
+    const token = localStorage.getItem("token");
+
+    ////Decode token and embed user-specifc info in data object
+    const decoded = decode(token);
+    data._id = decoded._id;
+    data.email = decoded.email;
+    data.name = decoded.name;
+
+    console.log("data in new fxn");
+    console.log(data);
+    return data;
   }
 
 }
