@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
 import API from "../../utils/API.js";
-import { Header, CauseButtons } from "../../components/home";
+import { Header, CauseButtons, EventCard } from "../../components/home";
 
 class Home extends Component {
 
@@ -38,6 +38,10 @@ class Home extends Component {
     alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
   }
 
+  handleJoinEventButtonClick(event) {
+    alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
+  }
+
   render() {
     const { error, isLoaded, events, indicators, controls } = this.state;
     if (error) {
@@ -58,11 +62,17 @@ class Home extends Component {
           <Row>
 
             <Col md={8}>
-              <Jumbotron>
-                <h1>Event Title</h1>
-                <p>Event Description</p>
-                <p><Button bsStyle="primary">Join Event</Button></p>
-              </Jumbotron>
+              <div>
+                {this.state.events.map((event) => {
+                  return ( 
+                    <EventCard 
+                      data = {event}
+                      handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
+                    />
+                  )
+                })}
+                
+              </div>
             </Col>
 
             <Col md={4}>
