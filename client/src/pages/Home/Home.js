@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
-import Footer from "../components/Footer"
 
 class Home extends Component {
   constructor(props, context) {

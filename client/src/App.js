@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateEvent from "./pages/CreateEvent/CreateEvent.js";
-import Container from "./pages/SingleEvent/Container.js";
-import Home from "./pages/Home";
+import SingleEvent from "./pages/SingleEvent/SingleEvent.js";
+import Home from "./pages/Home/Container.js";
 import Footer from "./components/Footer";
 import MainNav from "./components/MainNav";
 import AuthModal from "./components/AuthModal";
@@ -46,13 +46,13 @@ class App extends Component {
 
   handleModalClose = () =>  {
     this.setState(({ showModal: false,
-                     activeModalKey: 1,
-                     loginEmail: "",
-                     loginPassword: "",
-                     regFirstName: "",
-                     regLastName: "",
-                     regEmail: "",
-                     regPassword: ""}), () => {
+                      activeModalKey: 1,
+                      loginEmail: "",
+                      loginPassword: "",
+                      regFirstName: "",
+                      regLastName: "",
+                      regEmail: "",
+                      regPassword: ""}), () => {
         console.log("Updated state for showmodal in callback")
         console.log(this.state.showModal)
     });
@@ -136,7 +136,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/create" component={CreateEvent} />
-          <Route path="/event" component={Container} />
+          <Route path="/event" component={SingleEvent} />
         </Switch>
       </Router>
       <Footer />
