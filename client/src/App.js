@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateEvent from "./pages/CreateEvent/CreateEvent.js";
 import SingleEvent from "./pages/SingleEvent/SingleEvent.js";
-import Home from "./pages/Home/Container.js";
+import Home from "./pages/Home/Home.js";
 import Footer from "./components/Footer";
 import MainNav from "./components/MainNav";
 import AuthModal from "./components/AuthModal";

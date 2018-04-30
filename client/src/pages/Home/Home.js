@@ -1,68 +1,129 @@
 import React, { Component } from "react";
 import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
+import API from "../../utils/API.js";
+import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
+import tempFeatured from "./tempFeaturedEvents.json";
 
 class Home extends Component {
-  constructor(props, context) {
-    super(props, context);
 
+  state = {
+    error: null,
+    isLoaded: false,
+    events: [],
+    causes: [],
+    featured: tempFeatured,
+  };
 
-    this.state = {
-      indicators: false,
-      controls: false
-    };
+  // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
+  componentDidMount() {
+    let promises = [API.getAllEvents(), API.getCauses()];
+    Promise.all(promises)
+      .then((values) => {
+        console.log(values);
+        this.setState({
+          isLoaded: true,
+          events: values[0].data,
+          causes: values[1].data
+        })
+      }, (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      })
+  };
+
+  // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
+  handleCauseButtonClick(event) {
+    alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
+  };
+
+  // For now just alerts event button data, will implement logic to join event.
+  // Will need to conditionally display join button if user logged in, obtain userID through auth.
+  // Is join needed here? Or should we only have it on the single event page?
+  handleJoinEventButtonClick(event) {
+    alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
+  };
+
+  sortByDate() {
+    // setState to Events sorted by date, need to discuss perameters for this..
+  }
+
+  sortByLocation() {
+    // setState to sort by location, by city? proximity?
+  }
+
+  // Runs get request obtain all events, sets state.events to all events.
+  displayAllEvents() {
+    API.getAllEvents()
+      .then((events) => {
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+  }
+
+  myEvents() {
+    // setState to hold events user is attending or has organized.
+    // Need to discuss how to handle this..
   }
 
   render() {
-    const { indicators, controls } = this.state;
-    return (
-      <div>
+    const { error, isLoaded, events, indicators, controls } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <Header/>
+          <CauseButtons 
+            causes={this.state.causes}
+            handleCauseButtonClick={this.handleCauseButtonClick}
+          />
+          <Row>
 
-      <Carousel
-        indicators={indicators}
-        controls={controls}
-      >
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/science_color.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/fullpride.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/immigration.jpg" />
-      </Carousel.Item>
-      <Carousel.Item>
-        <img width={1440} height={500} alt="900x500" src="../assets/protest-header_signs.jpg" />
-      </Carousel.Item>
-    </Carousel>
+            {/* Events container */}
+            <Col md={6}>
+              <div>
+                {this.state.events.map((event) => {
+                  return ( 
+                    <EventCard 
+                      data = {event}
+                      handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
+                    />
+                  )
+                })}
+              </div>
+            </Col>
+            
+            {/* Controls container */}
+            <Col md={2}>
+              <Controls 
+                sortByDate = {this.sortByDate}
+                sortByLocation = {this.sortByLocation}
+                displayAllEvents = {this.displayAllEvents}
+                myEvents = {this.myEvents}
+              />
+            </Col>
+            
+            {/* Featured Events container */}
+            <Col md={4}>
+              <FeaturedEvents 
+                data = {this.state.featured}
+              />
+            </Col>
 
-    <Badge>LGBTQ</Badge>
-    <Badge>Gun Violence</Badge>
-    <Row>
-    <Col md={8}>
-    <Jumbotron>
-      <h1>Event Title</h1>
-      <p>
-      Event Description
-      </p>
-      <p>
-        <Button bsStyle="primary">Join Event</Button>
-      </p>
-    </Jumbotron>
-  </Col>
-    <Col md={4}>
-  <Jumbotron>
-    <h1>Sort By</h1>
-    <Button bsStyle="primary">My Events</Button>
-    <Button bsStyle="primary">Date</Button>
-    <Button bsStyle="primary">Location</Button>
-    <Button bsStyle="primary">All Events</Button>
-
-  </Jumbotron>
-  </Col>
-    </Row>
-  </div>
-
-    ) 
+          </Row>
+        </div>
+        
+      );
+    }
   }
 }
 
