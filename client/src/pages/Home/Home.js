@@ -15,21 +15,21 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    API.getAllEvents()
-      .then((events) => {
-        console.log(events.data);
+    let promises = [API.getAllEvents(), API.getCauses()];
+    Promise.all(promises)
+      .then((values) => {
+        console.log(values);
         this.setState({
           isLoaded: true,
-          events: events.data
+          events: values[0].data,
+          causes: values[1].data
+        })
+      }, (error) => {
+        this.setState({
+          isLoaded: true,
+          error
         });
-      },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+      })
   }
 
   render() {
