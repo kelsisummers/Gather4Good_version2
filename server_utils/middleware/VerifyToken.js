@@ -6,21 +6,23 @@ var router = express.Router();
 
 //Middleware function to attach to protected API routes
 function verifyToken(req, res, next) {
+
   console.log("verify token called");
-  console.log(req.headers['x-access-token']);
   var token = req.headers['x-access-token'];
   var secret_key = process.env.SECRET_KEY;
 
   console.log("Secret Key:" + secret_key);
 
-  console.log("url", req.url);
-
+  console.log(token);
   if (token === "null") {
     token = null;
   }
 
+  console.log(req.url);
+  console.log(req.orginalUrl);
+
   if (!token) {
-    if(req.url === "/api/auth_status"){
+    if(req.originalUrl === "/api/auth_status") {
       return res.status(200).json({auth: false, id: null, message: 'Not authenticated'})
     } else {
       return res.status(401).json({auth: false, message: 'No token provided.'});
@@ -37,7 +39,8 @@ function verifyToken(req, res, next) {
       }
     } else {
       console.log("decoded token", decoded);
-      req.userID = decoded.id;
+      req.userID = decoded._id;
+      req.token = token;
       console.log(req.userID);
       console.log(typeof req.userID);
       next();
