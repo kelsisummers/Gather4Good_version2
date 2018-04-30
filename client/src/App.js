@@ -11,25 +11,59 @@ import Auth from "./utils/Auth";
 
 class App extends Component {
 
-  // -- Add to state: userId (str), maybe user's name, authError(bool), authErrorType(str)
-  // -- Set activeModalKey state based on modalTriggerType (loginBtnClick, RegBtnClick, createEvent, JoinEvent)
-  // -- Methods - checkTokenOnLogin (call inside ComponentWillMount and set loggedIn based on this)
-  // -- handleLogin, handleReg - each will modify authenication state and possibly set authError/authErrorType (wrong password, existing email)
   state = {
+    // Whether user is logged in
+    isAuthenicated: false,
+
+    // Data for an authenticated user. Access this state when you need to create
+    // an event, etc. or want to display user-specific data
+    user_id: "",
+    user_name: "",
+    user_email: "",
+
+    // Tracks input for auth modal reg and login forms. Use for login/reg submission.
     loginEmail: "",
     loginPassword: "",
     regFirstName: "",
     regLastName: "",
     regEmail: "",
     regPassword: "",
+
+    // Tracks modal tab displayed or to be displayed (1 = Login; 2 = Register)
     activeModalKey: 1,
+    // Whether modal is displayed. State can be altered based on login/reg btn clicks, hitting protected
+    //endpoints, user manual closing, or proper authentication (dismisses modal)
     showModal: false,
+    // What triggered auth modal to display - needed to determine correct tab
+    // and correct CTA displays
     modalTriggerType: "",
+
+    //Tracks the state of whether there was an error on reg or login attempt.
+    //E.g., - user already exists, wrong password, no user found. Needed to
+    // correct error message
+    auth_error: "",
   }
 
-  componentDidMount = () => {
-    console.log("Implement check auth status method here");
+  // Check authenication status on componentDidMount for App.js and
+  // each page load
+  handleAuthStatus = () => {
+    Auth.determineAuthStatus()
+      .then(data => {
+        //Confirm auth status
+        if(data.auth === true) {
+          this.setAuthData(data);
+        } else  {
+          this.clearAuthData();
+        }
+      })
+      .catch((error) => {
+        this.clearAuthData();
+      })
+  }
 
+
+  componentDidMount = () => {
+    this.handleAuthStatus();
   }
 
 
@@ -37,12 +71,13 @@ class App extends Component {
     const {name, value} = event.target;
     console.log(name)
     console.log(value)
-    this.setState(({[name]: value}), () => {
+    this.setState(({[name]: value, auth_error: ""}), () => {
       console.log("In callback");
       console.log("Name: " + name);
       console.log("Value: " + value);
     });
   }
+
 
   handleModalClose = () =>  {
     this.setState(({ showModal: false,
@@ -52,18 +87,22 @@ class App extends Component {
                      regFirstName: "",
                      regLastName: "",
                      regEmail: "",
-                     regPassword: ""}), () => {
-        console.log("Updated state for showmodal in callback")
+                     regPassword: "",
+                     auth_error: "",
+                     modalTriggerType: ""}), () => {
         console.log(this.state.showModal)
     });
   }
 
-  handleModalShow = () => {
+
+  handleModalShow = (modalTriggerType) => {
+    //this.setState({modalTriggerType: modalTriggerType})
     this.setState(({ showModal: true }), () => {
         console.log("Updated state for showmodal in callback")
         console.log(this.state.showModal)
     });
   }
+
 
   handleTabSelect = (key) => {
     console.log(key);
@@ -74,44 +113,70 @@ class App extends Component {
     });
   }
 
-  handleRegSubmit = (event) => {
-    event.preventDefault();
-    console.log("handle Reg submit called");
 
-    const userData = {
-      name: `${this.state.regFirstName} ${this.state.regLastName}`,
-      email: this.state.regEmail,
-      password: this.state.regPassword
-
-    }
-
-    const regStatus = Auth.submitRegistration(userData);
-
-    if(regStatus) {
-      console.log("registration successful")
-    } else {
-      console.log("something went wrong with registration")
-    }
-
+  setAuthData = (data) => {
+    this.setState({isAuthenicated: true,
+      user_id: data._id,
+      user_email: data.email,
+      user_name: data.name,}, () => {
+        console.log("State after successful login")
+        console.log(this.state);
+        this.handleModalClose();
+      })
   }
+
+
+  clearAuthData = (data) => {
+    this.setState({isAuthenicated: false,
+      user_id: "",
+      user_email: "",
+      user_name: ""}, () => {
+        console.log(this.state);
+      })
+  }
+
 
   handleLoginSubmit = (event) => {
     event.preventDefault();
-    console.log("handle login submit called");
 
     const credentials = {
       email: this.state.loginEmail,
       password: this.state.loginPassword
     }
 
-    const loginStatus = Auth.submitLogin(credentials);
+    Auth.submitLogin(credentials)
+      .then(data => {
+        //Confirm user authenicated
+        if(data.auth === true) {
+          this.setAuthData(data);
+        }
+    })
+    .catch((error) => {
+      this.setState({auth_error: error.message})
+      this.clearAuthData();
+    })
+  }
 
-    if(loginStatus) {
-      console.log("login successful");
-    } else {
-      console.log("something went wrong with login");
+  handleRegSubmit = (event) => {
+    event.preventDefault();
+
+    const userData = {
+      name: `${this.state.regFirstName} ${this.state.regLastName}`,
+      email: this.state.regEmail,
+      password: this.state.regPassword
     }
 
+    Auth.submitRegistration(userData)
+      .then(data => {
+        //Confirm user authenticated
+        if(data.auth === true) {
+          this.setAuthData(data);
+        }
+      })
+      .catch((error) => {
+        this.setState({auth_error: error.message});
+        this.clearAuthData();
+      })
   }
 
   render() {
