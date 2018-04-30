@@ -180,9 +180,17 @@ class App extends Component {
   }
 
   render() {
+
+    const authData = {
+      isAuthenicated: this.state.isAuthenicated,
+      user_id: this.state.user_id,
+      user_name: this.state.user_name,
+      user_email: this.state.user_email
+    }
+
     return (
       <div>
-      <MainNav
+      <MainNav handleModalShow={this.handleModalShow}
       // {...this.state}
       //     handleInputChange={this.handleInputChange}
       //     handleModalShow={this.handleModalShow}
@@ -200,7 +208,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/create" component={CreateEvent} />
+          <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
           <Route path="/event" component={SingleEvent} />
         </Switch>
       </Router>
