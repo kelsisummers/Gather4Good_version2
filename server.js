@@ -3,7 +3,6 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose =  require("mongoose");
-const routes = require("./routes");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const verifyToken = require("./server_utils/middleware/VerifyToken.js")

@@ -16,15 +16,22 @@ export default {
     return axios.post("/api/events", eventData);
   },
 
-  //grabs an event from db
+  // Retrieves an event from db
   getEvent: function(id) {
     console.log("get event called - front end");
     return axios.get(`/api/events/${id}`);
   },
 
+  // Retrieves all comments for a specific event from db
   getCommentsByEvent: function(id) {
     console.log("get comments called - front end");
     return axios.get(`/api/comments/${id}`);
+  },
+  
+  // Retrieves all events from db
+  getAllEvents: function() {
+    console.log("get events called - front end");
+    return axios.get("/api/events");
   }
 
 };
