@@ -1,12 +1,13 @@
 import React from "react";
 import { Badge } from 'react-bootstrap';
 
-export const CauseButtons = (props) => {
+export const CauseButtons = (props) => { 
     return (
-        <div>
-            <Badge>LGBTQ</Badge>
-            <Badge>Gun Violence</Badge>
-        </div>
+        props.causes.map((cause) => {
+            return (
+                <button causeId={cause._id} onClick={props.handleCauseButtonClick}>{cause.name}</button>
+            )
+        })
     )
 } 
 

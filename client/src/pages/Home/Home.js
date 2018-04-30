@@ -14,6 +14,7 @@ class Home extends Component {
     controls: false
   };
 
+  // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
   componentDidMount() {
     let promises = [API.getAllEvents(), API.getCauses()];
     Promise.all(promises)
@@ -30,6 +31,11 @@ class Home extends Component {
           error
         });
       })
+  };
+
+  // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
+  handleCauseButtonClick(event) {
+    alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
   }
 
   render() {
@@ -41,23 +47,24 @@ class Home extends Component {
     } else {
       return (
         <div>
-          <Header 
-            indicators = {this.state.indicators}
-            controls = {this.state.controls}  
+          <Header
+            indicators={this.state.indicators}
+            controls={this.state.controls}
           />
-          <CauseButtons />
+          <CauseButtons 
+            causes={this.state.causes}
+            handleCauseButtonClick={this.handleCauseButtonClick}
+          />
           <Row>
+
             <Col md={8}>
               <Jumbotron>
                 <h1>Event Title</h1>
-                <p>
-                  Event Description
-      </p>
-                <p>
-                  <Button bsStyle="primary">Join Event</Button>
-                </p>
+                <p>Event Description</p>
+                <p><Button bsStyle="primary">Join Event</Button></p>
               </Jumbotron>
             </Col>
+
             <Col md={4}>
               <Jumbotron>
                 <h1>Sort By</h1>
@@ -65,9 +72,9 @@ class Home extends Component {
                 <Button bsStyle="primary">Date</Button>
                 <Button bsStyle="primary">Location</Button>
                 <Button bsStyle="primary">All Events</Button>
-
               </Jumbotron>
             </Col>
+
           </Row>
         </div>
         
