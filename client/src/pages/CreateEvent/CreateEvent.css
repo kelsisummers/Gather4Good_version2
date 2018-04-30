@@ -1,0 +1,13 @@
+.background {
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+                rgba(0,0,0,0.55) url('https://media1.s-nbcnews.com/i/newscms/2017_04/1883611/ss-170129-muslim-ban-protest-ok-1602_8250d9d070d1abe75ab2daa16cbefa96.JPG') no-repeat center;
+  /* background-size: cover; */
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+}

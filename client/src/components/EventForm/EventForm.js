@@ -7,6 +7,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
+import { Grid, Row, Col, Button, Panel } from 'react-bootstrap';
 
 const EventForm = (props) => {
     return (
@@ -17,128 +18,178 @@ const EventForm = (props) => {
         <div className="form-container">
           <form autoComplete="random" onSubmit={props.handleFormSubmit}>
 
-            <h3>Step 1: Tell Us About Your Event </h3>
-            <div className="form-step-wrapper">
-  						<input
-                autoComplete="random"
-                name="eventName"
-                placeholder="Event Name"
-                value={props.eventName}
-                onChange={props.handleInputChange}
-              />
-              <textarea
-                autoComplete="random"
-                rows="2"
-                name="eventDescription"
-                placeholder="Description of your event"
-                value={props.eventDescription}
-                onChange={props.handleInputChange}>
-              </textarea>
-  				  </div>
+            <Panel defaultExpanded={props.open}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  <h3>Tell Us About Your Event</h3>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <div className="form-step-wrapper">
+        						<input
+                      autoComplete="random"
+                      name="eventName"
+                      placeholder="Event Name"
+                      value={props.eventName}
+                      onChange={props.handleInputChange}
+                    />
+                    <textarea
+                      autoComplete="random"
+                      rows="2"
+                      name="eventDescription"
+                      placeholder="Description of your event"
+                      value={props.eventDescription}
+                      onChange={props.handleInputChange}>
+                    </textarea>
+        				  </div>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
 
-            <h3>{`Step 2: What's Your Event's Cause?`}</h3>
-            <div className="form-step-wrapper">
-              <select
-                defaultValue="Choose Your Cause"
-                type="text"
-                name="causeType"
-                placeholder="Event Name"
-                onChange={props.handleInputChange}>
+            <Panel defaultExpanded={props.open}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  <h3>What Cause Does Your Event Support?</h3>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <div className="form-step-wrapper">
+                    <select
+                      defaultValue="Choose Your Cause"
+                      type="text"
+                      name="causeType"
+                      placeholder="Event Name"
+                      onChange={props.handleInputChange}>
 
-                  <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
-                  {props.causes.map(cause => (
-                    <option
-                      value={cause.name}
-                      data-cause-id={cause._id}
-                      key={cause._id}>
-                      {cause.name}
-                    </option>
-                  ))}
+                        <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
+                        {props.causes.map(cause => (
+                          <option
+                            value={cause.name}
+                            data-cause-id={cause._id}
+                            key={cause._id}>
+                            {cause.name}
+                          </option>
+                        ))}
 
-              </select>
-            </div>
+                    </select>
+                  </div>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
 
-            <h3>Step 3: Upload An Image (Optional)</h3>
-            <div className="form-step-wrapper">
-              <input
-                type="text"
-                name="imgUrl"
-                placeholder="Image URL"
-                value={props.imgUrl}
-                onChange={props.handleInputChange}
-              />
-            </div>
+            <Panel defaultExpanded={props.open}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  <h3>Add an Image</h3>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <div className="form-step-wrapper">
+                    <input
+                      type="text"
+                      name="imgUrl"
+                      placeholder="Image URL"
+                      value={props.imgUrl}
+                      onChange={props.handleInputChange}
+                    />
+                  </div>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
 
-            <h3>Step 4: Event Date and Time</h3>
-            <div id="date-time-wrapper" className="form-step-wrapper">
-              <SingleDatePicker
-                date={props.date}
-                onDateChange={props.handleDateChange}
-                focused={props.focused}
-                onFocusChange={props.handleDateFocusChange}
-                numberOfMonths={1}
-              />
-              <TimePicker
-                name="timepicker"
-                showSecond={false}
-                value={props.time}
-                className="xxx"
-                onChange={props.handleTimeChange}
-                format={'h:mm a'}
-                use12Hours
-                inputReadOnly
-              />
-            </div>
+            <Panel defaultExpanded={props.open}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  <h3>Event Date and Time</h3>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <div id="date-time-wrapper" className="form-step-wrapper">
+                    <SingleDatePicker
+                      date={props.date}
+                      onDateChange={props.handleDateChange}
+                      focused={props.focused}
+                      onFocusChange={props.handleDateFocusChange}
+                      numberOfMonths={1}
+                    />
+                    <TimePicker
+                      name="timepicker"
+                      showSecond={false}
+                      value={props.time}
+                      className="xxx"
+                      onChange={props.handleTimeChange}
+                      format={'h:mm a'}
+                      use12Hours
+                      inputReadOnly
+                    />
+                  </div>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
 
-            <h3>Step 5: Event Location</h3>
-              <div className="form-step-wrapper">
-                <input
-                  autoComplete="random"
-                  type="text"
-                  name="locationName"
-                  placeholder="Location Name"
-                  value={props.locationName}
-                  onChange={props.handleInputChange}
-                />
-                <input
-                  autoComplete="random"
-                  type="text"
-                  name="streetAddress"
-                  placeholder="Street Address"
-                  value={props.streetAddress}
-                  onChange={props.handleInputChange}
-                />
-                <input
-                  autoComplete="random"
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  value={props.city}
-                  onChange={props.handleInputChange}
-                />
-                <input
-                  autoComplete="random"
-                  name="USstate"
-                  list="USstates"
-                  type="text"
-                  placeholder="Select a state"
-                  id="USstate"
-                  value={props.USstate}
-                  onChange={props.handleInputChange}
-                />
-                <datalist id="USstates">
-                  {props.stateList.map(state => (
-                    <option value={state} key={state} />
-                  ))}
-                </datalist>
-                <input
-                  type="text"
-                  name="zipcode"
-                  placeholder="Zipcode"
-                  value={props.zipcode}
-                  onChange={props.handleInputChange}
-                />
-              </div>
+            <Panel defaultExpanded={props.open}>
+              <Panel.Heading>
+                <Panel.Title toggle>
+                  <h3>Event Location</h3>
+                </Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <div className="form-step-wrapper">
+                    <input
+                      autoComplete="random"
+                      type="text"
+                      name="locationName"
+                      placeholder="Location Name"
+                      value={props.locationName}
+                      onChange={props.handleInputChange}
+                    />
+                    <input
+                      autoComplete="random"
+                      type="text"
+                      name="streetAddress"
+                      placeholder="Street Address"
+                      value={props.streetAddress}
+                      onChange={props.handleInputChange}
+                    />
+                    <input
+                      autoComplete="random"
+                      type="text"
+                      name="city"
+                      placeholder="City"
+                      value={props.city}
+                      onChange={props.handleInputChange}
+                    />
+                    <input
+                      autoComplete="random"
+                      name="USstate"
+                      list="USstates"
+                      type="text"
+                      placeholder="Select a state"
+                      id="USstate"
+                      value={props.USstate}
+                      onChange={props.handleInputChange}
+                    />
+                    <datalist id="USstates">
+                      {props.stateList.map(state => (
+                        <option value={state} key={state} />
+                      ))}
+                    </datalist>
+                    <input
+                      type="text"
+                      name="zipcode"
+                      placeholder="Zipcode"
+                      value={props.zipcode}
+                      onChange={props.handleInputChange}
+                    />
+                  </div>
+                </Panel.Body>
+              </Panel.Collapse>
+            </Panel>
 
             <button
               type="submit"

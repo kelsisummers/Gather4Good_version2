@@ -5,6 +5,7 @@ import moment from "moment";
 import StateList from "./States";
 import API from "../../utils/API.js";
 import axios from "axios";
+import "./CreateEvent.css";
 
 class CreateEvent extends Component {
 
@@ -22,7 +23,8 @@ class CreateEvent extends Component {
     city: "",
     USstate: "",
     zipcode: "",
-    causes: []
+    causes: [],
+    open: false
   };
 
 
@@ -39,6 +41,13 @@ class CreateEvent extends Component {
 
   componentDidMount = () => {
     this.loadCauses();
+  }
+
+  handleCollapse = () => {
+    this.setState({ open: !this.state.open }, () => {
+      console.log("Testing button click");
+      console.log(this.state.open);
+    });
   }
 
 
@@ -176,10 +185,11 @@ class CreateEvent extends Component {
 
   render() {
       return (
-        <Grid>
+        <Grid fluid className="background">
           <Row>
-            <Col xs={12}>
-              <EventForm {...this.state}
+            <Col md={3} />
+            <Col xs={12} md={6}>
+              <EventForm className="event-form" {...this.state}
                 stateList={StateList}
                 handleFormSubmit={this.handleFormSubmit}
                 handleInputChange={this.handleInputChange}
@@ -187,6 +197,7 @@ class CreateEvent extends Component {
                 handleDateFocusChange={this.handleDateFocusChange}
                 handleTimeChange={this.handleTimeChange} />
             </Col>
+            <Col md={3} />
           </Row>
         </Grid>
     );
