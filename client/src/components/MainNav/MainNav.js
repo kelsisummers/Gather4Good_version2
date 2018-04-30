@@ -20,7 +20,7 @@ class MainNav extends Component {
                 <NavItem eventKey={1} href="/create">
                   Organize An Event
                 </NavItem>
-                <NavItem onClick={this.props.handleModalShow}>
+                <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
                 {/* <AuthModal {...this.props}
           handleInputChange={this.props.handleInputChange}
           handleModalShow={this.props.handleModalShow}
