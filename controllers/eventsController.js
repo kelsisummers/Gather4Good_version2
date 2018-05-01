@@ -3,6 +3,7 @@ const db = require("../models");
 // Defining methods for the booksController
 const eventsController = {
   findAll: function(req, res) {
+    console.log(req.query);
     db.Event
       .find(req.query)
       .sort({ date: -1 })

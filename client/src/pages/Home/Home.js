@@ -34,8 +34,22 @@ class Home extends Component {
   };
 
   // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
-  handleCauseButtonClick(event) {
-    alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
+  handleCauseButtonClick = (event) => {
+    const causeId = event.target.getAttribute("causeId");    
+    return (
+      API.getEventsByCause(causeId).then((events) => {
+        console.log(events.data);
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+    // alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
+    )
+    
   };
 
   // For now just alerts event button data, will implement logic to join event.

@@ -32,6 +32,15 @@ export default {
   getAllEvents: function() {
     console.log("get events called - front end");
     return axios.get("/api/events");
+  },
+
+  getEventsByCause: function(causeId) {
+    console.log("get events by cause called - front end");
+    return axios.get("/api/events", {
+      params: {
+        cause: causeId
+      }
+    });
   }
 
 };
