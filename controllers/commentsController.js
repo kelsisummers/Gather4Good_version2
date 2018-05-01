@@ -3,7 +3,6 @@ const db = require("../models");
 // Defining methods for the commentsController
 const commentsController = {
     create: function (req, res) {
-        console.log(req.body);
         db.Comment
             .create(req.body)
             .then(dbModel => {

@@ -32,6 +32,7 @@ export class DiscussionContainer extends Component {
     }
 
     render() {
+        console.log("The comments?", this.state.comments)
         const { error, isLoaded, comments } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;

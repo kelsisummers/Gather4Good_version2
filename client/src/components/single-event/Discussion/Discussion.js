@@ -42,4 +42,4 @@ class Discussion extends Component {
     }
 }
 
-export default Discussion
+export default Discussion;

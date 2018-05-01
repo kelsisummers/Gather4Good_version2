@@ -25,7 +25,7 @@ export default {
   // Retrieves all comments for a specific event from db
   getCommentsByEvent: function(id) {
     console.log("get comments called - front end");
-    return axios.get(`/api/comments/${id}`);
+    return axios.get(`/api/events/${id}/comments`);
   },
   
   // Retrieves all events from db

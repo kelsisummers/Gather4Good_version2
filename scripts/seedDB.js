@@ -16,7 +16,7 @@ const eventSeed = [
     location_city: "Columbus",
     location_state: "OH",
     location_zip: "43215",
-    cause: "5ae289a76ff9501210d708bb"
+    cause: "5ae7cfa9bf3a953570c4c30f"
   },
   {
     title: "Save the Chinchillas!",
@@ -151,7 +151,7 @@ const seedUsers = () => {
     });
 }
 
-seedCauses();
+// seedCauses();
 seedEvents();
 seedComments();
 seedUsers();

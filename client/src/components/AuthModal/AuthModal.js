@@ -8,10 +8,6 @@ const AuthModal = (props) => {
 
     return (
       <div>
-      <Button onClick={props.handleModalShow}>
-        Login
-      </Button>
-
       <Modal show={props.showModal} onHide={props.handleModalClose}>
         <Modal.Header closeButton>
         </Modal.Header>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import "./MainNav.css";
+import "./AuthNav.css";
 import AuthModal from "../AuthModal";
 
-class MainNav extends Component {
+class AuthNav extends Component {
   render() {
     console.log("Props?", this.props);
     return (
@@ -21,10 +21,7 @@ class MainNav extends Component {
                   Organize An Event
                 </NavItem>
                 <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
-                  Login
-                </NavItem>
-                <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
-                  Register
+                  Logout
                 </NavItem>
               </Nav>
             </Navbar.Collapse>
@@ -34,4 +31,4 @@ class MainNav extends Component {
   }
 };
 
-export default MainNav;
+export default AuthNav;
