@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
 
   console.log("Secret Key:" + secret_key);
 
-  console.log(token);
+  console.log("tokennn: " + token);
   if (token === "null") {
     token = null;
   }

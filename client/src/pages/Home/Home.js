@@ -33,9 +33,21 @@ class Home extends Component {
       })
   };
 
-  // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
-  handleCauseButtonClick(event) {
-    alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
+  // Querys database for all events by cause and updates state with returned events.
+  handleCauseButtonClick = (event) => {
+    const causeId = event.target.getAttribute("causeId");    
+    return (
+      API.getEventsByCause(causeId).then((events) => {
+        console.log(events.data);
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+    )
   };
 
   // For now just alerts event button data, will implement logic to join event.
@@ -45,11 +57,11 @@ class Home extends Component {
     alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
   };
 
-  sortByDate() {
+  sortByDate = () => {
     // setState to Events sorted by date, need to discuss perameters for this..
   }
 
-  sortByLocation() {
+  sortByLocation = () => {
     // setState to sort by location, by city? proximity?
   }
 
@@ -74,6 +86,7 @@ class Home extends Component {
 
   render() {
     const { error, isLoaded, events, indicators, controls } = this.state;
+    
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -96,6 +109,7 @@ class Home extends Component {
                     <EventCard 
                       data = {event}
                       handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
+                      userId = {this.props.authData.user_id}
                     />
                   )
                 })}
