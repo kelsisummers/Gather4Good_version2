@@ -3,7 +3,6 @@ import "./LoginForm.css";
 import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 const LoginForm = (props) => {
-    console.log(props);
     return (
       <Form horizontal style={{marginTop: "20px"}} onSubmit={props.handleLoginSubmit}>
         <FormGroup controlId="formHorizontalLoginEmail">

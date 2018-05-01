@@ -160,7 +160,7 @@ class CreateEvent extends Component {
     // zipcode: "",
     // causes: []
 
-    
+
 
     const eventData = {
       title: eventName,
