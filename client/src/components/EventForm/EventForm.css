@@ -106,9 +106,9 @@ form select {
   font-size: 18px;
 }
 
-.btn-success:hover {
+.btn-success:hover, .btn-success:active:visited, .btn-success:visited, .btn-success:active:focus, .btn-success:active:hover, .btn-success:focus {
   /* background-color: #39d1b4; */
-  background-color: #000;
+  background-color: #00b9b4;
   opacity: .8;
   border: none;
 }
