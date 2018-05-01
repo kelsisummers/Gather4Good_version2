@@ -64,6 +64,7 @@ class App extends Component {
 
 
   componentDidMount = () => {
+    console.log("*****COMPONENT DID MOUNT FOR APP.JS CALLED*****");
     this.handleAuthStatus();
   }
 
@@ -180,6 +181,11 @@ class App extends Component {
       })
   }
 
+  handleLogout = () =>  {
+    this.clearAuthData();
+    localStorage.removeItem("token");
+  }
+
   render() {
 
     const authData = {
@@ -192,7 +198,6 @@ class App extends Component {
     return (
       <div>
         {this.state.isAuthenicated ? <AuthNav/> : <MainNav handleModalShow={this.handleModalShow}/>}
-
         <AuthModal {...this.state}
             handleInputChange={this.handleInputChange}
             handleModalShow={this.handleModalShow}
@@ -203,9 +208,9 @@ class App extends Component {
         />
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={(props) => <Home {...props} authData={authData} />}/>
             <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
-            <Route path="/event" component={SingleEvent} />
+            <Route path="/event" render={(props) => <SingleEvent {...props} authData={authData} />} />
           </Switch>
         </Router>
         <Footer />

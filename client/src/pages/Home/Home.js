@@ -16,6 +16,7 @@ class Home extends Component {
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
   componentDidMount() {
+    console.log("*****COMPONENT DID MOUNT FOR HOME PAGE CALLED*****");
     let promises = [API.getAllEvents(), API.getCauses()];
     Promise.all(promises)
       .then((values) => {
@@ -95,7 +96,7 @@ class Home extends Component {
       return (
         <div>
           <Header/>
-          <CauseButtons 
+          <CauseButtons
             causes={this.state.causes}
             handleCauseButtonClick={this.handleCauseButtonClick}
           />
@@ -105,8 +106,8 @@ class Home extends Component {
             <Col md={6}>
               <div>
                 {this.state.events.map((event) => {
-                  return ( 
-                    <EventCard 
+                  return (
+                    <EventCard
                       data = {event}
                       handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
                       userId = {this.props.authData.user_id}
@@ -115,27 +116,27 @@ class Home extends Component {
                 })}
               </div>
             </Col>
-            
+
             {/* Controls container */}
             <Col md={2}>
-              <Controls 
+              <Controls
                 sortByDate = {this.sortByDate}
                 sortByLocation = {this.sortByLocation}
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}
               />
             </Col>
-            
+
             {/* Featured Events container */}
             <Col md={4}>
-              <FeaturedEvents 
+              <FeaturedEvents
                 data = {this.state.featured}
               />
             </Col>
 
           </Row>
         </div>
-        
+
       );
     }
   }

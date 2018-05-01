@@ -40,6 +40,7 @@ class CreateEvent extends Component {
 
 
   componentDidMount = () => {
+    console.log("*****COMPONENT DID MOUNT FOR EVENT PAGE CALLED*****");
     this.loadCauses();
   }
 
