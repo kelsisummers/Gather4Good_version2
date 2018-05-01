@@ -15,7 +15,7 @@ class SingleEvent extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
         // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae28c48e653ce2ad8cfc936")
+        API.getEvent("5ae4b3089eec76ddfd2dd272")
             .then((event) => {
                 console.log(event.data);
                 this.setState({
