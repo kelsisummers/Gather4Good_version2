@@ -80,7 +80,7 @@ const authController = {
           }
 
           // If user found and password matches, return JWT with id, name, and email encoded in payload
-          var token = jwt.sign({_id: user._id, name: user.name, email: user.email}, secret_key, {expiresIn: "2h"});
+          var token = jwt.sign({_id: user._id, name: user.name, email: user.email}, secret_key, {expiresIn: 60 * 2 });
           res.status(200).json({ auth: true, token: token });
         }
       })

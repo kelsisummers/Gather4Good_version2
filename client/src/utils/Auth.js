@@ -3,30 +3,28 @@ import decode from "jwt-decode";
 
 export default {
 
-  determineAuthStatus: function() {
+  verifyToken: function() {
 
     const token = localStorage.getItem("token");
     return axios.get("/api/auth_status", { headers: { 'x-access-token': token } })
       .then(response => {
-        let data = response.data;
 
-        if(data.auth === true) {
-          const decoded = decode(data.token);
-          data._id = decoded._id;
-          data.email = decoded.email;
-          data.name = decoded.name;
-        }
+        let data = response.data;
+        const decoded = decode(data.token);
+
+        data._id = decoded._id;
+        data.email = decoded.email;
+        data.name = decoded.name;
 
         return data;
+
       })
       .catch((error) => {
-        console.log("catch called");
+
         let data = error.response.data;
-
         localStorage.removeItem("token");
-        console.log(localStorage.getItem("token"));
-
         return Promise.reject(data);
+
       });
   },
 
@@ -72,15 +70,34 @@ export default {
     localStorage.setItem("token", data.token);
     const token = localStorage.getItem("token");
 
-    ////Decode token and embed user-specifc info in data object
+    // Decode token and embed user-specifc info in data object
     const decoded = decode(token);
     data._id = decoded._id;
     data.email = decoded.email;
     data.name = decoded.name;
 
-    console.log("data in new fxn");
-    console.log(data);
     return data;
+  },
+
+  isTokenNullOrExpired: function() {
+    const token = localStorage.getItem("token");
+
+    if(token === null) {
+      return true;
+    }
+
+    const decoded = decode(token);
+
+    if(decoded.exp < Date.now() / 1000 ) {
+      console.log("Token has expired.");
+      localStorage.removeItem("token");
+      return true
+    } else {
+      console.log("Token not expired.");
+      console.log("Time until expiration: " + decoded.exp - (Date.now() / 1000))
+      return false;
+    }
+
   }
 
 }

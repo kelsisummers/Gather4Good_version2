@@ -45,74 +45,60 @@ class App extends Component {
     auth_error: "",
   }
 
-  // Check authenication status on componentDidMount for App.js and
-  // each page load
-  handleAuthStatus = () => {
-    Auth.determineAuthStatus()
+
+  confirmAuth = () => {
+    return Auth.verifyToken()
       .then(data => {
-        //Confirm auth status
-        if(data.auth === true) {
-          this.setAuthData(data);
-        } else  {
-          this.clearAuthData();
-        }
+        this.setAuthData(data);
+        return true;
       })
-      .catch((error) => {
+      .catch(error => {
         this.clearAuthData();
+        return Promise.reject(false);
       })
   }
 
 
   componentDidMount = () => {
     console.log("*****COMPONENT DID MOUNT FOR APP.JS CALLED*****");
-    this.handleAuthStatus();
+    if(Auth.isTokenNullOrExpired()) {
+      this.clearAuthData();
+    } else {
+        this.confirmAuth()
+          .then(val => console.log(val))
+          .catch(val => console.log(val));
+    }
   }
 
 
   handleInputChange = (event) => {
     const {name, value} = event.target;
-    console.log(name)
-    console.log(value)
-    this.setState(({[name]: value, auth_error: ""}), () => {
-      console.log("In callback");
-      console.log("Name: " + name);
-      console.log("Value: " + value);
-    });
+    this.setState({[name]: value, auth_error: ""});
   }
 
 
   handleModalClose = () =>  {
-    this.setState(({ showModal: false,
-                     activeModalKey: 1,
-                     loginEmail: "",
-                     loginPassword: "",
-                     regFirstName: "",
-                     regLastName: "",
-                     regEmail: "",
-                     regPassword: "",
-                     auth_error: "",
-                     modalTriggerType: ""}), () => {
-        console.log(this.state.showModal)
-    });
+    this.setState({ showModal: false,
+      activeModalKey: 1,
+      loginEmail: "",
+      loginPassword: "",
+      regFirstName: "",
+      regLastName: "",
+      regEmail: "",
+      regPassword: "",
+      auth_error: "",
+      modalTriggerType: "" });
   }
 
 
   handleModalShow = (modalTriggerType) => {
     //this.setState({modalTriggerType: modalTriggerType})
-    this.setState(({ showModal: true }), () => {
-        console.log("Updated state for showmodal in callback")
-        console.log(this.state.showModal)
-    });
+    this.setState({ showModal: true });
   }
 
 
   handleTabSelect = (key) => {
-    console.log(key);
-    console.log(`selected ${key}`);
-    this.setState({ activeModalKey: key }, () => {
-      console.log("Updated state for key in callback")
-      console.log(this.state.activeModalKey)
-    });
+    this.setState({ activeModalKey: key });
   }
 
 
@@ -121,20 +107,17 @@ class App extends Component {
       user_id: data._id,
       user_email: data.email,
       user_name: data.name,}, () => {
-        console.log("State after successful login")
-        console.log(this.state);
         this.handleModalClose();
       })
   }
 
 
   clearAuthData = (data) => {
-    this.setState({isAuthenicated: false,
+    console.log("clear auth called");
+    this.setState({ isAuthenicated: false,
       user_id: "",
       user_email: "",
-      user_name: ""}, () => {
-        console.log(this.state);
-      })
+      user_name: "" })
   }
 
 
@@ -152,12 +135,15 @@ class App extends Component {
         if(data.auth === true) {
           this.setAuthData(data);
         }
-    })
-    .catch((error) => {
-      this.setState({auth_error: error.message})
-      this.clearAuthData();
-    })
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.message);
+        this.setState({auth_error: error.message})
+        this.clearAuthData();
+      })
   }
+
 
   handleRegSubmit = (event) => {
     event.preventDefault();
@@ -181,10 +167,12 @@ class App extends Component {
       })
   }
 
+
   handleLogout = () =>  {
     this.clearAuthData();
     localStorage.removeItem("token");
   }
+
 
   render() {
 
