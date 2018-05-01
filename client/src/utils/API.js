@@ -13,7 +13,9 @@ export default {
     console.log("create event called - front end");
     console.log("event data in create event fucntion - front end:")
     console.log(eventData);
-    return axios.post("/api/events", eventData);
+    const token = localStorage.getItem("token");
+    console.log("token....." + token);  
+    return axios.post("/api/events", eventData, { headers: { 'x-access-token': token } });
   },
 
   // Retrieves an event from db

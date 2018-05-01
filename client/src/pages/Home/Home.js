@@ -33,7 +33,7 @@ class Home extends Component {
       })
   };
 
-  // For now just alerts cause button data, will implement logic to Setstate to display events by cause.
+  // Querys database for all events by cause and updates state with returned events.
   handleCauseButtonClick = (event) => {
     const causeId = event.target.getAttribute("causeId");    
     return (
@@ -47,9 +47,7 @@ class Home extends Component {
           error
         });
       })
-    // alert(`Cause: ${event.target.innerHTML} \nCause ID: ${event.target.getAttribute("causeId")}`);
     )
-    
   };
 
   // For now just alerts event button data, will implement logic to join event.
@@ -59,11 +57,11 @@ class Home extends Component {
     alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
   };
 
-  sortByDate() {
+  sortByDate = () => {
     // setState to Events sorted by date, need to discuss perameters for this..
   }
 
-  sortByLocation() {
+  sortByLocation = () => {
     // setState to sort by location, by city? proximity?
   }
 

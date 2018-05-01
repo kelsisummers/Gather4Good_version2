@@ -17,11 +17,12 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
+    console.log("Server recieved request to create event")
     console.log(req.body);
     db.Event
       .create(req.body)
       .then(dbModel => {
-        console.log("event object created in db:")
+        console.log(".....event object created in db:")
         console.log(dbModel);
         res.json(dbModel)
       })
