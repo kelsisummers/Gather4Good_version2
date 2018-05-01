@@ -15,9 +15,9 @@ class SingleEvent extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
         // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae28c48e653ce2ad8cfc936")
+        API.getEvent("5ae7cfd9b12d1235791211cf")
             .then((event) => {
-                console.log(event.data);
+                console.log("Event data?", event.data);
                 this.setState({
                     isLoaded: true,
                     event: event.data
@@ -53,6 +53,7 @@ class SingleEvent extends Component {
     }
 
     render() {
+        console.log("What is state?", this.state.event)
         const { error, isLoaded, event } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -60,16 +61,17 @@ class SingleEvent extends Component {
             return <div>Loading...</div>;
         } else {
             return (
+        
                 <div>
                     <Event
                         data={this.state.event}
                     />
-                    {/* <DiscussionContainer
+                    <DiscussionContainer
                     data={this.props.event}
-                    /> */}
-                    {/* <RelatedEvents */}
-                    {/* eventCause="eventJSON.cause" */}
-                    {/* /> */}
+                    />
+                    <RelatedEvents
+                    eventCause="eventJSON.cause"
+                    />
                 </div>
             );
         }

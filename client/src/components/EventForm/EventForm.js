@@ -7,7 +7,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
-import { Grid, Row, Col, Button, Panel } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Panel, Glyphicon } from 'react-bootstrap';
 
 const EventForm = (props) => {
     return (
@@ -21,7 +21,7 @@ const EventForm = (props) => {
             <Panel defaultExpanded={props.open}>
               <Panel.Heading>
                 <Panel.Title toggle>
-                  <h3>Tell Us About Your Event</h3>
+                  <h3><Glyphicon glyph="star" className="glyphicon"/>Tell Us About Your Event</h3>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>
@@ -50,7 +50,7 @@ const EventForm = (props) => {
             <Panel defaultExpanded={props.open}>
               <Panel.Heading>
                 <Panel.Title toggle>
-                  <h3>What Cause Does Your Event Support?</h3>
+                  <h3><Glyphicon glyph="heart" className="glyphicon"/>What Cause Does Your Event Support?</h3>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>
@@ -82,7 +82,7 @@ const EventForm = (props) => {
             <Panel defaultExpanded={props.open}>
               <Panel.Heading>
                 <Panel.Title toggle>
-                  <h3>Add an Image</h3>
+                  <h3><Glyphicon glyph="picture" className="glyphicon"/>Add an Image</h3>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>
@@ -103,7 +103,7 @@ const EventForm = (props) => {
             <Panel defaultExpanded={props.open}>
               <Panel.Heading>
                 <Panel.Title toggle>
-                  <h3>Event Date and Time</h3>
+                  <h3><Glyphicon glyph="calendar" className="glyphicon"/>Event Date and Time</h3>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>
@@ -134,7 +134,7 @@ const EventForm = (props) => {
             <Panel defaultExpanded={props.open}>
               <Panel.Heading>
                 <Panel.Title toggle>
-                  <h3>Event Location</h3>
+                  <h3><Glyphicon glyph="map-marker" className="glyphicon"/>Event Location</h3>
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Collapse>

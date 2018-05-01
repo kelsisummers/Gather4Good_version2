@@ -13,7 +13,9 @@ export default {
     console.log("create event called - front end");
     console.log("event data in create event fucntion - front end:")
     console.log(eventData);
-    return axios.post("/api/events", eventData);
+    const token = localStorage.getItem("token");
+    console.log("token....." + token);  
+    return axios.post("/api/events", eventData, { headers: { 'x-access-token': token } });
   },
 
   // Retrieves an event from db
@@ -25,13 +27,22 @@ export default {
   // Retrieves all comments for a specific event from db
   getCommentsByEvent: function(id) {
     console.log("get comments called - front end");
-    return axios.get(`/api/comments/${id}`);
+    return axios.get(`/api/events/${id}/comments`);
   },
   
   // Retrieves all events from db
   getAllEvents: function() {
     console.log("get events called - front end");
     return axios.get("/api/events");
+  },
+
+  getEventsByCause: function(causeId) {
+    console.log("get events by cause called - front end");
+    return axios.get("/api/events", {
+      params: {
+        cause: causeId
+      }
+    });
   }
 
 };

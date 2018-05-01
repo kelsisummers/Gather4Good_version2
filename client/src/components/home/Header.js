@@ -17,16 +17,16 @@ export class Header extends Component {
                     interval={this.state.interval}
                 >
                     <Carousel.Item>
-                        <img width={1440} height={500} alt="900x500" src="../assets/science_color.jpg" />
+                        <img width={"100%"} height={500} alt="900x500" src="../assets/science_color.jpg" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img width={1440} height={500} alt="900x500" src="../assets/fullpride.jpg" />
+                        <img width={"100%"} height={500} alt="900x500" src="../assets/fullpride.jpg" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img width={1440} height={500} alt="900x500" src="../assets/immigration.jpg" />
+                        <img width={"100%"} height={500} alt="900x500" src="../assets/immigration.jpg" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img width={1440} height={500} alt="900x500" src="../assets/protest-header_signs.jpg" />
+                        <img width={"100%"} height={500} alt="900x500" src="../assets/protest-header_signs.jpg" />
                     </Carousel.Item>
                 </Carousel>
             </div>

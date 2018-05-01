@@ -4,7 +4,8 @@
 
 .form-head {
   padding: 10px 10px 10px 42px;
-  background-color: #39d1b4;
+  background-color: #00b9b4;
+  /* background-color: #222222; */
 }
 
 .form-head h2 {
@@ -31,7 +32,8 @@ form {
 }
 
 form h3 {
-  color: #39d1b4;
+  /* color: #39d1b4; */
+  color: #000;
   margin: 10px 0px 10px 0px;
   font-size: 20px;
   font-weight: 300;
@@ -45,10 +47,10 @@ input,
 textarea,
 select {
   border: none;
-  border-bottom: 1px solid #39d1b4;
+  border-bottom: 1px solid #00b9b4;
   width: 93%;
   background: none;
-  font-size: 1.5em;
+  font-size: 18px;
   padding: .6em 0;
   margin-bottom: 1em;
   outline: none;
@@ -56,7 +58,7 @@ select {
   -webkit-transition: 0.5s all;
   -o-transition: 0.5s all;
   transition: 0.5s all;
-  color: #39d1b4;
+  /* color: #d3d3d3; */
 }
 
 form input::placeholder,
@@ -68,7 +70,7 @@ form textarea::placeholder {
 
 form input:focus::placeholder,
 form textarea:focus::placeholder {
-  color: #39d1b4;
+  color: #00b9b4;
   text-shadow: 0px 0px 1px white;
 }
 
@@ -82,13 +84,14 @@ form select {
 
 .DateInput_input {
   margin-bottom: .4em;
+  color: #000000;
 }
 
 .rc-time-picker input {
   font-weight: 200;
   font-size: 18px;
   line-height: 24px;
-  color: #565a5c;
+  color: #000000;
   display: inline-block;
   border-radius: 0px;
 }
@@ -98,13 +101,25 @@ form select {
 }
 
 .btn-success {
-  background-color: #39d1b4;
+  background-color: #00b9b4;
+  /* background-color: #000; */
   border: none;
   font-size: 18px;
 }
 
-.btn-success:hover {
-  background-color: #39d1b4;
+.btn-success:hover, .btn-success:active:visited, .btn-success:visited, .btn-success:active:focus, .btn-success:active:hover, .btn-success:focus {
+  /* background-color: #39d1b4; */
+  background-color: #00b9b4;
   opacity: .8;
   border: none;
+}
+
+.glyphicon {
+  margin-right: 10px;
+  color: #00b9b4;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+  background: #00b9b4 !important;
+  border: 1px solid #00b9b4 !important;
 }
