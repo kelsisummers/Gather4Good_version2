@@ -58,7 +58,7 @@ select {
   -webkit-transition: 0.5s all;
   -o-transition: 0.5s all;
   transition: 0.5s all;
-  color: #d3d3d3;
+  /* color: #d3d3d3; */
 }
 
 form input::placeholder,
@@ -84,13 +84,14 @@ form select {
 
 .DateInput_input {
   margin-bottom: .4em;
+  color: #000000;
 }
 
 .rc-time-picker input {
   font-weight: 200;
   font-size: 18px;
   line-height: 24px;
-  color: #565a5c;
+  color: #000000;
   display: inline-block;
   border-radius: 0px;
 }
@@ -116,4 +117,9 @@ form select {
 .glyphicon {
   margin-right: 10px;
   color: #00b9b4;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+  background: #00b9b4 !important;
+  border: 1px solid #00b9b4 !important;
 }
