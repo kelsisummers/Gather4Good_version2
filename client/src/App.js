@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import MainNav from "./components/MainNav";
 import AuthModal from "./components/AuthModal";
 import Auth from "./utils/Auth";
+import AuthNav from "./components/AuthNav";
 // import "./App.css";
 
 class App extends Component {
@@ -190,29 +191,24 @@ class App extends Component {
 
     return (
       <div>
-      <MainNav handleModalShow={this.handleModalShow}
-      // {...this.state}
-      //     handleInputChange={this.handleInputChange}
-      //     handleModalShow={this.handleModalShow}
-      //     handleModalClose={this.handleModalClose}
-      //     handleTabSelect={this.handleTabSelect}
-      />
-      <AuthModal {...this.state}
-          handleInputChange={this.handleInputChange}
-          handleModalShow={this.handleModalShow}
-          handleModalClose={this.handleModalClose}
-          handleTabSelect={this.handleTabSelect}
-          handleRegSubmit={this.handleRegSubmit}
-          handleLoginSubmit={this.handleLoginSubmit}
-      />
-      <Router>
-        <Switch>
-          <Route exact path="/" render={(props) => <Home {...props} authData={authData} />} />
-          <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
-          <Route path="/event" component={SingleEvent} />
-        </Switch>
-      </Router>
-      <Footer />
+        {this.state.isAuthenicated ? <AuthNav/> : <MainNav handleModalShow={this.handleModalShow}/>}
+
+        <AuthModal {...this.state}
+            handleInputChange={this.handleInputChange}
+            handleModalShow={this.handleModalShow}
+            handleModalClose={this.handleModalClose}
+            handleTabSelect={this.handleTabSelect}
+            handleRegSubmit={this.handleRegSubmit}
+            handleLoginSubmit={this.handleLoginSubmit}
+        />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
+            <Route path="/event" component={SingleEvent} />
+          </Switch>
+        </Router>
+        <Footer />
       </div>
     );
   }
