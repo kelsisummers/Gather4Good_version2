@@ -17,7 +17,7 @@ export default {
         data.name = decoded.name;
 
         return data;
-
+        
       })
       .catch((error) => {
 
@@ -94,7 +94,7 @@ export default {
       return true
     } else {
       console.log("Token not expired.");
-      console.log("Time until expiration: " + decoded.exp - (Date.now() / 1000))
+      console.log("Seconds until expiration: " + (decoded.exp - (Date.now() / 1000)))
       return false;
     }
 

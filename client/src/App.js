@@ -46,27 +46,20 @@ class App extends Component {
   }
 
 
-  confirmAuth = () => {
-    return Auth.verifyToken()
-      .then(data => {
-        this.setAuthData(data);
-        return true;
-      })
-      .catch(error => {
-        this.clearAuthData();
-        return Promise.reject(false);
-      })
-  }
-
-
   componentDidMount = () => {
     console.log("*****COMPONENT DID MOUNT FOR APP.JS CALLED*****");
+
     if(Auth.isTokenNullOrExpired()) {
       this.clearAuthData();
     } else {
-        this.confirmAuth()
-          .then(val => console.log(val))
-          .catch(val => console.log(val));
+      Auth.verifyToken()
+        .then(data => {
+          this.setAuthData(data);
+        })
+        .catch(error => {
+          this.clearAuthData();
+          console.log(error);
+        })
     }
   }
 
@@ -92,8 +85,16 @@ class App extends Component {
 
 
   handleModalShow = (modalTriggerType) => {
-    //this.setState({modalTriggerType: modalTriggerType})
-    this.setState({ showModal: true });
+    this.setState({modalTriggerType: modalTriggerType})
+
+    if(modalTriggerType === "regBtnClick") {
+      this.setState({activeModalKey: 2}, () => {
+        this.setState({ showModal: true });
+      })
+    } else {
+      this.setState({ showModal: true });
+    }
+
   }
 
 
@@ -112,7 +113,7 @@ class App extends Component {
   }
 
 
-  clearAuthData = (data) => {
+  clearAuthData = () => {
     console.log("clear auth called");
     this.setState({ isAuthenicated: false,
       user_id: "",
@@ -169,8 +170,8 @@ class App extends Component {
 
 
   handleLogout = () =>  {
-    this.clearAuthData();
     localStorage.removeItem("token");
+    this.clearAuthData();
   }
 
 
@@ -185,7 +186,7 @@ class App extends Component {
 
     return (
       <div>
-        {this.state.isAuthenicated ? <AuthNav/> : <MainNav handleModalShow={this.handleModalShow}/>}
+        {this.state.isAuthenicated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
         <AuthModal {...this.state}
             handleInputChange={this.handleInputChange}
             handleModalShow={this.handleModalShow}

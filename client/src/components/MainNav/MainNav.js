@@ -23,7 +23,7 @@ class MainNav extends Component {
                 <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
                   Login
                 </NavItem>
-                <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
+                <NavItem onClick={() => this.props.handleModalShow("regBtnClick")}>
                   Register
                 </NavItem>
               </Nav>

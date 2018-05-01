@@ -20,7 +20,7 @@ class AuthNav extends Component {
                 <NavItem eventKey={1} href="/create">
                   Organize An Event
                 </NavItem>
-                <NavItem onClick={() => this.props.handleModalShow("loginBtnClick")}>
+                <NavItem onClick={this.props.handleLogout}>
                   Logout
                 </NavItem>
               </Nav>
