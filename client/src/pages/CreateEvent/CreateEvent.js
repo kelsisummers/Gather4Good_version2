@@ -159,6 +159,8 @@ class CreateEvent extends Component {
     // zipcode: "",
     // causes: []
 
+    
+
     const eventData = {
       title: eventName,
       dateTime: ISO_DATE_TIME,
@@ -169,7 +171,8 @@ class CreateEvent extends Component {
       location_city: city,
       location_state: USstate,
       location_zip: zipcode,
-      cause: causeId
+      cause: causeId,
+      organizer_id: this.props.authData.user_id
     }
 
     console.log(eventData);

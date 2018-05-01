@@ -86,6 +86,7 @@ class Home extends Component {
 
   render() {
     const { error, isLoaded, events, indicators, controls } = this.state;
+    
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -108,6 +109,7 @@ class Home extends Component {
                     <EventCard 
                       data = {event}
                       handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
+                      userId = {this.props.authData.user_id}
                     />
                   )
                 })}
