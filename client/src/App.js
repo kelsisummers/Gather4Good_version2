@@ -207,7 +207,7 @@ class App extends Component {
       />
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={(props) => <Home {...props} authData={authData} />} />
           <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
           <Route path="/event" component={SingleEvent} />
         </Switch>

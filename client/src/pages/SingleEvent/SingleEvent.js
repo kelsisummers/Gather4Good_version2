@@ -64,12 +64,12 @@ class SingleEvent extends Component {
                     <Event
                         data={this.state.event}
                     />
-                    {/* <DiscussionContainer
+                    <DiscussionContainer
                     data={this.props.event}
-                    /> */}
-                    {/* <RelatedEvents */}
-                    {/* eventCause="eventJSON.cause" */}
-                    {/* /> */}
+                    />
+                    <RelatedEvents
+                    eventCause="eventJSON.cause"
+                    />
                 </div>
             );
         }
