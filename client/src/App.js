@@ -122,6 +122,12 @@ class App extends Component {
   }
 
 
+  clearAuthAndShowModal = (modalTriggerType) => {
+    this.clearAuthData();
+    this.handleModalShow(modalTriggerType);
+  }
+
+
   handleLoginSubmit = (event) => {
     event.preventDefault();
 
@@ -186,7 +192,8 @@ class App extends Component {
 
     const authFunctions = {
       clearAuthData: this.clearAuthData,
-      handleModalShow: this.handleModalShow
+      handleModalShow: this.handleModalShow,
+      clearAuthAndShowModal: this.clearAuthAndShowModal
     }
 
     return (

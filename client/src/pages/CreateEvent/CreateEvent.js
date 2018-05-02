@@ -160,17 +160,15 @@ class CreateEvent extends Component {
       event.preventDefault();
 
       if(Auth.isTokenNullOrExpired()) {
-        this.props.authFunctions.clearAuthData();
-        this.props.authFunctions.handleModalShow("createEvent");
+        this.props.authFunctions.clearAuthAndShowModal("createEvent");
       } else {
         this.submitEventToDb()
           .then(data => {
             console.log(data);
           })
           .catch(error => {
+            this.props.authFunctions.clearAuthAndShowModal("createEvent");
             console.log(error);
-            this.props.authFunctions.clearAuthData();
-            this.props.authFunctions.handleModalShow("createEvent");
           })
       }
     }
