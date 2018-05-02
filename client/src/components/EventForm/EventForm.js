@@ -8,6 +8,7 @@ import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
 import { Grid, Row, Col, Button, Panel, Glyphicon } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 const EventForm = (props) => {
     return (
@@ -190,12 +191,14 @@ const EventForm = (props) => {
                 </Panel.Body>
               </Panel.Collapse>
             </Panel>
-
+            
+            
             <button
               type="submit"
               className="btn btn-success">
                 Create Event
             </button>
+            
 
           </form>
         </div>

@@ -47,7 +47,8 @@ class SingleEvent extends Component {
                 API.joinEvent(userId, eventId)
                     .then((event) => {
                         this.setState({
-                            attending: event.data.attendees.includes(this.props.authData.user_id)
+                            attending: event.data.attendees.includes(this.props.authData.user_id),
+                            event: event.data
                         })
                     }) // Need to work out error handling here... i.e. the user is not logged in.
                 break;
