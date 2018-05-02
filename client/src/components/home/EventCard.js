@@ -1,5 +1,6 @@
 import React from "react";
 import { Panel, Button, Badge } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 
 export const EventCard = (props) => {
@@ -18,6 +19,11 @@ export const EventCard = (props) => {
             <p>{props.data.description}</p>
             {organizerBadge}
             {attendeeBadge}
+            
+                <Link to={`/event/${props.data._id}`}>
+                Learn More
+                </Link>
+            
         </Panel>
     )
 
