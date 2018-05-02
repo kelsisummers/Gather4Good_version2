@@ -4,7 +4,13 @@ import Moment from 'react-moment';
 import { DiscussionContainer } from "../single-event/";
 
 export const Event = (props) => {
-const dateToFormat = props.data.dateTime;
+  const dateToFormat = props.data.dateTime;
+
+  const joinBtn = !props.attending ? (
+    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
+  ) : (
+    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>    
+  );
 
   return (
     
@@ -44,7 +50,8 @@ const dateToFormat = props.data.dateTime;
           
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
-          <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
+
+          {joinBtn}
           <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
         </Panel.Footer>

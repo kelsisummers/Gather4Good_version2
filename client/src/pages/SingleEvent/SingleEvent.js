@@ -8,7 +8,8 @@ class SingleEvent extends Component {
     state = {
         error: null,
         isLoaded: false,
-        event: []
+        event: [],
+        attending: false
     };
 
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
@@ -18,9 +19,11 @@ class SingleEvent extends Component {
         API.getEvent("5ae8fd1542f30a3288679a52")
             .then((event) => {
                 console.log("Event data?", event.data);
+                
                 this.setState({
                     isLoaded: true,
-                    event: event.data
+                    event: event.data,
+                    attending: event.data.attendees.includes(this.props.authData.user_id) // Checks if userId matches any in Attendee array.
                 });
             },
                 (error) => {
@@ -30,7 +33,7 @@ class SingleEvent extends Component {
                     });
                 }
             )
-    }
+    };
 
     handleButtonClick = (event) => {
         let btnType = event.target.dataset.type;
@@ -42,9 +45,11 @@ class SingleEvent extends Component {
             case "join":
                 // logic to join an event
                 API.joinEvent(userId, eventId)
-                    .then((res) => {
-                        console.log(res);
-                    })
+                    .then((event) => {
+                        this.setState({
+                            attending: event.data.attendees.includes(this.props.authData.user_id)
+                        })
+                    }) // Need to work out error handling here... i.e. the user is not logged in.
                 break;
             case "share":
                 // logic to share an event
@@ -57,10 +62,12 @@ class SingleEvent extends Component {
             default:
                 alert(btnType);
         }
-    }
+    };
 
     render() {
         console.log("What is state?", this.state.event)
+        console.log("....")
+        console.log(this.state.attending);
         const { error, isLoaded, event } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -73,6 +80,7 @@ class SingleEvent extends Component {
                     <Event
                         data={this.state.event}
                         handleButtonClick={this.handleButtonClick}
+                        attending = {this.state.attending}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}
