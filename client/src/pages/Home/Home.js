@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Badge, Jumbotron, Carousel, Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import API from "../../utils/API.js";
 import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
 import tempFeatured from "./tempFeaturedEvents.json";
@@ -36,7 +36,7 @@ class Home extends Component {
 
   // Querys database for all events by cause and updates state with returned events.
   handleCauseButtonClick = (event) => {
-    const causeId = event.target.getAttribute("causeId");    
+    const causeId = event.target.getAttribute("causeid");    
     return (
       API.getEventsByCause(causeId).then((events) => {
         console.log(events.data);
@@ -86,7 +86,7 @@ class Home extends Component {
   }
 
   render() {
-    const { error, isLoaded, events, indicators, controls } = this.state;
+    const { error, isLoaded, events, indicators, controls, causes, featured } = this.state;
     
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -97,7 +97,7 @@ class Home extends Component {
         <div>
           <Header/>
           <CauseButtons
-            causes={this.state.causes}
+            causes={causes}
             handleCauseButtonClick={this.handleCauseButtonClick}
           />
           <Row>
@@ -105,9 +105,10 @@ class Home extends Component {
             {/* Events container */}
             <Col md={6}>
               <div>
-                {this.state.events.map((event) => {
+                {events.map((event) => {
                   return (
                     <EventCard
+                      key = {event._id}
                       data = {event}
                       handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
                       userId = {this.props.authData.user_id}
@@ -130,7 +131,7 @@ class Home extends Component {
             {/* Featured Events container */}
             <Col md={4}>
               <FeaturedEvents
-                data = {this.state.featured}
+                data = {featured}
               />
             </Col>
 

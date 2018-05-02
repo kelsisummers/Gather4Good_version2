@@ -5,7 +5,6 @@ import moment from "moment";
 import StateList from "./States";
 import Auth from "../../utils/Auth.js";
 import API from "../../utils/API.js";
-import axios from "axios";
 import "./CreateEvent.css";
 
 

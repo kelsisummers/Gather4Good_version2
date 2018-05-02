@@ -19,12 +19,13 @@ export class FeaturedEvents extends Component {
                         controls={this.state.controls}
                         interval={this.state.interval}
                     >
-                        {this.props.data.map((event) => {
+                        {this.props.data.map((event, i) => {
                             return (
-                                <Carousel.Item>
+                                <Carousel.Item key={i}>
                                     <img width={1440} height={500} alt="900x500" src={event.img_url} />
                                     <h3>{event.title}</h3>
                                 </Carousel.Item>
+                                
                             )
                         })}
                     </Carousel>
