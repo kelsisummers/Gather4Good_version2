@@ -15,8 +15,8 @@ class SingleEvent extends Component {
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
-        // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae8fd1542f30a3288679a52")
+        
+        API.getEvent(this.props.match.params.id)
             .then((event) => {
                 console.log("Event data?", event.data);
                 
