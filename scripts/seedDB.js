@@ -89,7 +89,6 @@ const userSeed = [
 ];
 
 
-
 const seedCauses = () => {
   db.Cause
     .remove({})
@@ -135,7 +134,6 @@ const seedComments = () => {
 
 }
 
-
 const seedUsers = () => {
   console.log("seed users called");
   db.User
@@ -151,7 +149,7 @@ const seedUsers = () => {
     });
 }
 
-// seedCauses();
-seedEvents();
-seedComments();
-seedUsers();
+seedCauses();
+// seedEvents();
+// seedComments();
+// seedUsers();

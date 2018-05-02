@@ -43,6 +43,19 @@ export default {
         cause: causeId
       }
     });
+  },
+
+  joinEvent: function(userId, eventId) {
+    const token = localStorage.getItem("token");
+    console.log("join event caused - front end");
+    return axios({
+      headers: { 'x-access-token': token }, 
+      url: "/api/events/" + eventId,
+      method: "put",
+      data: {
+        attendee: userId,
+      }
+    });
   }
 
 };

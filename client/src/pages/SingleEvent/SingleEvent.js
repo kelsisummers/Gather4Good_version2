@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Event, Details, Controls, DiscussionContainer, RelatedEvents } from "../../components/single-event";
+import { Event, Details, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 import API from "../../utils/API.js";
 
 class SingleEvent extends Component {
@@ -15,7 +15,7 @@ class SingleEvent extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
         // will pass "this.props.id" to API.getEvent as arg.
-        API.getEvent("5ae7cfd9b12d1235791211cf")
+        API.getEvent("5ae8fd1542f30a3288679a52")
             .then((event) => {
                 console.log("Event data?", event.data);
                 this.setState({
@@ -32,12 +32,19 @@ class SingleEvent extends Component {
             )
     }
 
-    handleButtonClick(event) {
+    handleButtonClick = (event) => {
         let btnType = event.target.dataset.type;
+        let userId = this.props.authData.user_id;
+        let eventId = this.state.event._id;
+        console.log(userId);
+        console.log(eventId);
         switch (btnType) {
             case "join":
                 // logic to join an event
-                alert(btnType);
+                API.joinEvent(userId, eventId)
+                    .then((res) => {
+                        console.log(res);
+                    })
                 break;
             case "share":
                 // logic to share an event
@@ -65,13 +72,14 @@ class SingleEvent extends Component {
                 <div>
                     <Event
                         data={this.state.event}
+                        handleButtonClick={this.handleButtonClick}
                     />
-                    <DiscussionContainer
+                    {/* <DiscussionContainer
                     data={this.props.event}
                     />
                     <RelatedEvents
                     eventCause="eventJSON.cause"
-                    />
+                    /> */}
                 </div>
             );
         }

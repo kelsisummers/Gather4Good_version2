@@ -44,7 +44,7 @@ const dateToFormat = props.data.dateTime;
           
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
-          <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join/Unjoin</span></a>
+          <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
         </Panel.Footer>
