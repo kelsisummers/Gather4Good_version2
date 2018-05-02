@@ -3,6 +3,8 @@ import "./AuthModal.css";
 import { Row, Col, Nav, NavItem, Button, Modal, Tab } from 'react-bootstrap';
 import LoginForm from "../LoginForm";
 import RegForm from "../RegForm";
+import ModalCTA from "../ModalCTA";
+import ModalAuthErr from "../ModalAuthErr";
 
 const AuthModal = (props) => {
 
@@ -10,6 +12,7 @@ const AuthModal = (props) => {
       <div>
       <Modal show={props.showModal} onHide={props.handleModalClose}>
         <Modal.Header closeButton>
+            <ModalCTA modalTriggerType={props.modalTriggerType}/>
         </Modal.Header>
         <Modal.Body>
 
@@ -35,7 +38,7 @@ const AuthModal = (props) => {
 
           </Modal.Body>
           <Modal.Footer>
-
+            <ModalAuthErr auth_error={props.auth_error} />
           </Modal.Footer>
         </Modal>
       </div>

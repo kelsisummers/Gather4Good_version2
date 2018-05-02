@@ -99,7 +99,7 @@ class App extends Component {
 
 
   handleTabSelect = (key) => {
-    this.setState({ activeModalKey: key });
+    this.setState({ activeModalKey: key, auth_error: "" });
   }
 
 
