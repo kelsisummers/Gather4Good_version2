@@ -25,7 +25,8 @@ class CreateEvent extends Component {
     USstate: "",
     zipcode: "",
     causes: [],
-    open: false
+    open: false,
+    newEventId: ""
   };
 
 
@@ -163,7 +164,11 @@ class CreateEvent extends Component {
       } else {
         this.submitEventToDb()
           .then(data => {
-            console.log(data);
+            console.log("New Event:")
+            console.log(data.data._id);
+            this.props.history.push({
+              pathname: `/event/${data.data._id}`
+            })
           })
           .catch(error => {
             this.props.authFunctions.clearAuthAndShowModal("createEvent");

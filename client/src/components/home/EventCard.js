@@ -19,10 +19,9 @@ export const EventCard = (props) => {
             <p>{props.data.description}</p>
             {organizerBadge}
             {attendeeBadge}
-            
-                <Link to={`/event/${props.data._id}`}>
+            <Link to={`/event/${props.data._id}`}>
                 Learn More
-                </Link>
+            </Link>
             
         </Panel>
     )
