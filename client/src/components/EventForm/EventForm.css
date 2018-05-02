@@ -1,5 +1,5 @@
 .component-wrapper {
-  margin: 20px 0px 20px 0px;
+  margin: 25px 0px 25px 0px;
 }
 
 .form-head {
@@ -58,7 +58,6 @@ select {
   -webkit-transition: 0.5s all;
   -o-transition: 0.5s all;
   transition: 0.5s all;
-  /* color: #d3d3d3; */
 }
 
 form input::placeholder,

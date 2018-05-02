@@ -64,7 +64,7 @@ const EventForm = (props) => {
                       placeholder="Event Name"
                       onChange={props.handleInputChange}>
 
-                        <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}> Choose Your Cause</option>
+                        <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}>Choose Your Cause</option>
                         {props.causes.map(cause => (
                           <option
                             value={cause.name}
@@ -191,14 +191,14 @@ const EventForm = (props) => {
                 </Panel.Body>
               </Panel.Collapse>
             </Panel>
-            
-            
+
+
             <button
               type="submit"
               className="btn btn-success">
                 Create Event
             </button>
-            
+
 
           </form>
         </div>
