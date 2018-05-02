@@ -122,6 +122,12 @@ class App extends Component {
   }
 
 
+  clearAuthAndShowModal = (modalTriggerType) => {
+    this.clearAuthData();
+    this.handleModalShow(modalTriggerType);
+  }
+
+
   handleLoginSubmit = (event) => {
     event.preventDefault();
 
@@ -184,6 +190,12 @@ class App extends Component {
       user_email: this.state.user_email
     }
 
+    const authFunctions = {
+      clearAuthData: this.clearAuthData,
+      handleModalShow: this.handleModalShow,
+      clearAuthAndShowModal: this.clearAuthAndShowModal
+    }
+
     return (
       <div>
         {this.state.isAuthenicated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
@@ -198,7 +210,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" render={(props) => <Home {...props} authData={authData} />}/>
-            <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} />} />
+            <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} authFunctions={authFunctions} />} />
             <Route path="/event" render={(props) => <SingleEvent {...props} authData={authData} />} />
           </Switch>
         </Router>

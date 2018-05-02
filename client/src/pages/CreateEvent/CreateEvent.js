@@ -3,8 +3,10 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import EventForm from "../../components/EventForm"
 import moment from "moment";
 import StateList from "./States";
+import Auth from "../../utils/Auth.js";
 import API from "../../utils/API.js";
 import "./CreateEvent.css";
+
 
 class CreateEvent extends Component {
 
@@ -53,13 +55,8 @@ class CreateEvent extends Component {
 
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
-    console.log(name);
-    console.log(value);
 
-    this.setState({[name]: value}, () => {
-      console.log("Update Value State");
-      console.log(this.state.causeType);
-    });
+    this.setState({[name]: value});
 
     if(name === "causeType") {
       const option = event.target.options[event.target.selectedIndex];
@@ -124,41 +121,10 @@ class CreateEvent extends Component {
     return ISO_DATE_TIME;
   }
 
-
-  handleFormSubmit = (event) =>  {
-
-    event.preventDefault();
-
+  submitEventToDb = () =>  {
     const ISO_DATE_TIME = this.createDateTimeStr();
     const {eventName, eventDescription, imgUrl, locationName} = {...this.state};
     const {streetAddress, city, USstate, zipcode, causeId} = {...this.state};
-
-    // console.log("DATE ON FORM SUBMIT");
-    // console.log(ISO_DATE_TIME);
-    // console.log(eventName);
-    // console.log(eventDescription);
-    // console.log(imgUrl);
-    // console.log(locationName);
-    // console.log(streetAddress);
-    // console.log(city);
-    // console.log(USstate);
-    // console.log(zipcode);
-    // console.log(causeId);
-
-    // date: moment(),
-    // time: moment(),
-    // focused: false,
-    // causeType: "",
-    // eventName: "",
-    // imgUrl: "",
-    // eventDescription: "",
-    // streetAddress: "",
-    // city: "",
-    // USstate: "",
-    // zipcode: "",
-    // causes: []
-
-
 
     const eventData = {
       title: eventName,
@@ -176,14 +142,35 @@ class CreateEvent extends Component {
 
     console.log(eventData);
 
-    API.createEvent(eventData)
+    return API.createEvent(eventData)
       .then(res => {
         console.log("Result returned when generating new event")
         console.log(res);
+        return res;
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        return Promise.reject(err);
+      })
   }
 
+
+    handleFormSubmit = (event) =>  {
+      event.preventDefault();
+
+      if(Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("createEvent");
+      } else {
+        this.submitEventToDb()
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            this.props.authFunctions.clearAuthAndShowModal("createEvent");
+            console.log(error);
+          })
+      }
+    }
 
   render() {
       return (
