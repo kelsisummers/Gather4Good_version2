@@ -3,9 +3,11 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import EventForm from "../../components/EventForm"
 import moment from "moment";
 import StateList from "./States";
+import Auth from "../../utils/Auth.js";
 import API from "../../utils/API.js";
 import axios from "axios";
 import "./CreateEvent.css";
+
 
 class CreateEvent extends Component {
 
@@ -54,14 +56,8 @@ class CreateEvent extends Component {
 
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
-    let cause_id;
-    console.log(name);
-    console.log(value);
 
-    this.setState({[name]: value}, () => {
-      console.log("Update Value State");
-      console.log(this.state.causeType);
-    });
+    this.setState({[name]: value});
 
     if(name === "causeType") {
       const option = event.target.options[event.target.selectedIndex];
@@ -126,41 +122,10 @@ class CreateEvent extends Component {
     return ISO_DATE_TIME;
   }
 
-
-  handleFormSubmit = (event) =>  {
-
-    event.preventDefault();
-
+  submitEventToDb = () =>  {
     const ISO_DATE_TIME = this.createDateTimeStr();
     const {eventName, eventDescription, imgUrl, locationName} = {...this.state};
     const {streetAddress, city, USstate, zipcode, causeId} = {...this.state};
-
-    // console.log("DATE ON FORM SUBMIT");
-    // console.log(ISO_DATE_TIME);
-    // console.log(eventName);
-    // console.log(eventDescription);
-    // console.log(imgUrl);
-    // console.log(locationName);
-    // console.log(streetAddress);
-    // console.log(city);
-    // console.log(USstate);
-    // console.log(zipcode);
-    // console.log(causeId);
-
-    // date: moment(),
-    // time: moment(),
-    // focused: false,
-    // causeType: "",
-    // eventName: "",
-    // imgUrl: "",
-    // eventDescription: "",
-    // streetAddress: "",
-    // city: "",
-    // USstate: "",
-    // zipcode: "",
-    // causes: []
-
-
 
     const eventData = {
       title: eventName,
@@ -186,6 +151,26 @@ class CreateEvent extends Component {
       .catch(err => console.log(err))
   }
 
+
+    handleFormSubmit = (event) =>  {
+      event.preventDefault();
+
+      if(Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthData();
+        this.props.authFunctions.handleModalShow("createEvent");
+      } else {
+        Auth.verifyToken()
+          .then(data => {
+            this.submitEventToDb();
+            console.log(data);
+          })
+          .catch(error => {
+            this.props.authFunctions.clearAuthData();
+            this.props.authFunctions.handleModalShow("createEvent");
+            console.log(error);
+          })
+      }
+    }
 
   render() {
       return (
