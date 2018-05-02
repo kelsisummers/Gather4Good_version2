@@ -32,7 +32,7 @@ const eventsController = {
   update: function(req, res) {
     console.log(req.body);
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, {$push: {attendees: req.body.attendee}})
+      .findOneAndUpdate({ _id: req.params.id }, {$addToSet: {attendees: req.body.attendee}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

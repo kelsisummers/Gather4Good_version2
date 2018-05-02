@@ -38,6 +38,8 @@ export const Event = (props) => {
           <h4><Moment format="MM/DD/YYYY">{dateToFormat}</Moment></h4>
           <h4 className="header">Time:</h4>
           <h4><Moment format="HH:mm A">{dateToFormat}</Moment></h4>
+          <h4 className="header">Attendees:</h4>
+          <h4>{props.data.attendees.length}</h4>
           </Col>
           <Col sm={3} md={6}>
 
