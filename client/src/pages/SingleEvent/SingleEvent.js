@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Event, Details, DiscussionContainer, RelatedEvents } from "../../components/single-event";
+import { Event, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 import API from "../../utils/API.js";
 
 class SingleEvent extends Component {
@@ -68,7 +68,7 @@ class SingleEvent extends Component {
         console.log("What is state?", this.state.event)
         console.log("....")
         console.log(this.state.attending);
-        const { error, isLoaded, event } = this.state;
+        const { error, isLoaded, event, attending } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -78,9 +78,9 @@ class SingleEvent extends Component {
         
                 <div>
                     <Event
-                        data={this.state.event}
+                        data={event}
                         handleButtonClick={this.handleButtonClick}
-                        attending = {this.state.attending}
+                        attending = {attending}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}

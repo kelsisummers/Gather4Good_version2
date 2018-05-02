@@ -3,9 +3,9 @@ import { Badge } from 'react-bootstrap';
 
 export const CauseButtons = (props) => { 
     return (
-        props.causes.map((cause) => {
+        props.causes.map((cause, i) => {
             return (
-                <button causeId={cause._id} onClick={props.handleCauseButtonClick}>{cause.name}</button>
+                <button key={[i]} causeid={cause._id} onClick={props.handleCauseButtonClick}>{cause.name}</button>
             )
         })
     )

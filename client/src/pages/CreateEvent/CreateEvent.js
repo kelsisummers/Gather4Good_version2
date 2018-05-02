@@ -4,7 +4,6 @@ import EventForm from "../../components/EventForm"
 import moment from "moment";
 import StateList from "./States";
 import API from "../../utils/API.js";
-import axios from "axios";
 import "./CreateEvent.css";
 
 class CreateEvent extends Component {
@@ -54,7 +53,6 @@ class CreateEvent extends Component {
 
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
-    let cause_id;
     console.log(name);
     console.log(value);
 
