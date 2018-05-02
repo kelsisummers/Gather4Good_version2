@@ -143,12 +143,16 @@ class CreateEvent extends Component {
 
     console.log(eventData);
 
-    API.createEvent(eventData)
+    return API.createEvent(eventData)
       .then(res => {
         console.log("Result returned when generating new event")
         console.log(res);
+        return res;
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        return Promise.reject(err);
+      })
   }
 
 
@@ -159,15 +163,14 @@ class CreateEvent extends Component {
         this.props.authFunctions.clearAuthData();
         this.props.authFunctions.handleModalShow("createEvent");
       } else {
-        Auth.verifyToken()
+        this.submitEventToDb()
           .then(data => {
-            this.submitEventToDb();
             console.log(data);
           })
           .catch(error => {
+            console.log(error);
             this.props.authFunctions.clearAuthData();
             this.props.authFunctions.handleModalShow("createEvent");
-            console.log(error);
           })
       }
     }

@@ -9,6 +9,8 @@ function verifyToken(req, res, next) {
   console.log("verify token called");
   var token = req.headers['x-access-token'];
   var secret_key = process.env.SECRET_KEY;
+  console.log("token on backend");
+  console.log(token);
 
   if (token === "null") {
     token = null;
