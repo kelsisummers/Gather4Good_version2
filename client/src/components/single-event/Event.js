@@ -25,7 +25,25 @@ export const Event = (props) => {
         <div className="image-container">
         {props.data.img_url ? <img className="eventImage" src={props.data.img_url} /> : <img className="eventImage" src="../assets/wall-graffiti.jpg" />}
         <Panel.Heading className="eventTitle" style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}>{props.data.title}
-        <Badge style={{position:"absolute", bottom:20, right:"3vw", marginLeft:"50px"}}>{props.data.cause.name}</Badge>
+          {props.isEditingEvent ? (
+              <select
+                defaultValue={props.editData.cause.name}
+                type="text"
+                name="causeType"
+                placeholder="Event Name"
+                onChange={props.handleEdit}>
+                    {props.causes.map(cause => (
+                      <option
+                        value={cause.name}
+                        data-cause-id={cause._id}
+                        key={cause._id}>
+                        {cause.name}
+                      </option>
+                    ))}
+                </select>
+              ) : (
+                <Badge style={{position:"absolute", bottom:20, right:"3vw", marginLeft:"50px"}}>{props.data.cause.name}</Badge>
+              )}
         </Panel.Heading>
         </div>
         {/* Event Title */}
@@ -34,7 +52,7 @@ export const Event = (props) => {
 
             <Col md={12} style={{paddingTop: 10}}><h4>{props.data.description}</h4></Col>
 
-          <Col sm={3} md={6}>
+          <Col xs={12} sm={6}>
 
           <h4 className="header">Date:</h4>
           <h4><Moment format="MM/DD/YYYY">{dateToFormat}</Moment></h4>
@@ -43,7 +61,7 @@ export const Event = (props) => {
           <h4 className="header">Attendees:</h4>
           <h4>{props.data.attendees.length}</h4>
           </Col>
-          <Col sm={3} md={6}>
+          <Col xs={12} sm={6}>
 
           <h4 className="header">Location:</h4>
           <h4> {props.isEditingEvent ? (
@@ -55,7 +73,7 @@ export const Event = (props) => {
                         required="required"
                         pattern=".*\S+.*" />
                       ) : (
-                        props.data.location_name
+                        `${props.data.location_name}`
                       )}
           </h4>
           <h4> {props.isEditingEvent ? (
@@ -67,7 +85,7 @@ export const Event = (props) => {
                         required="required"
                         pattern=".*\S+.*" />
                       ) : (
-                        props.data.location_street
+                        `${props.data.location_street}`
                       )}
           </h4>
           <h4>
@@ -80,7 +98,7 @@ export const Event = (props) => {
                           required="required"
                           pattern=".*\S+.*" />
                         ) : (
-                          props.data.location_city
+                          <span>{props.data.location_city}, </span>
                         )}
             {props.isEditingEvent ? (
                           <FormControl
@@ -91,7 +109,7 @@ export const Event = (props) => {
                           required="required"
                           pattern=".*\S+.*" />
                         ) : (
-                          props.data.location_state
+                          <span>{props.data.location_state}</span>
                         )}
             {props.isEditingEvent ? (
                           <FormControl
@@ -102,7 +120,7 @@ export const Event = (props) => {
                           required="required"
                           pattern=".*\S+.*" />
                         ) : (
-                          props.data.location_zip
+                          <div>{props.data.location_zip}</div>
                         )}
           </h4>
           </Col>

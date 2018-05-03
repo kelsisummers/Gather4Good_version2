@@ -10,6 +10,8 @@ class SingleEvent extends Component {
         error: null,
         isLoaded: false,
         event: [],
+        //full list of causes to populate drop-down when editing event
+        causes: [],
         attending: false,
         isOrganizer: false,
         isEditingEvent: false,
@@ -20,25 +22,29 @@ class SingleEvent extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
 
-        API.getEvent(this.props.match.params.id)
-            .then((event) => {
-                console.log("Event data?", event.data);
+        let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
 
-                this.setState({
-                    isLoaded: true,
-                    event: event.data,
-                    editEvent: event.data,
-                    attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
-                    isOrganizer: (this.props.authData.user_id === event.data.organizer_id)
-                });
-            },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        Promise.all(promises)
+          .then((values) => {
+            console.log("VALUES");
+            console.log(values);
+            const event = values[0];
+            const causes = values[1];
+
+            this.setState({
+                isLoaded: true,
+                event: event.data,
+                editEvent: event.data,
+                attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
+                isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
+                causes: causes.data
+            });
+          }, (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          })
     };
 
     componentDidUpdate = (prevProps, prevState, snapshot) => {
@@ -89,12 +95,28 @@ class SingleEvent extends Component {
         }
     };
 
+    handleEdit  = (event) =>  {
+      const { name, value } = event.target;
+
+      this.setState({[name]: value});
+
+      if(name === "causeType") {
+        const option = event.target.options[event.target.selectedIndex];
+        const causeId = option.attributes.getNamedItem("data-cause-id").value;
+
+        this.setState({causeId: causeId}, () => {
+          console.log("Update CauseId State:");
+          console.log(this.state.causeId);
+        });
+      }
+    }
+
     render() {
         console.log("What is state?", this.state.event)
         console.log("....")
         console.log(this.state.attending);
         console.log("Is organizer:", this.state.isOrganizer);
-        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent } = this.state;
+        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent, causes } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -111,6 +133,7 @@ class SingleEvent extends Component {
                         isOrganizer={isOrganizer}
                         handleEditToggle={this.handleEditToggle}
                         isEditingEvent={isEditingEvent}
+                        causes={causes}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}
