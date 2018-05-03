@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Carousel, Jumbotron } from 'react-bootstrap';
+import { Carousel, Panel } from 'react-bootstrap';
 
 export class FeaturedEvents extends Component {
     state = {
@@ -11,8 +11,8 @@ export class FeaturedEvents extends Component {
     render() {
         return (
 
-            <div>
-                <Jumbotron>
+            <div className='featured '>
+                <Panel className='eventCard z-depth-2'>
                     <h1>Featured Events</h1>
                     <Carousel
                         indicators={this.state.indicators}
@@ -29,7 +29,7 @@ export class FeaturedEvents extends Component {
                             )
                         })}
                     </Carousel>
-                </Jumbotron>
+                </Panel>
             </div>
 
         )

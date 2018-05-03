@@ -1,6 +1,7 @@
 import { Carousel } from 'react-bootstrap';
 import React, { Component } from "react";
 import "./Header.css";
+import Typed from 'react-typed';
 
 export class Header extends Component {
     state = {
@@ -18,8 +19,10 @@ export class Header extends Component {
                   </div>
                   <div className="video-overlay"></div>
                   <div className="video-text">
-                    <h1>Hello World</h1>
-                    <p>Lorem ipsum</p>
+                  <h1><Typed 
+                    strings={['Volunteer.', 'Rally.', 'March.', 'Protest.', 'Gather4Good.']} 
+                    typeSpeed={150}
+                /></h1> 
                   </div>
                 </div>
 
