@@ -5,6 +5,7 @@
 .navbar {
   border-radius: 0;
   margin-bottom: 0 !important;
+  z-index: 5;
 }
 
 .navbar-nav>li>a {
