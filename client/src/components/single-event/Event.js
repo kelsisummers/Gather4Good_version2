@@ -24,23 +24,27 @@ export const Event = (props) => {
         {/* Event Image */}
         <div className="image-container">
         {props.data.img_url ? <img className="eventImage" src={props.data.img_url} /> : <img className="eventImage" src="../assets/wall-graffiti.jpg" />}
-        <Panel.Heading className="eventTitle" style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}>{props.data.title}
+        <Panel.Heading className="eventTitle" style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}>
+          <div>{props.data.title}</div>
           {props.isEditingEvent ? (
-              <select
-                defaultValue={props.editData.cause.name}
-                type="text"
-                name="causeType"
-                placeholder="Event Name"
-                onChange={props.handleEdit}>
-                    {props.causes.map(cause => (
-                      <option
-                        value={cause.name}
-                        data-cause-id={cause._id}
-                        key={cause._id}>
-                        {cause.name}
-                      </option>
-                    ))}
-                </select>
+              <div style={{display: "flex", justifyContent: "flex-end"}}>
+                <select
+                  style={{width: "auto"}}
+                  defaultValue={props.editData.cause.name}
+                  type="text"
+                  name="causeType"
+                  placeholder="Event Name"
+                  onChange={props.handleEdit}>
+                      {props.causes.map(cause => (
+                        <option
+                          value={cause.name}
+                          data-cause-id={cause._id}
+                          key={cause._id}>
+                          {cause.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
               ) : (
                 <Badge style={{position:"absolute", bottom:20, right:"3vw", marginLeft:"50px"}}>{props.data.cause.name}</Badge>
               )}
