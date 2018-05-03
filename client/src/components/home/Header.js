@@ -1,5 +1,6 @@
 import { Carousel } from 'react-bootstrap';
 import React, { Component } from "react";
+import "./Header.css";
 
 export class Header extends Component {
     state = {
@@ -7,28 +8,23 @@ export class Header extends Component {
         controls: false,
         interval: 5000
     }
-    
+
     render() {
         return (
             <div>
-                <Carousel
-                    indicators={this.state.indicators}
-                    controls={this.state.controls}
-                    interval={this.state.interval}
-                >
-                    <Carousel.Item>
-                        <img width={"100%"} height={500} alt="900x500" src="../assets/science_color.jpg" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img width={"100%"} height={500} alt="900x500" src="../assets/fullpride.jpg" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img width={"100%"} height={500} alt="900x500" src="../assets/immigration.jpg" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img width={"100%"} height={500} alt="900x500" src="../assets/protest-header_signs.jpg" />
-                    </Carousel.Item>
-                </Carousel>
+                <div className="video-container">
+                  <div className="v-header">
+                    <video src="../assets/video-bkgd.mp4" autoPlay="true" loop="true"></video>
+                  </div>
+                  <div className="video-overlay"></div>
+                  <div className="video-text">
+                    <h1>Hello World</h1>
+                    <p>Lorem ipsum</p>
+                  </div>
+                </div>
+
+
+                
             </div>
         )
     }
