@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Grid } from 'react-bootstrap';
 import API from "../../utils/API.js";
 import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
 import tempFeatured from "./tempFeaturedEvents.json";
@@ -94,13 +94,17 @@ class Home extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
-          <Header/>
-          <CauseButtons
-            causes={causes}
-            handleCauseButtonClick={this.handleCauseButtonClick}
-          />
+        <Grid>
           <Row>
+            <Header />
+            <CauseButtons
+              causes={causes}
+              handleCauseButtonClick={this.handleCauseButtonClick}
+            />
+          </Row>
+          
+          <Row>
+            
 
             {/* Events container */}
             <Col md={6}>
@@ -134,9 +138,9 @@ class Home extends Component {
                 data = {featured}
               />
             </Col>
-
           </Row>
-        </div>
+
+        </Grid>
 
       );
     }
