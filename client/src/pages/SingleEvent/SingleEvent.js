@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SingleEvent.css";
 import { Event, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 import API from "../../utils/API.js";
+import Auth from "../../utils/Auth.js";
 
 class SingleEvent extends Component {
 
@@ -44,13 +45,17 @@ class SingleEvent extends Component {
         switch (btnType) {
             case "join":
                 // logic to join an event
-                API.joinEvent(userId, eventId)
-                    .then((event) => {
-                        this.setState({
-                            attending: event.data.attendees.includes(this.props.authData.user_id),
-                            event: event.data
-                        })
-                    }) // Need to work out error handling here... i.e. the user is not logged in.
+                if(Auth.isTokenNullOrExpired) {
+                    this.props.authFunctions.clearAuthAndShowModal("joinEvent");
+                } else {
+                    API.joinEvent(userId, eventId)
+                        .then((event) => {
+                            this.setState({
+                                attending: event.data.attendees.includes(this.props.authData.user_id),
+                                event: event.data
+                            })
+                        }) // Need to work out error handling here... i.e. the user is not logged in.
+                }
                 break;
             case "share":
                 // logic to share an event
