@@ -5,8 +5,12 @@ const eventsController = {
   findAll: function(req, res) {
     console.log(req.query);
     db.Event
-      .find(req.query)
-      .sort({ dateTime: -1 })
+      .find({
+              dateTime: {
+                $gte: Date.now()
+              }
+            })
+      .sort({ dateTime: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
