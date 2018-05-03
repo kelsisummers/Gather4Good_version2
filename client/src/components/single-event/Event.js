@@ -9,11 +9,13 @@ export const Event = (props) => {
   const joinBtn = !props.attending ? (
     <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
   ) : (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>    
+    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>
   );
 
+  //const editBtn = (userId == organizerId) ? (<EditEventForm editFormOpen={props.editFormOpen} />) : null;
+
   return (
-    
+
     <div>
       <Grid>
       <Row>
@@ -21,17 +23,17 @@ export const Event = (props) => {
       <Panel className="event z-depth-5">
         {/* Event Image */}
         <div className="image-container">
-        {props.data.img_url ? <img className="eventImage" src={props.data.img_url} /> : <img className="eventImage" src="../assets/wall-graffiti.jpg" />} 
+        {props.data.img_url ? <img className="eventImage" src={props.data.img_url} /> : <img className="eventImage" src="../assets/wall-graffiti.jpg" />}
         <Panel.Heading className="eventTitle" style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}>{props.data.title}
         <Badge style={{position:"absolute", bottom:20, right:"3vw", marginLeft:"50px"}}>{props.data.cause.name}</Badge>
-        </Panel.Heading> 
+        </Panel.Heading>
         </div>
         {/* Event Title */}
         <Panel.Body>
           <Row style={{padding:20}}>
 
             <Col md={12} style={{paddingTop: 10}}><h4>{props.data.description}</h4></Col>
-            
+
           <Col sm={3} md={6}>
 
           <h4 className="header">Date:</h4>
@@ -46,10 +48,10 @@ export const Event = (props) => {
           <h4 className="header">Location:</h4>
           <h4>{props.data.location_name}</h4>
           <h4>{props.data.location_street}</h4>
-          <h4>{props.data.location_city}, {props.data.location_state} {props.data.location_zip}</h4>   
+          <h4>{props.data.location_city}, {props.data.location_state} {props.data.location_zip}</h4>
           </Col>
           </Row>
-          
+
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
 

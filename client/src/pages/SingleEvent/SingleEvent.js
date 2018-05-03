@@ -10,21 +10,24 @@ class SingleEvent extends Component {
         error: null,
         isLoaded: false,
         event: [],
-        attending: false
+        attending: false,
+        isOrganizer: false,
+        isEditing: false
     };
 
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
-        
+
         API.getEvent(this.props.match.params.id)
             .then((event) => {
                 console.log("Event data?", event.data);
-                
+
                 this.setState({
                     isLoaded: true,
                     event: event.data,
-                    attending: event.data.attendees.includes(this.props.authData.user_id) // Checks if userId matches any in Attendee array.
+                    attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
+                    isOrganizer: (this.props.authData.user_id === event.data.organizer_id)
                 });
             },
                 (error) => {
@@ -35,6 +38,16 @@ class SingleEvent extends Component {
                 }
             )
     };
+
+    componentDidUpdate = (prevProps, prevState, snapshot) => {
+      console.log(prevProps);
+      console.log("Component did update called");
+      console.log(prevProps.authData.user_id);
+      console.log(this.props.authData.user_id);
+      if(prevProps.authData.user_id !== this.props.authData.user_id) {
+        this.setState({isOrganizer: (this.props.authData.user_id === this.state.event.organizer_id)})
+      }
+    }
 
     handleButtonClick = (event) => {
         let btnType = event.target.dataset.type;
@@ -74,19 +87,21 @@ class SingleEvent extends Component {
         console.log("What is state?", this.state.event)
         console.log("....")
         console.log(this.state.attending);
-        const { error, isLoaded, event, attending } = this.state;
+        console.log("Is organizer:", this.state.isOrganizer);
+        const { error, isLoaded, event, attending, isOrganizer } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-        
+
                 <div>
                     <Event
                         data={event}
                         handleButtonClick={this.handleButtonClick}
-                        attending = {attending}
+                        attending={attending}
+                        isOrganizer={isOrganizer}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}
