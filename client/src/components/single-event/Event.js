@@ -63,14 +63,48 @@ export const Event = (props) => {
                         name="location_street"
                         type="text"
                         value={props.editData.location_street}
-                        placeholder="location"
+                        placeholder="Street"
                         required="required"
                         pattern=".*\S+.*" />
                       ) : (
                         props.data.location_street
                       )}
           </h4>
-          <h4>{props.data.location_city}, {props.data.location_state} {props.data.location_zip}</h4>
+          <h4>
+            {props.isEditingEvent ? (
+                          <FormControl
+                          name="location_city"
+                          type="text"
+                          value={props.editData.location_city}
+                          placeholder="City"
+                          required="required"
+                          pattern=".*\S+.*" />
+                        ) : (
+                          props.data.location_city
+                        )}
+            {props.isEditingEvent ? (
+                          <FormControl
+                          name="location_state"
+                          type="text"
+                          value={props.editData.location_state}
+                          placeholder="State"
+                          required="required"
+                          pattern=".*\S+.*" />
+                        ) : (
+                          props.data.location_state
+                        )}
+            {props.isEditingEvent ? (
+                          <FormControl
+                          name="location_zip"
+                          type="text"
+                          value={props.editData.location_zip}
+                          placeholder="Zipcode"
+                          required="required"
+                          pattern=".*\S+.*" />
+                        ) : (
+                          props.data.location_zip
+                        )}
+          </h4>
           </Col>
           </Row>
 
