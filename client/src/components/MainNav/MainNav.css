@@ -1,11 +1,13 @@
 .navbar-header {
-  height: 75px
+  height: 75px;
+  /* width: 100vw; */
 }
 
 .navbar {
   border-radius: 0;
   margin-bottom: 0 !important;
   z-index: 5;
+  width: 100vw;
 }
 
 .navbar-nav>li>a {

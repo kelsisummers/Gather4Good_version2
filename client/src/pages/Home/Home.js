@@ -3,6 +3,10 @@ import { Row, Col, Grid } from 'react-bootstrap';
 import API from "../../utils/API.js";
 import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
 import tempFeatured from "./tempFeaturedEvents.json";
+import "./Home.css";
+// Can also be included with a regular script tag
+
+
 
 class Home extends Component {
 
@@ -94,18 +98,21 @@ class Home extends Component {
       return <div>Loading...</div>;
     } else {
       return (
+        <div>
+      <Header />
         <Grid>
-          <Row>
-            <Header />
+          <Row className='causeButtons'>
+            {/* <div className='causeButtons'> */}
             <CauseButtons
               causes={causes}
               handleCauseButtonClick={this.handleCauseButtonClick}
             />
+            {/* </div> */}
           </Row>
           
-          <Row>
+          <Row className='eventContainer'>
             
-
+          {/* <div className='eventContainer'> */}
             {/* Events container */}
             <Col md={6}>
               <div>
@@ -123,7 +130,7 @@ class Home extends Component {
             </Col>
 
             {/* Controls container */}
-            <Col md={2}>
+            <Col md={5}>
               <Controls
                 sortByDate = {this.sortByDate}
                 sortByLocation = {this.sortByLocation}
@@ -132,15 +139,19 @@ class Home extends Component {
               />
             </Col>
 
+<Row>
             {/* Featured Events container */}
-            <Col md={4}>
+            <Col md={5}>
               <FeaturedEvents
                 data = {featured}
               />
             </Col>
+            </Row>
           </Row>
 
         </Grid>
+        {/* </div> */}
+        </div>
 
       );
     }

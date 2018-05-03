@@ -15,7 +15,7 @@ export const EventCard = (props) => {
 
 
     return (
-        <Panel>
+        <Panel className='eventCard z-depth-2'>
             <h1>{props.data.title}</h1>
             <p><Moment format="MM-DD-YYYY HH:mm">{props.data.dateTime}</Moment></p>
             <h3>{props.data.location_city}, {props.data.location_state}</h3>
