@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel, Badge, Row, Col, Grid } from 'react-bootstrap';
+import { Panel, Badge, Row, Col, Grid, FormControl, Button } from 'react-bootstrap';
 import Moment from 'react-moment';
 import { DiscussionContainer } from "../single-event/";
 
@@ -46,8 +46,30 @@ export const Event = (props) => {
           <Col sm={3} md={6}>
 
           <h4 className="header">Location:</h4>
-          <h4>{props.data.location_name}</h4>
-          <h4>{props.data.location_street}</h4>
+          <h4> {props.isEditingEvent ? (
+                        <FormControl
+                        name="location_name"
+                        type="text"
+                        value={props.editData.location_name}
+                        placeholder="Location Name"
+                        required="required"
+                        pattern=".*\S+.*" />
+                      ) : (
+                        props.data.location_name
+                      )}
+          </h4>
+          <h4> {props.isEditingEvent ? (
+                        <FormControl
+                        name="location_street"
+                        type="text"
+                        value={props.editData.location_street}
+                        placeholder="location"
+                        required="required"
+                        pattern=".*\S+.*" />
+                      ) : (
+                        props.data.location_street
+                      )}
+          </h4>
           <h4>{props.data.location_city}, {props.data.location_state} {props.data.location_zip}</h4>
           </Col>
           </Row>

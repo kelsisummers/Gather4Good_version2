@@ -12,7 +12,8 @@ class SingleEvent extends Component {
         event: [],
         attending: false,
         isOrganizer: false,
-        isEditing: false
+        isEditingEvent: false,
+        editEvent: {}
     };
 
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
@@ -26,6 +27,7 @@ class SingleEvent extends Component {
                 this.setState({
                     isLoaded: true,
                     event: event.data,
+                    editEvent: event.data,
                     attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
                     isOrganizer: (this.props.authData.user_id === event.data.organizer_id)
                 });
@@ -47,6 +49,10 @@ class SingleEvent extends Component {
       if(prevProps.authData.user_id !== this.props.authData.user_id) {
         this.setState({isOrganizer: (this.props.authData.user_id === this.state.event.organizer_id)})
       }
+    }
+
+    handleEditToggle = (event) => {
+       this.setState({isEditingEvent :  !this.state.isEditingEvent})
     }
 
     handleButtonClick = (event) => {
@@ -88,7 +94,7 @@ class SingleEvent extends Component {
         console.log("....")
         console.log(this.state.attending);
         console.log("Is organizer:", this.state.isOrganizer);
-        const { error, isLoaded, event, attending, isOrganizer } = this.state;
+        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -99,9 +105,12 @@ class SingleEvent extends Component {
                 <div>
                     <Event
                         data={event}
+                        editData={editEvent}
                         handleButtonClick={this.handleButtonClick}
                         attending={attending}
                         isOrganizer={isOrganizer}
+                        handleEditToggle={this.handleEditToggle}
+                        isEditingEvent={isEditingEvent}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}
