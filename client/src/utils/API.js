@@ -45,11 +45,21 @@ export default {
     });
   },
 
+  getEventsByDate: function(selectedDate) {
+    return axios.get("/api/events", {
+      query: {
+        dateTime: {
+          $gte: selectedDate
+        }
+      }
+    });
+  },
+
   joinEvent: function(userId, eventId) {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");
     return axios({
-      headers: { 'x-access-token': token }, 
+      headers: { 'x-access-token': token },
       url: "/api/events/" + eventId,
       method: "put",
       data: {
