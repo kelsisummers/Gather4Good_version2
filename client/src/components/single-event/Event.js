@@ -22,6 +22,10 @@ export const Event = (props) => {
     <Button onClick={props.handleEditToggle}>{props.isEditingEvent ? `Close Edit` : `Edit Event`}</Button>
   ) : null;
 
+  const saveEditBtn = props.isEditingEvent ? (
+    <Button onClick={props.handleEditSubmit}>Save Event Changes</Button>
+  ) : null;
+
   return (
 
     <div>
@@ -182,13 +186,21 @@ export const Event = (props) => {
           </Col>
           </Row>
 
+              <Row>
+              <Col>
+                <div style={{display: "flex", justifyContent: "flex-end"}}>
+                  {editBtn}
+                  {saveEditBtn}
+                </div>
+              </Col>
+              </Row>
+
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
 
           {joinBtn}
           <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
-          {editBtn}
         </Panel.Footer>
       </Panel>
       </Col>
