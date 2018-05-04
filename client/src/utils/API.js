@@ -18,6 +18,13 @@ export default {
     return axios.post("/api/events", eventData, { headers: { 'x-access-token': token } });
   },
 
+  //Updates data for an event
+  updateEvent: function(id, updatedEventData) {
+    const token = localStorage.getItem("token");
+    console.log("token....." + token);
+    return axios.put(`/api/events/{id}`, updatedEventData, { headers: { 'x-access-token': token } });
+  },
+
   // Retrieves an event from db
   getEvent: function(id) {
     console.log("get event called - front end");
@@ -49,7 +56,7 @@ export default {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");
     return axios({
-      headers: { 'x-access-token': token }, 
+      headers: { 'x-access-token': token },
       url: "/api/events/" + eventId,
       method: "put",
       data: {

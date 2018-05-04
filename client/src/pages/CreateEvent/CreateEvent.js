@@ -26,7 +26,8 @@ class CreateEvent extends Component {
     zipcode: "",
     causes: [],
     open: false,
-    newEventId: ""
+    newEventId: "",
+    attendees: []
   };
 
 
@@ -138,7 +139,8 @@ class CreateEvent extends Component {
       location_state: USstate,
       location_zip: zipcode,
       cause: causeId,
-      organizer_id: this.props.authData.user_id
+      organizer_id: this.props.authData.user_id,
+      attendees: [this.props.authData.user_id]
     }
 
     console.log(eventData);

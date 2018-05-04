@@ -3,6 +3,7 @@ import "./SingleEvent.css";
 import { Event, DiscussionContainer, RelatedEvents } from "../../components/single-event";
 import API from "../../utils/API.js";
 import Auth from "../../utils/Auth.js";
+import moment from "moment";
 
 class SingleEvent extends Component {
 
@@ -16,6 +17,7 @@ class SingleEvent extends Component {
         isOrganizer: false,
         isEditingEvent: false,
         editEvent: {},
+        //handles focus of Calendar to edit event
         focused: false
     };
 
@@ -32,10 +34,14 @@ class SingleEvent extends Component {
             const event = values[0];
             const causes = values[1];
 
+            let editEvent = event.data;
+            editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
+            editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
+
             this.setState({
                 isLoaded: true,
                 event: event.data,
-                editEvent: event.data,
+                editEvent,
                 attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
                 isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
                 causes: causes.data
@@ -48,14 +54,28 @@ class SingleEvent extends Component {
           })
     };
 
+    parseDateTime = (isoDateTimeStr) => {
+      console.log('helloworld')
+
+
+
+    }
+
     componentDidUpdate = (prevProps, prevState, snapshot) => {
       console.log(prevProps);
       console.log("Component did update called");
       console.log(prevProps.authData.user_id);
       console.log(this.props.authData.user_id);
-      if(prevProps.authData.user_id !== this.props.authData.user_id) {
-        this.setState({isOrganizer: (this.props.authData.user_id === this.state.event.organizer_id)})
+
+      if(this.props.isAuthenticated === false) {
+        this.setState({isOrganizer: false, attending: false, isEditing: false});
+      } else {
+        if(prevProps.authData.user_id !== this.props.authData.user_id) {
+          this.setState({isOrganizer: (this.props.authData.user_id === this.state.event.organizer_id)})
+                        //attending: this.state.event.attendees.includes(this.props.authData.user_id)})
+        }
       }
+
     }
 
     handleEditToggle = (event) => {
@@ -71,11 +91,12 @@ class SingleEvent extends Component {
         switch (btnType) {
             case "join":
                 // logic to join an event
-                if(Auth.isTokenNullOrExpired) {
+                if(Auth.isTokenNullOrExpired()) {
                     this.props.authFunctions.clearAuthAndShowModal("joinEvent");
                 } else {
                     API.joinEvent(userId, eventId)
                         .then((event) => {
+                          console.log( )
                             this.setState({
                                 attending: event.data.attendees.includes(this.props.authData.user_id),
                                 event: event.data
@@ -118,8 +139,11 @@ class SingleEvent extends Component {
     handleDateChange = (date) => {
       console.log(date._d);
 
-      this.setState({date}, () => {
-        console.log(this.state.date);
+      let editEvent = {...this.state.editEvent};
+      editEvent.date = date;
+
+      this.setState({editEvent}, () => {
+        console.log(this.state.editEvent.date);
       });
     }
 
@@ -135,10 +159,55 @@ class SingleEvent extends Component {
     handleTimeChange = (value) => {
       console.log(value && value.format('h:mm a'));
 
-      this.setState({time: value}, () => {
+      let editEvent = {...this.state.editEvent};
+      editEvent.time = value;
+
+      this.setState({editEvent}, () => {
         console.log("Time state:");
-        console.log(this.state.time);
+        console.log(this.state.editEvent.time);
       });
+    }
+
+    createDateTimeStr = () => {
+      const dateStr = this.state.editEvent.date._d.toDateString();
+      const timeStr = this.state.editEvent.time._d.toTimeString();
+      const new_date = `${dateStr} ${timeStr}`;
+      const ISO_DATE_TIME = new Date(new_date).toISOString();
+      console.log("dateStr: " + dateStr);
+      console.log("timeStr: " + timeStr);
+      console.log(ISO_DATE_TIME);
+
+      return ISO_DATE_TIME;
+    }
+
+    handleEditSubmit = () => {
+      const ISO_DATE_TIME = this.createDateTimeStr();
+      const {eventName, eventDescription, imgUrl, locationName} = {...this.state.editEvent};
+      const {streetAddress, city, USstate, zipcode, causeId} = {...this.state.editEvent};
+
+      const updatedEventData = {
+        title: eventName,
+        dateTime: ISO_DATE_TIME,
+        description: eventDescription,
+        img_url: imgUrl,
+        location_name: locationName,
+        location_street: streetAddress,
+        location_city: city,
+        location_state: USstate,
+        location_zip: zipcode,
+        cause: causeId
+      }
+
+      console.log(updatedEventData);
+
+      API.update(updatedEventData)
+        .then(res => {
+          console.log("Result returned when generating updating event")
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
 
     render() {
@@ -158,6 +227,7 @@ class SingleEvent extends Component {
                     <Event
                         data={event}
                         editData={editEvent}
+                        handleEdit={this.handleEdit}
                         handleButtonClick={this.handleButtonClick}
                         attending={attending}
                         isOrganizer={isOrganizer}

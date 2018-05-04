@@ -34,10 +34,21 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    console.log(req.body);
+
+    console.log("Update called");
+    let query;
+    if(!!req.body.attendee) {
+      query = {$addToSet: {attendees: req.body.attendee}};
+    } else if(!!req.body.newEventData) {
+      query = req.body;
+    }
+
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, {$addToSet: {attendees: req.body.attendee}})
-      .then(dbModel => res.json(dbModel))
+      .findOneAndUpdate({ _id: req.params.id }, query)
+      .then(dbModel => {
+        console.log(dbModel);
+        res.json(dbModel);
+      })
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
