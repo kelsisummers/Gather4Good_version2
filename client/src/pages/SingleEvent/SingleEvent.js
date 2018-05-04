@@ -15,7 +15,8 @@ class SingleEvent extends Component {
         attending: false,
         isOrganizer: false,
         isEditingEvent: false,
-        editEvent: {}
+        editEvent: {},
+        focused: false
     };
 
     // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
@@ -95,20 +96,49 @@ class SingleEvent extends Component {
         }
     };
 
-    handleEdit  = (event) =>  {
+    handleEdit = (event) =>  {
       const { name, value } = event.target;
 
-      this.setState({[name]: value});
+      let editEvent = {...this.state.editEvent};
+      editEvent[name] = value;
+      this.setState({editEvent});
 
       if(name === "causeType") {
         const option = event.target.options[event.target.selectedIndex];
         const causeId = option.attributes.getNamedItem("data-cause-id").value;
+        editEvent.causeId = causeId;
 
-        this.setState({causeId: causeId}, () => {
+        this.setState({editEvent}, () => {
           console.log("Update CauseId State:");
-          console.log(this.state.causeId);
+          console.log(this.state.editEvent);
         });
       }
+    }
+
+    handleDateChange = (date) => {
+      console.log(date._d);
+
+      this.setState({date}, () => {
+        console.log(this.state.date);
+      });
+    }
+
+
+    handleDateFocusChange = ({focused}) =>  {
+      console.log(focused);
+
+      this.setState({focused: focused}, () => {
+        console.log(this.state.focused);
+      });
+    }
+
+    handleTimeChange = (value) => {
+      console.log(value && value.format('h:mm a'));
+
+      this.setState({time: value}, () => {
+        console.log("Time state:");
+        console.log(this.state.time);
+      });
     }
 
     render() {
@@ -116,7 +146,7 @@ class SingleEvent extends Component {
         console.log("....")
         console.log(this.state.attending);
         console.log("Is organizer:", this.state.isOrganizer);
-        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent, causes } = this.state;
+        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent, causes, focused } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -134,6 +164,10 @@ class SingleEvent extends Component {
                         handleEditToggle={this.handleEditToggle}
                         isEditingEvent={isEditingEvent}
                         causes={causes}
+                        handleDateChange={this.handleDateChange}
+                        handleDateFocusChange={this.handleDateFocusChange}
+                        handleTimeChange={this.handleTimeChange}
+                        focused={focused}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}

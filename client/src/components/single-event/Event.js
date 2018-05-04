@@ -2,6 +2,12 @@ import React from "react";
 import { Panel, Badge, Row, Col, Grid, FormControl, Button } from 'react-bootstrap';
 import Moment from 'react-moment';
 import { DiscussionContainer } from "../single-event/";
+import moment from "moment";
+import 'react-dates/initialize';
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+import TimePicker from 'rc-time-picker';
+import 'rc-time-picker/assets/index.css';
 
 export const Event = (props) => {
   const dateToFormat = props.data.dateTime;
@@ -25,7 +31,7 @@ export const Event = (props) => {
         <div className="image-container">
         {props.data.img_url ? <img className="eventImage" src={props.data.img_url} /> : <img className="eventImage" src="../assets/wall-graffiti.jpg" />}
         <Panel.Heading className="eventTitle" style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}>
-          <div>{props.data.title}</div>
+          <div style={{width: "70%", lineHeight: "1.1"}}>{props.data.title}</div>
           {props.isEditingEvent ? (
               <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <select
@@ -56,19 +62,44 @@ export const Event = (props) => {
 
             <Col md={12} style={{paddingTop: 10}}><h4>{props.data.description}</h4></Col>
 
-          <Col xs={12} sm={6}>
+          <Col xs={6}>
 
           <h4 className="header">Date:</h4>
-          <h4><Moment format="MM/DD/YYYY">{dateToFormat}</Moment></h4>
+            {props.isEditingEvent ? (
+                  <SingleDatePicker
+                    date={moment(props.data.dateTime, moment.ISO_8601)}
+                    onDateChange={props.handleDateChange}
+                    focused={props.focused}
+                    onFocusChange={props.handleDateFocusChange}
+                    numberOfMonths={1}
+                    small={true}
+                  />
+                  ) : (
+                    <h4><Moment format="M/D/YYYY">{dateToFormat}</Moment></h4>
+                  )}
           <h4 className="header">Time:</h4>
-          <h4><Moment format="HH:mm A">{dateToFormat}</Moment></h4>
+              {props.isEditingEvent ? (
+                  <TimePicker
+                    name="timepicker"
+                    showSecond={false}
+                    value={moment(props.data.dateTime, moment.ISO_8601)}
+                    className="xxx"
+                    onChange={props.handleTimeChange}
+                    format={'h:mm a'}
+                    use12Hours
+                    inputReadOnly
+                  />
+                  ) : (
+                    <h4><Moment format="h:m a">{dateToFormat}</Moment></h4>
+                  )}
           <h4 className="header">Attendees:</h4>
           <h4>{props.data.attendees.length}</h4>
           </Col>
-          <Col xs={12} sm={6}>
+          <Col xs={6}>
 
           <h4 className="header">Location:</h4>
-          <h4> {props.isEditingEvent ? (
+          <h4>
+            {props.isEditingEvent ? (
                         <FormControl
                         name="location_name"
                         type="text"
@@ -80,7 +111,8 @@ export const Event = (props) => {
                         `${props.data.location_name}`
                       )}
           </h4>
-          <h4> {props.isEditingEvent ? (
+          <h4>
+            {props.isEditingEvent ? (
                         <FormControl
                         name="location_street"
                         type="text"
