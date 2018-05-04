@@ -18,7 +18,9 @@ export const Event = (props) => {
     <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>
   );
 
-  const editBtn = props.isOrganizer ? <Button>{props.isEditingEvent ? `Close Edit` : `Edit Event`}</Button> : null;
+  const editBtn = props.isOrganizer ? (
+    <Button onClick={props.handleEditToggle}>{props.isEditingEvent ? `Close Edit` : `Edit Event`}</Button>
+  ) : null;
 
   return (
 
@@ -32,9 +34,9 @@ export const Event = (props) => {
         {props.isEditingEvent ? (
               <FormControl
                 style={{position: "absolute", width: "40%", backgroundColor: "transparent", color: "white"}}
-                name="imgUrl"
+                name="img_url"
                 type="text"
-                value={props.editData.imgUrl}
+                value={props.editData.img_url}
                 placeholder="Image URL"
                 onChange={props.handleEdit}/>
             ) : null}
@@ -44,7 +46,7 @@ export const Event = (props) => {
 
         {props.isEditingEvent ? (
               <FormControl
-                style={{backgroundColor: "transparent", color: "#f7f7f7", fontSize: "30px", border: "none",zIndex:2 }}
+                style={{backgroundColor: "transparent", display: "block", color: "#f7f7f7", fontSize: "30px", zIndex:2, border:"1px solid #ccc" }}
                 name="title"
                 type="text"
                 value={props.editData.title}
@@ -58,7 +60,7 @@ export const Event = (props) => {
           {props.isEditingEvent ? (
               <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <select
-                  style={{width: "auto"}}
+                  style={{width: "auto", border: "1px solid #ccc"}}
                   defaultValue={props.editData.cause.name}
                   type="text"
                   name="causeType"
