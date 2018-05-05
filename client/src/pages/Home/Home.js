@@ -40,7 +40,7 @@ class Home extends Component {
 
   // Querys database for all events by cause and updates state with returned events.
   handleCauseButtonClick = (event) => {
-    const causeId = event.target.getAttribute("causeid");    
+    const causeId = event.target.getAttribute("causeid");
     return (
       API.getEventsByCause(causeId).then((events) => {
         console.log(events.data);
@@ -91,7 +91,7 @@ class Home extends Component {
 
   render() {
     const { error, isLoaded, events, indicators, controls, causes, featured } = this.state;
-    
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -109,13 +109,13 @@ class Home extends Component {
             />
             {/* </div> */}
           </Row>
-          
+
           <Row className='eventContainer'>
-            
+
           {/* <div className='eventContainer'> */}
             {/* Events container */}
             <Col md={6}>
-            
+
               <div>
               <h1 style={{textAlign:'center', paddingBottom: '20px'}}>Upcoming Events</h1>
                 {events.map((event) => {
@@ -133,8 +133,11 @@ class Home extends Component {
 
             {/* Controls container */}
             <Col md={5}>
-              <Controls
-                sortByDate = {this.sortByDate}
+              <Controls className="filter-controls" {...this.state}
+                displayDateSelector = {this.displayDateSelector}
+                handleDateChange={this.handleDateChange}
+                handleDateFocusChange={this.handleDateFocusChange}
+                handleDateSelection={this.handleDateSelection}
                 sortByLocation = {this.sortByLocation}
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}
