@@ -168,7 +168,6 @@ export const Event = (props) => {
           </h4>
           <h4>
             {props.isEditingEvent ? (
-
                           <FormControl
                           name="location_city"
                           type="text"

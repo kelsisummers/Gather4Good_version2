@@ -18,6 +18,7 @@ class SingleEvent extends Component {
         isOrganizer: false,
         isEditingEvent: false,
         editEvent: {},
+        editEventInitialState: {},
         //handles focus of Calendar to edit event
         focused: false
     };
@@ -26,35 +27,77 @@ class SingleEvent extends Component {
     //  through props), updates state, and renders SingleEvent with the data.
     componentDidMount() {
 
-        let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
+      this.getEventData();
 
-        Promise.all(promises)
-          .then((values) => {
-            console.log("VALUES");
-            console.log(values);
-            const event = values[0];
-            const causes = values[1];
+        // let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
+        //
+        // Promise.all(promises)
+        //   .then((values) => {
+        //     console.log("VALUES");
+        //     console.log(values);
+        //     const event = values[0];
+        //     const causes = values[1];
+        //
+        //     let editEvent = event.data;
+        //     editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
+        //     editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
+        //     editEvent.cause = event.data.cause._id;
+        //     editEventInitialState = {...editEvent};
+        //
+        //     this.setState({
+        //         isLoaded: true,
+        //         event: event.data,
+        //         editEvent,
+        //         editEventInitialState,
+        //         attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
+        //         isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
+        //         causes: causes.data
+        //     });
+        //   }, (error) => {
+        //     this.setState({
+        //       isLoaded: true,
+        //       error
+        //     });
+        //   })
+    }
 
-            let editEvent = event.data;
-            editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
-            editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
-            editEvent.cause = event.data.cause._id;
+     getEventData = () => {
+       let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
 
-            this.setState({
-                isLoaded: true,
-                event: event.data,
-                editEvent,
-                attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
-                isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
-                causes: causes.data
-            });
-          }, (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            });
-          })
-    };
+       Promise.all(promises)
+         .then((values) => {
+           console.log("VALUES");
+           console.log(values);
+           const event = values[0];
+           const causes = values[1];
+
+           let editEvent = {...event.data};
+           editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
+           editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
+           editEvent.cause = event.data.cause._id;
+           let editEventInitialState = {...editEvent};
+
+           this.setState({
+               isLoaded: true,
+               event: event.data,
+               editEvent,
+               editEventInitialState,
+               attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
+               isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
+               causes: causes.data
+           }, () => {
+             if(this.state.isEditingEvent) {
+               this.setState({isEditingEvent: false});
+             }
+           });
+         }, (error) => {
+           this.setState({
+             isLoaded: true,
+             error
+           });
+         })
+
+     }
 
 
     componentDidUpdate = (prevProps, prevState, snapshot) => {
@@ -75,7 +118,11 @@ class SingleEvent extends Component {
     }
 
     handleEditToggle = (event) => {
-       this.setState({isEditingEvent :  !this.state.isEditingEvent})
+       this.setState({isEditingEvent :  !this.state.isEditingEvent}, () => {
+         if(!this.state.isEditingEvent) {
+          this.setState({editEvent: this.state.editEventInitialState})
+         }
+       })
     }
 
     handleButtonClick = (event) => {
@@ -203,6 +250,7 @@ class SingleEvent extends Component {
         .then(res => {
           console.log("Result returned when generating updating event")
           console.log(res);
+          this.getEventData();
         })
         .catch(err => {
           console.log(err);
