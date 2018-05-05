@@ -4,6 +4,7 @@ import { Event, DiscussionContainer, RelatedEvents } from "../../components/sing
 import API from "../../utils/API.js";
 import Auth from "../../utils/Auth.js";
 import moment from "moment";
+import CreateEvent from "../CreateEvent/CreateEvent.js"
 
 class SingleEvent extends Component {
 

@@ -89,8 +89,23 @@ export const Event = (props) => {
         {/* Event Title */}
         <Panel.Body>
           <Row style={{padding:20}}>
-
-            <Col md={12} style={{paddingTop: 10}}><h4>{props.data.description}</h4></Col>
+          <Col md={12} style={{paddingTop: 10}}>
+            <h4>
+            {props.isEditingEvent ? (
+                  <textarea
+                    style={{border: "1px solid #ccc", padding: ".7em"}}
+                    autoComplete="random"
+                    rows="2"
+                    name="description"
+                    placeholder="Event description"
+                    value={props.editData.description}
+                    onChange={props.handleEdit}>
+                  </textarea>
+                  ) : (
+                    props.data.description
+                  )}
+              </h4>
+            </Col>
 
           <Col xs={6}>
 
