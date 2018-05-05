@@ -116,11 +116,14 @@ class SingleEvent extends Component {
         console.log(eventId);
         switch (btnType) {
             case "join":
+            case "unjoin":
                 // logic to join an event
                 if(Auth.isTokenNullOrExpired()) {
                     this.props.authFunctions.clearAuthAndShowModal("joinEvent");
                 } else {
-                    API.joinEvent(userId, eventId)
+                    console.log("button type");
+                    console.log(btnType);
+                    API.joinEvent(userId, eventId, btnType)
                         .then((event) => {
                           console.log( )
                             this.setState({

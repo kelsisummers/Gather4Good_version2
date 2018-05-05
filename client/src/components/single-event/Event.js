@@ -16,7 +16,7 @@ export const Event = (props) => {
   const joinBtn = !props.attending ? (
     <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
   ) : (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>
+    <a className="controls"><span onClick={props.handleButtonClick} data-type="unjoin">Unjoin</span></a>
   );
 
   const editBtn = props.isOrganizer ? (
@@ -28,7 +28,6 @@ export const Event = (props) => {
   ) : null;
 
   return (
-
     <div className='single-event-'>
       <Grid>
       <Row>

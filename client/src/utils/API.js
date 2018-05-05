@@ -28,15 +28,7 @@ export default {
     console.log("UpdatedEventData in UPDATEEVENT - FRONT END");
     console.log(updatedEventData);
 
-    // const options = {
-    //   method: 'POST',
-    //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    //   data: qs.stringify(data),
-    //   url,
-    // };
-    //
-
-    return axios.put(`/api/events/${id}`, updatedEventData, { headers: { 'x-access-token': token } });
+    return axios.put(`/api/events/${id}?action=updateEvent`, updatedEventData, { headers: { 'x-access-token': token } });
   },
 
   // Retrieves an event from db
@@ -71,12 +63,16 @@ export default {
     return axios.get("/api/events", {params: {dateTime: selectedDate}});
   },
 
-  joinEvent: function(userId, eventId) {
+  joinEvent: function(userId, eventId, action) {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");
+    console.log(userId);
+    console.log(eventId);
+    console.log(action);
+
     return axios({
       headers: { 'x-access-token': token },
-      url: "/api/events/" + eventId,
+      url: `/api/events/${eventId}?action=${action}`,
       method: "put",
       data: {
         attendee: userId,
