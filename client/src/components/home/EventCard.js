@@ -17,13 +17,13 @@ export const EventCard = (props) => {
     return (
         <Panel className='eventCard z-depth-2'>
             <h1>{props.data.title}</h1>
-            <p><Moment format="MM-DD-YYYY HH:mm">{props.data.dateTime}</Moment></p>
-            <h3>{props.data.location_city}, {props.data.location_state}</h3>
-            <p>{props.data.description}</p>
+            <p className="event-details"><span style={{fontSize: '22px', color: '#00b9b4'}}>Date:</span> <Moment format="MM/DD/YYYY @ hh:mm A">{props.data.dateTime}</Moment></p>
+            <p className='event-details'><span style={{fontSize: '22px', color: '#00b9b4'}}>Location:</span> {props.data.location_city}, {props.data.location_state}</p>
+            <p className='event-details'>{props.data.description}</p>
             {organizerBadge}
             {attendeeBadge}
-            <Link to={`/event/${props.data._id}`}>
-                Learn More
+            <Link style={{color: '#00b9b4', fontSize: '16px', display: 'inline-block', marginTop: '10px'}} to={`/event/${props.data._id}`}>
+                LEARN MORE
             </Link>
 
         </Panel>

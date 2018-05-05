@@ -4,14 +4,18 @@ import { Carousel, Panel } from 'react-bootstrap';
 export class FeaturedEvents extends Component {
     state = {
         indicators: false,
-        controls: false,
-        interval: 3000
+        controls: true,
+        interval: null
     }
 
     render() {
+      const featuredEvents = this.props.data.slice(0,4)
+      console.log('What is events?', featuredEvents)
         return (
 
-            <div className='featured '>
+
+            <div>
+
                 <Panel className='eventCard z-depth-2'>
                     <h1>Featured Events</h1>
                     <Carousel
@@ -22,8 +26,8 @@ export class FeaturedEvents extends Component {
                         {this.props.data.map((event, i) => {
                             return (
                                 <Carousel.Item key={i}>
-                                    <img width={1440} height={500} alt="900x500" src={event.img_url} />
-                                    <h3>{event.title}</h3>
+                                    <img style={{display: 'inline-block', height: '250px'}}className= 'featured-event'alt="900x500" src={event.img_url} />
+                                    <h3 style={{position: 'relative', top: 0, marginTop: '-40px', color: '#fbfbfb', marginLeft: '50px' }}>{event.title}</h3>
                                 </Carousel.Item>
                                 
                             )

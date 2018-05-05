@@ -4,20 +4,24 @@
 
 .form-head {
   padding: 10px 10px 10px 42px;
-  background-color: #00b9b4;
-  /* background-color: #222222; */
+  background-color: white;
+  margin-top: 80px;
 }
 
+
 .form-head h2 {
-  font-size: 2em;
-  color: #fff;
-  /* font-family: 'Old Standard TT', serif; */
+  font-size: 2.25em;
+  color: #1b1c1c;
   font-family: 'Rubik', sans-serif;
+  text-align: center;
+  margin-left: -30px;
 }
 
 .form-container {
   padding: 0.5em 2em 2.5em;
-  background-color: #ffffff;
+  background-color:white;
+  margin-bottom: 100px;
+
 }
 
 form {
@@ -27,12 +31,10 @@ form {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  /* font-family: 'Old Standard TT', serif; */
   font-family: 'Rubik', sans-serif;
 }
 
 form h3 {
-  /* color: #39d1b4; */
   color: #000;
   margin: 10px 0px 10px 0px;
   font-size: 20px;
@@ -69,7 +71,7 @@ form textarea::placeholder {
 
 form input:focus::placeholder,
 form textarea:focus::placeholder {
-  color: #00b9b4;
+  /* color: #00b9b4; */
   text-shadow: 0px 0px 1px white;
 }
 
@@ -99,19 +101,6 @@ form select {
   color: black;
 }
 
-.btn-success {
-  background-color: #00b9b4;
-  /* background-color: #000; */
-  border: none;
-  font-size: 18px;
-}
-
-.btn-success:hover, .btn-success:active:visited, .btn-success:visited, .btn-success:active:focus, .btn-success:active:hover, .btn-success:focus {
-  /* background-color: #39d1b4; */
-  background-color: #00b9b4;
-  opacity: .8;
-  border: none;
-}
 
 .glyphicon {
   margin-right: 10px;
@@ -121,4 +110,28 @@ form select {
 .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
   background: #00b9b4 !important;
   border: 1px solid #00b9b4 !important;
+}
+
+.panel-group .panel {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.panel-default {
+  border-color: transparent;
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.panel-default>.panel-heading {
+  color: #1b1c1c;
+  background-color: transparent;
+  border-color: none;
+  padding-bottom: 15px;
 }

@@ -11,7 +11,7 @@ class MainNav extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="/"><img className="logo" src="../assets/gather-box-logo-small.png"/></a>
+                <a href="/"><img className="logo" src="../assets/gather-logo.png"/></a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
