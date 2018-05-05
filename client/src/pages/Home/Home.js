@@ -20,7 +20,8 @@ class Home extends Component {
     featured: tempFeatured,
     dateSelect: false,
     date: moment(),
-    focused: false
+    focused: false,
+    USstate: ""
   };
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
@@ -131,6 +132,11 @@ class Home extends Component {
       })
   }
 
+  handleInputChange = (event) =>  {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
+  }
+
   render() {
     const { error, isLoaded, events, indicators, controls, causes, featured } = this.state;
 
@@ -183,6 +189,7 @@ class Home extends Component {
                 sortByLocation = {this.sortByLocation}
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}
+                sortByStates = {this.state.events}
               />
             </Col>
 
