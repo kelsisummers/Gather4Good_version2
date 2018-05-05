@@ -18,8 +18,8 @@ class Discussion extends Component {
     render() {
         return (
             <div>
-                <Panel>
-                  <Panel.Heading>Discussion</Panel.Heading>
+                <Panel className='z-depth-2 discussion-container'>
+                  <Panel.Heading className='discussion-header'>Discussion Thread</Panel.Heading>
                   <Panel.Body>
                   <CommentForm
                     newComment = {this.newComment}

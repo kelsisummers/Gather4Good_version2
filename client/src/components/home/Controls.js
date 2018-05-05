@@ -10,8 +10,8 @@ export const Controls = (props) => {
     return (
         <Panel className='sort-controls'>
             <h1 style={{marginTop: "0px"}}>Filter By</h1>
-            <Button bsStyle="btn sort-btn" onClick={props.myEvents}>My Events</Button>
-            <Button bsStyle="btn sort-btn" onClick={props.displayDateSelector}>Date</Button>
+            <Button className="btn sort-btn" onClick={props.myEvents}>My Events</Button>
+            <Button className="btn sort-btn" onClick={props.displayDateSelector}>Date</Button>
                 {props.dateSelect ?
                   <SingleDatePicker
                     date={props.date}
@@ -22,8 +22,8 @@ export const Controls = (props) => {
                   /> :
                   null
                 }
-            <Button bsStyle="btn sort-btn" onClick={props.sortByLocation}>Location</Button>
-            <Button bsStyle="btn sort-btn" onClick={props.displayAllEvents}>All Events</Button>
+            <Button className="btn sort-btn" onClick={props.sortByLocation}>Location</Button>
+            <Button className="btn sort-btn" onClick={props.displayAllEvents}>All Events</Button>
         </Panel>
     )
 }

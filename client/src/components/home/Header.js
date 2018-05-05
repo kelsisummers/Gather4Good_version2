@@ -19,9 +19,9 @@ export class Header extends Component {
                   </div>
                   <div className="video-overlay"></div>
                   <div className="video-text">
-                  <h1><Typed 
+                  <h1><Typed style={{fontFamily: "Architects Daughter, cursive", fontSize: "48px"}}
                     strings={['Volunteer.', 'Rally.', 'March.', 'Protest.', 'Gather4Good.']} 
-                    typeSpeed={150}
+                    typeSpeed={170}
                 /></h1> 
                   </div>
                 </div>

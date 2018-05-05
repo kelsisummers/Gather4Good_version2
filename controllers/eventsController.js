@@ -41,10 +41,29 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+
+    console.log("Update called - backend");
+    console.log("REQ.BODY");
     console.log(req.body);
+    console.log("REQ.PARAMS.ID");
+    console.log(req.params.id);
+
+
+    let query;
+    if(!!req.body.attendee) {
+      query = {$addToSet: {attendees: req.body.attendee}};
+    } else if(!!req.body.description) {
+      query = req.body;
+      console.log("QUERY ON BACKEND CALLLLLLLLLEDDD");
+      console.log(query);
+    }
+
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, {$addToSet: {attendees: req.body.attendee}})
-      .then(dbModel => res.json(dbModel))
+      .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
+      .then(dbModel => {
+        console.log(dbModel);
+        res.json(dbModel);
+      })
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {

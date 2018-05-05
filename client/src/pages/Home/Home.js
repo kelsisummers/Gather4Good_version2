@@ -150,7 +150,9 @@ class Home extends Component {
           {/* <div className='eventContainer'> */}
             {/* Events container */}
             <Col md={6}>
+            
               <div>
+              <h1 style={{textAlign:'center', paddingBottom: '20px'}}>Upcoming Events</h1>
                 {events.map((event) => {
                   return (
                     <EventCard
