@@ -60,23 +60,6 @@ class Home extends Component {
     )
   };
 
-  handleDateSelection = (event) => {
-    const selectedDate = this.state.date._d;
-    console.log("HandleDateSelection: " + selectedDate);
-    return (
-      API.getEventsByDate(selectedDate).then((events) => {
-        console.log(events.data);
-        this.setState({
-          events: events.data
-        })
-      }, (error) => {
-        this.setState({
-          error
-        });
-      })
-    )
-  };
-
   // For now just alerts event button data, will implement logic to join event.
   // Will need to conditionally display join button if user logged in, obtain userID through auth.
   // Is join needed here? Or should we only have it on the single event page?
@@ -91,13 +74,26 @@ class Home extends Component {
 
   handleDateChange = (date) => {
     console.log("HandleDateChange: " + date._d);
-
     this.setState({date}, () => {
+
+      const selectedDate = this.state.date._d.toISOString();
+      console.log(selectedDate);
+      API.getEventsByDate(selectedDate).then((events) => {
+        console.log(events.data);
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
     });
+
   }
 
   handleDateFocusChange = ({focused}) =>  {
-    this.setState({focused: focused}, () => {
+    this.setState({ focused : focused }, () => {
     });
   }
 
@@ -174,6 +170,7 @@ class Home extends Component {
                 displayDateSelector = {this.displayDateSelector}
                 handleDateChange={this.handleDateChange}
                 handleDateFocusChange={this.handleDateFocusChange}
+                handleDateSelection={this.handleDateSelection}
                 sortByLocation = {this.sortByLocation}
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}

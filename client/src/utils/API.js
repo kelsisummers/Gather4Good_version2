@@ -46,13 +46,8 @@ export default {
   },
 
   getEventsByDate: function(selectedDate) {
-    return axios.get("/api/events", {
-      query: {
-        dateTime: {
-          $gte: selectedDate
-        }
-      }
-    });
+    console.log("Selected date front end", selectedDate);
+    return axios.get("/api/events", {params: {dateTime: selectedDate}});
   },
 
   joinEvent: function(userId, eventId) {

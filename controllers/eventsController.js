@@ -4,12 +4,19 @@ const db = require("../models");
 const eventsController = {
   findAll: function(req, res) {
     console.log(req.query);
+    console.log("Datetime in quer", req.query.dateTime);
+    let query = { dateTime: { $gte: Date.now() } }
+
+    if (req.query.dateTime) {
+      query.dateTime.$gte = req.query.dateTime
+    }
+    if (req.query.cause) {
+      query.cause = req.query.cause
+    }
+
+
     db.Event
-      .find({
-              dateTime: {
-                $gte: Date.now()
-              }
-            })
+      .find(query)
       .sort({ dateTime: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
