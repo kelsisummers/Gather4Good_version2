@@ -100,9 +100,9 @@ class CreateEvent extends Component {
   }
 
 
-  createDateTimeStr = () => {
-    const dateStr = this.state.date._d.toDateString();
-    const timeStr = this.state.time._d.toTimeString();
+  createDateTimeStr = (date, time) => {
+    const dateStr = date .toDateString();
+    const timeStr = time.toTimeString();
     console.log(typeof this.state.date._d)
     const new_date = `${dateStr} ${timeStr}`;
     console.log(new_date);
@@ -124,7 +124,7 @@ class CreateEvent extends Component {
   }
 
   submitEventToDb = () =>  {
-    const ISO_DATE_TIME = this.createDateTimeStr();
+    const ISO_DATE_TIME = this.createDateTimeStr(this.state.date._d, this.state.time._d);
     const {eventName, eventDescription, imgUrl, locationName} = {...this.state};
     const {streetAddress, city, USstate, zipcode, causeId} = {...this.state};
 
