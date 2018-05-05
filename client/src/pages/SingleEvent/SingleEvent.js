@@ -29,36 +29,6 @@ class SingleEvent extends Component {
 
       this.getEventData();
 
-        // let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
-        //
-        // Promise.all(promises)
-        //   .then((values) => {
-        //     console.log("VALUES");
-        //     console.log(values);
-        //     const event = values[0];
-        //     const causes = values[1];
-        //
-        //     let editEvent = event.data;
-        //     editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
-        //     editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
-        //     editEvent.cause = event.data.cause._id;
-        //     editEventInitialState = {...editEvent};
-        //
-        //     this.setState({
-        //         isLoaded: true,
-        //         event: event.data,
-        //         editEvent,
-        //         editEventInitialState,
-        //         attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
-        //         isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
-        //         causes: causes.data
-        //     });
-        //   }, (error) => {
-        //     this.setState({
-        //       isLoaded: true,
-        //       error
-        //     });
-        //   })
     }
 
      getEventData = () => {

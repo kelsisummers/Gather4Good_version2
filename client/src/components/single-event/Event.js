@@ -20,7 +20,7 @@ export const Event = (props) => {
   );
 
   const editBtn = props.isOrganizer ? (
-    <Button onClick={props.handleEditToggle}>{props.isEditingEvent ? `Close Edit` : `Edit Event`}</Button>
+    <Button onClick={props.handleEditToggle}>{props.isEditingEvent ? `Cancel` : `Edit Event`}</Button>
   ) : null;
 
   const saveEditBtn = props.isEditingEvent ? (
