@@ -15,6 +15,7 @@ export default {
     console.log(eventData);
     const token = localStorage.getItem("token");
     console.log("token....." + token);
+
     return axios.post("/api/events", eventData, { headers: { 'x-access-token': token } });
   },
 
@@ -26,6 +27,15 @@ export default {
     console.log(id);
     console.log("UpdatedEventData in UPDATEEVENT - FRONT END");
     console.log(updatedEventData);
+
+    // const options = {
+    //   method: 'POST',
+    //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //   data: qs.stringify(data),
+    //   url,
+    // };
+    //
+
     return axios.put(`/api/events/${id}`, updatedEventData, { headers: { 'x-access-token': token } });
   },
 
