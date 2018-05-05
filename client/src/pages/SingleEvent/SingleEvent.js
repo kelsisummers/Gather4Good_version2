@@ -38,6 +38,7 @@ class SingleEvent extends Component {
             let editEvent = event.data;
             editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
             editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
+            editEvent.cause = event.data.cause._id;
 
             this.setState({
                 isLoaded: true,
@@ -55,12 +56,6 @@ class SingleEvent extends Component {
           })
     };
 
-    parseDateTime = (isoDateTimeStr) => {
-      console.log('helloworld')
-
-
-
-    }
 
     componentDidUpdate = (prevProps, prevState, snapshot) => {
       console.log(prevProps);
@@ -119,16 +114,17 @@ class SingleEvent extends Component {
     };
 
     handleEdit = (event) =>  {
+      console.log(this.state.editEvent);
       const { name, value } = event.target;
 
       let editEvent = {...this.state.editEvent};
       editEvent[name] = value;
       this.setState({editEvent});
 
-      if(name === "causeType") {
+      if(name === "cause") {
         const option = event.target.options[event.target.selectedIndex];
         const causeId = option.attributes.getNamedItem("data-cause-id").value;
-        editEvent.causeId = causeId;
+        editEvent.cause = causeId;
 
         this.setState({editEvent}, () => {
           console.log("Update CauseId State:");
@@ -169,10 +165,12 @@ class SingleEvent extends Component {
       });
     }
 
-    createDateTimeStr = () => {
-      const dateStr = this.state.editEvent.date._d.toDateString();
-      const timeStr = this.state.editEvent.time._d.toTimeString();
+    createDateTimeStr = (date, time) => {
+      const dateStr = date .toDateString();
+      const timeStr = time.toTimeString();
       const new_date = `${dateStr} ${timeStr}`;
+      const log_date = new Date(new_date);
+      console.log(log_date);
       const ISO_DATE_TIME = new Date(new_date).toISOString();
       console.log("dateStr: " + dateStr);
       console.log("timeStr: " + timeStr);
@@ -181,27 +179,27 @@ class SingleEvent extends Component {
       return ISO_DATE_TIME;
     }
 
+
+
     handleEditSubmit = () => {
-      const ISO_DATE_TIME = this.createDateTimeStr();
-      const {eventName, eventDescription, imgUrl, locationName} = {...this.state.editEvent};
-      const {streetAddress, city, USstate, zipcode, causeId} = {...this.state.editEvent};
+      console.log("HANDLE EDIT SUBMIT CALLED");
+      const ISO_DATE_TIME = this.createDateTimeStr(this.state.editEvent.date._d, this.state.editEvent.time._d);
+      let updatedEventData = {...this.state.editEvent};
 
-      const updatedEventData = {
-        title: eventName,
-        dateTime: ISO_DATE_TIME,
-        description: eventDescription,
-        img_url: imgUrl,
-        location_name: locationName,
-        location_street: streetAddress,
-        location_city: city,
-        location_state: USstate,
-        location_zip: zipcode,
-        cause: causeId
-      }
-
+      console.log("*******UPDATED DATEITM*******");
+      console.log(ISO_DATE_TIME);
+      console.log("*******UPDATED DATA******");
       console.log(updatedEventData);
 
-      API.update(updatedEventData)
+      updatedEventData.dateTime = ISO_DATE_TIME;
+      delete updatedEventData.attendees; delete updatedEventData.date;
+      delete updatedEventData.time; delete updatedEventData.organizer_id;
+      delete updatedEventData._id;
+
+      console.log("UDPATED DATA AFTER CUTTING");
+      console.log(updatedEventData);
+
+      API.updateEvent(this.state.event._id, updatedEventData)
         .then(res => {
           console.log("Result returned when generating updating event")
           console.log(res);
@@ -229,6 +227,7 @@ class SingleEvent extends Component {
                         data={event}
                         editData={editEvent}
                         handleEdit={this.handleEdit}
+                        handleEditSubmit={this.handleEditSubmit}
                         handleButtonClick={this.handleButtonClick}
                         attending={attending}
                         isOrganizer={isOrganizer}
