@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel, Badge, Row, Col, Grid, FormControl, Button } from 'react-bootstrap';
+import { Panel, Badge, Row, Col, Grid, FormControl, Button, Label } from 'react-bootstrap';
 import Moment from 'react-moment';
 import { DiscussionContainer } from "../single-event/";
 import moment from "moment";
@@ -8,6 +8,7 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
+import StateList from "./States.js";
 
 export const Event = (props) => {
   const dateToFormat = props.data.dateTime;
@@ -23,7 +24,7 @@ export const Event = (props) => {
   ) : null;
 
   const saveEditBtn = props.isEditingEvent ? (
-    <Button onClick={props.handleEditSubmit}>Save Event Changes</Button>
+    <Button style={{marginRight: "10px"}} onClick={props.handleEditSubmit}>Save Event Changes</Button>
   ) : null;
 
   return (
@@ -50,7 +51,7 @@ export const Event = (props) => {
 
         {props.isEditingEvent ? (
               <FormControl
-                style={{backgroundColor: "transparent", display: "block", color: "#f7f7f7", fontSize: "30px", zIndex:2, border:"1px solid #ccc" }}
+                style={{backgroundColor: "transparent", display: "inline-block", color: "#f7f7f7", fontSize: "30px", zIndex:2, border:"1px solid #ccc" }}
                 name="title"
                 type="text"
                 value={props.editData.title}
@@ -64,7 +65,7 @@ export const Event = (props) => {
           {props.isEditingEvent ? (
               <div style={{display: "flex", justifyContent: "flex-end"}}>
                 <select
-                  style={{width: "auto", border: "1px solid #ccc"}}
+                  style={{width: "auto", border: "1px solid #ccc", cursor: "pointer"}}
                   defaultValue={props.editData.cause.name}
                   type="text"
                   name="causeType"
@@ -134,7 +135,6 @@ export const Event = (props) => {
                         value={props.editData.location_name}
                         placeholder="Location Name"
                         onChange={props.handleEdit}/>
-
                       ) : (
                         `${props.data.location_name}`
                       )}
@@ -153,6 +153,7 @@ export const Event = (props) => {
           </h4>
           <h4>
             {props.isEditingEvent ? (
+
                           <FormControl
                           name="location_city"
                           type="text"
@@ -163,12 +164,21 @@ export const Event = (props) => {
                           <span>{props.data.location_city}, </span>
                         )}
             {props.isEditingEvent ? (
-                          <FormControl
-                          name="location_state"
-                          type="text"
-                          value={props.editData.location_state}
-                          placeholder="State"
-                          onChange={props.handleEdit}/>
+                     <select
+                       style={{width: "auto", border: "1px solid #ccc", cursor: "pointer"}}
+                       value={props.editData.location_state}
+                       type="text"
+                       name="location_state"
+                       placeholder="State"
+                       onChange={props.handleEdit}>
+                           {StateList.map(state => (
+                             <option
+                               value={state}
+                               key={state}>
+                               {state}
+                             </option>
+                           ))}
+                       </select>
                         ) : (
                           <span>{props.data.location_state}</span>
                         )}
@@ -188,9 +198,9 @@ export const Event = (props) => {
 
               <Row>
               <Col>
-                <div style={{display: "flex", justifyContent: "flex-end"}}>
-                  {editBtn}
+                <div style={{display: "flex", justifyContent: "flex-end", padding:"0px 10px"}}>
                   {saveEditBtn}
+                  {editBtn}
                 </div>
               </Col>
               </Row>
