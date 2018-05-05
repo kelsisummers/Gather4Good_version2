@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import "./AuthNav.css";
 import AuthModal from "../AuthModal";
 
 class AuthNav extends Component {
@@ -11,7 +10,7 @@ class AuthNav extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="/"><img className="logo" src="../assets/gather-box-logo-small.png"/></a>
+                <a href="/"><img className="logo" src="../assets/gather-logo.png"/></a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

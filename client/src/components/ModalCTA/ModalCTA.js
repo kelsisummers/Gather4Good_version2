@@ -1,5 +1,4 @@
 import React from "react";
-import "./ModalCTA.css";
 
 const ModalCTA = (props) => {
 

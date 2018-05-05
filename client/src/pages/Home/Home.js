@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col, Grid } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import API from "../../utils/API.js";
-import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/home";
+import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/Home";
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
 import moment from "moment";
@@ -146,39 +146,25 @@ class Home extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
-      <Header />
-        <Grid>
-          <Row className='causeButtons'>
-            {/* <div className='causeButtons'> */}
-            <CauseButtons
-              causes={causes}
-              handleCauseButtonClick={this.handleCauseButtonClick}
-            />
-            {/* </div> */}
-          </Row>
+    <div>
+      <Header /> 
+      <Row style={{marginTop: '40px'}}>
 
-          <Row className='eventContainer'>
-
-          {/* <div className='eventContainer'> */}
-            {/* Events container */}
-            <Col md={6}>
-
+        {/* Cause Filters */}
+        <Col md={2} style={{marginLeft: '5vw',  marginRight: '5vw'}}>
+          <h2 style={{marginBottom: '30px'}}>Filter by Cause</h2>
+          <CauseButtons
+            causes={causes}
+            handleCauseButtonClick={this.handleCauseButtonClick}
+          />
+        </Col>
+  
+        {/* Upcoming Events */}
+        <Col md={8}>
+          <Row>
+            <Col md={12}>
               <div>
-              <h1 style={{textAlign:'center', paddingBottom: '20px'}}>Upcoming Events</h1>
-                {events.map((event) => {
-                  return (
-                    <EventCard
-                      key = {event._id}
-                      data = {event}
-                      handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
-                      userId = {this.props.authData.user_id}
-                    />
-                  )
-                })}
-              </div>
-            </Col>
-
+                <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
             {/* Controls container */}
             <Col md={5}>
               <Controls className="filter-controls" {...this.state}
@@ -200,13 +186,25 @@ class Home extends Component {
                 data = {featured}
               />
             </Col>
-            </Row>
           </Row>
 
-        </Grid>
-        {/* </div> */}
-        </div>
-
+        <Col md={12}>
+          <div>
+            {events.map((event) => {
+              return (
+                <EventCard
+                  key = {event._id}
+                  data = {event}
+                  handleJoinEventButtonClick = {this.handleJoinEventButtonClick}
+                  userId = {this.props.authData.user_id}
+                />
+              )
+            })}
+          </div>
+        </Col>
+        </Col>
+      </Row>
+    </div>
       );
     }
   }

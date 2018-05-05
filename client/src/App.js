@@ -8,7 +8,8 @@ import MainNav from "./components/MainNav";
 import AuthModal from "./components/AuthModal";
 import Auth from "./utils/Auth";
 import AuthNav from "./components/AuthNav";
-// import "./App.css";
+import { Grid } from 'react-bootstrap';
+import "./App.css";
 
 class App extends Component {
 
@@ -198,7 +199,8 @@ class App extends Component {
 
     return (
       <div>
-        {this.state.isAuthenticated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
+        <Grid>
+        {this.state.isAuthenicated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
         <AuthModal {...this.state}
             handleInputChange={this.handleInputChange}
             handleModalShow={this.handleModalShow}
@@ -215,6 +217,7 @@ class App extends Component {
           </Switch>
         </Router>
         <Footer />
+        </Grid>
       </div>
     );
   }
