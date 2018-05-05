@@ -56,6 +56,11 @@ export default {
     });
   },
 
+  getEventsByDate: function(selectedDate) {
+    console.log("Selected date front end", selectedDate);
+    return axios.get("/api/events", {params: {dateTime: selectedDate}});
+  },
+
   joinEvent: function(userId, eventId) {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");
