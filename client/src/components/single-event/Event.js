@@ -68,7 +68,7 @@ export const Event = (props) => {
                   style={{width: "auto", border: "1px solid #ccc", cursor: "pointer"}}
                   defaultValue={props.editData.cause.name}
                   type="text"
-                  name="causeType"
+                  name="cause"
                   placeholder="Event Name"
                   onChange={props.handleEdit}>
                       {props.causes.map(cause => (

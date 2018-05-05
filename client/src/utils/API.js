@@ -22,7 +22,11 @@ export default {
   updateEvent: function(id, updatedEventData) {
     const token = localStorage.getItem("token");
     console.log("token....." + token);
-    return axios.put(`/api/events/{id}`, updatedEventData, { headers: { 'x-access-token': token } });
+    console.log("ID IN UPDATE EVENT - FRONT END");
+    console.log(id);
+    console.log("UpdatedEventData in UPDATEEVENT - FRONT END");
+    console.log(updatedEventData); 
+    return axios.put(`/api/events/${id}`, updatedEventData, { headers: { 'x-access-token': token } });
   },
 
   // Retrieves an event from db
