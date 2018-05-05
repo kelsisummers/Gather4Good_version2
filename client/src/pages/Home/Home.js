@@ -119,9 +119,20 @@ class Home extends Component {
       })
   }
 
-  myEvents() {
+  myEvents = () => {
     // setState to hold events user is attending or has organized.
     // Need to discuss how to handle this..
+    const userId = this.props.authData.user_id
+    API.getUserEvents(userId)
+      .then((events) => {
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
   }
 
   render() {

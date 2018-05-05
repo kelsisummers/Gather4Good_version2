@@ -13,7 +13,14 @@ const eventsController = {
     if (req.query.cause) {
       query.cause = req.query.cause
     }
-
+    if (req.query.userId) {
+      query.$or = [
+        {organizer_id: req.query.userId},
+        {attendees: {
+          $in: [req.query.userId]}
+        }
+      ]
+    }
 
     db.Event
       .find(query)
@@ -21,6 +28,7 @@ const eventsController = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   findById: function(req, res) {
     db.Event
       .findById(req.params.id)
@@ -28,6 +36,7 @@ const eventsController = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   create: function(req, res) {
     console.log("Server recieved request to create event")
     console.log(req.body);
@@ -40,6 +49,7 @@ const eventsController = {
       })
       .catch(err => res.status(422).json(err));
   },
+
   update: function(req, res) {
 
     console.log("Update called - backend");
@@ -66,6 +76,7 @@ const eventsController = {
       })
       .catch(err => res.status(422).json(err));
   },
+
   remove: function(req, res) {
     console.log("removed funciton called");
     db.Event
