@@ -15,7 +15,7 @@ class App extends Component {
 
   state = {
     // Whether user is logged in
-    isAuthenicated: false,
+    isAuthenticated: false,
 
     // Data for an authenticated user. Access this state when you need to create
     // an event, etc. or want to display user-specific data
@@ -105,7 +105,7 @@ class App extends Component {
 
 
   setAuthData = (data) => {
-    this.setState({isAuthenicated: true,
+    this.setState({isAuthenticated: true,
       user_id: data._id,
       user_email: data.email,
       user_name: data.name,}, () => {
@@ -116,7 +116,7 @@ class App extends Component {
 
   clearAuthData = () => {
     console.log("clear auth called");
-    this.setState({ isAuthenicated: false,
+    this.setState({ isAuthenticated: false,
       user_id: "",
       user_email: "",
       user_name: "" })
@@ -139,7 +139,7 @@ class App extends Component {
 
     Auth.submitLogin(credentials)
       .then(data => {
-        //Confirm user authenicated
+        //Confirm user authenticated
         if(data.auth === true) {
           this.setAuthData(data);
         }
@@ -185,7 +185,7 @@ class App extends Component {
   render() {
 
     const authData = {
-      isAuthenicated: this.state.isAuthenicated,
+      isAuthenticated: this.state.isAuthenticated,
       user_id: this.state.user_id,
       user_name: this.state.user_name,
       user_email: this.state.user_email

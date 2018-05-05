@@ -18,6 +18,17 @@ export default {
     return axios.post("/api/events", eventData, { headers: { 'x-access-token': token } });
   },
 
+  //Updates data for an event
+  updateEvent: function(id, updatedEventData) {
+    const token = localStorage.getItem("token");
+    console.log("token....." + token);
+    console.log("ID IN UPDATE EVENT - FRONT END");
+    console.log(id);
+    console.log("UpdatedEventData in UPDATEEVENT - FRONT END");
+    console.log(updatedEventData);
+    return axios.put(`/api/events/${id}`, updatedEventData, { headers: { 'x-access-token': token } });
+  },
+
   // Retrieves an event from db
   getEvent: function(id) {
     console.log("get event called - front end");
@@ -45,11 +56,29 @@ export default {
     });
   },
 
+  getEventsByDate: function(selectedDate) {
+    console.log("Selected date front end", selectedDate);
+    return axios.get("/api/events", {params: {dateTime: selectedDate}});
+  },
+
+  getUserEvents: function(userId) {
+    console.log(userId)
+    const token = localStorage.getItem("token");
+    return axios({
+      headers: { 'x-access-token': token },
+      url: "/api/events",
+      method: "get",
+      params: {
+        userId: userId,
+      }
+    });
+  },
+
   joinEvent: function(userId, eventId) {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");
     return axios({
-      headers: { 'x-access-token': token }, 
+      headers: { 'x-access-token': token },
       url: "/api/events/" + eventId,
       method: "put",
       data: {

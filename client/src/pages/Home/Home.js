@@ -4,6 +4,8 @@ import API from "../../utils/API.js";
 import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/Home";
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
+import moment from "moment";
+
 // Can also be included with a regular script tag
 
 
@@ -16,6 +18,10 @@ class Home extends Component {
     events: [],
     causes: [],
     featured: tempFeatured,
+    dateSelect: false,
+    date: moment(),
+    focused: false,
+    USstate: ""
   };
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
@@ -40,7 +46,7 @@ class Home extends Component {
 
   // Querys database for all events by cause and updates state with returned events.
   handleCauseButtonClick = (event) => {
-    const causeId = event.target.getAttribute("causeid");    
+    const causeId = event.target.getAttribute("causeid");
     return (
       API.getEventsByCause(causeId).then((events) => {
         console.log(events.data);
@@ -62,8 +68,34 @@ class Home extends Component {
     alert(`Event: ${event.target.getAttribute("eventTitle")} \nEvent ID: ${event.target.getAttribute("eventId")}`);
   };
 
-  sortByDate = () => {
-    // setState to Events sorted by date, need to discuss perameters for this..
+  displayDateSelector = () => {
+    this.setState({ dateSelect : !this.state.dateSelect });
+    console.log(this.state.date._d);
+  }
+
+  handleDateChange = (date) => {
+    console.log("HandleDateChange: " + date._d);
+    this.setState({date}, () => {
+
+      const selectedDate = this.state.date._d.toISOString();
+      console.log(selectedDate);
+      API.getEventsByDate(selectedDate).then((events) => {
+        console.log(events.data);
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+    });
+
+  }
+
+  handleDateFocusChange = ({focused}) =>  {
+    this.setState({ focused : focused }, () => {
+    });
   }
 
   sortByLocation = () => {
@@ -71,7 +103,7 @@ class Home extends Component {
   }
 
   // Runs get request obtain all events, sets state.events to all events.
-  displayAllEvents() {
+  displayAllEvents = () => {
     API.getAllEvents()
       .then((events) => {
         this.setState({
@@ -84,21 +116,36 @@ class Home extends Component {
       })
   }
 
-  myEvents() {
+  myEvents = () => {
     // setState to hold events user is attending or has organized.
     // Need to discuss how to handle this..
+    const userId = this.props.authData.user_id
+    API.getUserEvents(userId)
+      .then((events) => {
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
+      })
+  }
+
+  handleInputChange = (event) =>  {
+    const { name, value } = event.target;
+    this.setState({[name]: value});
   }
 
   render() {
     const { error, isLoaded, events, indicators, controls, causes, featured } = this.state;
-    
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
       return (
-    
     <div>
       <Header /> 
       <Row style={{marginTop: '40px'}}>
@@ -118,14 +165,26 @@ class Home extends Component {
             <Col md={12}>
               <div>
                 <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
-
-                <Controls
-                sortByDate = {this.sortByDate}
+            {/* Controls container */}
+            <Col md={5}>
+              <Controls className="filter-controls" {...this.state}
+                displayDateSelector = {this.displayDateSelector}
+                handleDateChange={this.handleDateChange}
+                handleDateFocusChange={this.handleDateFocusChange}
+                handleDateSelection={this.handleDateSelection}
                 sortByLocation = {this.sortByLocation}
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}
-                />
-              </div>
+                sortByStates = {this.state.events}
+              />
+            </Col>
+
+<Row>
+            {/* Featured Events container */}
+            <Col md={5}>
+              <FeaturedEvents
+                data = {featured}
+              />
             </Col>
           </Row>
 
