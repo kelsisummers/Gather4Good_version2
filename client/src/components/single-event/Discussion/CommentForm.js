@@ -4,9 +4,9 @@ const CommentForm = (props) => {
     return (
         <div>
             <form onSubmit={props.newComment}>
-                <label>Type new comment below:</label>
-                <input id="input"></input>
-                <button type="submit">Submit Comment</button>
+                <p className='discussion-placeholder'>Type new comment below:</p>
+                <input id="input" placeholder='Someone want to carpool?'></input>
+                <button className='btn btn-success' type="submit">Submit Comment</button>
             </form>
         </div>
     )

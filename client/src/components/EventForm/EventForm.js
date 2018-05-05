@@ -7,7 +7,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
-import { Grid, Row, Col, Button, Panel, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Panel, Glyphicon, PanelGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 const EventForm = (props) => {
@@ -19,14 +19,14 @@ const EventForm = (props) => {
         <div className="form-container">
           <form autoComplete="random" onSubmit={props.handleFormSubmit}>
 
-            <Panel defaultExpanded={props.open}>
+            <PanelGroup accordion >
+            <Panel eventKey='1'>
               <Panel.Heading>
                 <Panel.Title toggle>
                   <h3><Glyphicon glyph="star" className="glyphicon"/>Tell Us About Your Event</h3>
                 </Panel.Title>
               </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
+                <Panel.Body collapsible>
                   <div className="form-step-wrapper">
         						<input
                       autoComplete="random"
@@ -45,18 +45,36 @@ const EventForm = (props) => {
                     </textarea>
         				  </div>
                 </Panel.Body>
-              </Panel.Collapse>
-            </Panel>
+                </Panel>
+            
 
-            <Panel defaultExpanded={props.open}>
+            <Panel eventKey='2'>
               <Panel.Heading>
                 <Panel.Title toggle>
                   <h3><Glyphicon glyph="heart" className="glyphicon"/>What Cause Does Your Event Support?</h3>
                 </Panel.Title>
               </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
+                <Panel.Body collapsible>
                   <div className="form-step-wrapper">
+    {/* <DropdownButton 
+      defaultValue="Choose Your Cause"
+      name='causeType'
+      type='text'
+      placeholder='Event Cause'
+      onChange={props.handleInputChange}
+    >
+      {props.causes.map(cause => {
+          return 
+            <MenuItem
+              value={cause.name}
+              data-cause-id={cause._id}
+              key={cause._id}
+            >
+              {cause.name}
+              </MenuItem>
+      })
+                        
+    </DropdownButton> */}
                     <select
                       defaultValue="Choose Your Cause"
                       type="text"
@@ -77,17 +95,15 @@ const EventForm = (props) => {
                     </select>
                   </div>
                 </Panel.Body>
-              </Panel.Collapse>
             </Panel>
 
-            <Panel defaultExpanded={props.open}>
+            <Panel eventKey='3'>
               <Panel.Heading>
                 <Panel.Title toggle>
                   <h3><Glyphicon glyph="picture" className="glyphicon"/>Add an Image</h3>
                 </Panel.Title>
               </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
+                <Panel.Body collapsible>
                   <div className="form-step-wrapper">
                     <input
                       type="text"
@@ -98,17 +114,15 @@ const EventForm = (props) => {
                     />
                   </div>
                 </Panel.Body>
-              </Panel.Collapse>
             </Panel>
 
-            <Panel defaultExpanded={props.open}>
+            <Panel eventKey='4'>
               <Panel.Heading>
                 <Panel.Title toggle>
                   <h3><Glyphicon glyph="calendar" className="glyphicon"/>Event Date and Time</h3>
                 </Panel.Title>
               </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
+                <Panel.Body collapsible>
                   <div id="date-time-wrapper" className="form-step-wrapper">
                     <SingleDatePicker
                       date={props.date}
@@ -129,17 +143,15 @@ const EventForm = (props) => {
                     />
                   </div>
                 </Panel.Body>
-              </Panel.Collapse>
             </Panel>
 
-            <Panel defaultExpanded={props.open}>
+            <Panel eventKey='5'>
               <Panel.Heading>
                 <Panel.Title toggle>
                   <h3><Glyphicon glyph="map-marker" className="glyphicon"/>Event Location</h3>
                 </Panel.Title>
               </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
+                <Panel.Body collapsible>
                   <div className="form-step-wrapper">
                     <input
                       autoComplete="random"
@@ -189,8 +201,8 @@ const EventForm = (props) => {
                     />
                   </div>
                 </Panel.Body>
-              </Panel.Collapse>
             </Panel>
+            </PanelGroup>
 
 
             <button

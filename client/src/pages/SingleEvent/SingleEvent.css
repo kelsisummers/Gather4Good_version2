@@ -32,10 +32,10 @@ input {
 }
 
 .event{
-    width: 60vw;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative
+    /* width: 60vw; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* position: relative */
 }
 
 .eventImage {
@@ -67,6 +67,26 @@ input {
   height: 30%;
   background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.8));
   z-index: 0;
+}
+
+.single-event{
+    /* margin-top: 80px; */
+    /* margin-bottom: 80px; */
+}
+
+.discussion-header {
+    font-size: 24px;
+}
+
+.discussion-placeholder{
+    font-size: 18px;
+}
+
+.discussion-container{
+    /* padding: 20px; */
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px; 
 }
 
 @media only screen and (max-width: 985px) {

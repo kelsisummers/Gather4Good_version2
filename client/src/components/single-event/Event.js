@@ -14,10 +14,10 @@ export const Event = (props) => {
 
   return (
     
-    <div>
+    <div className='single-event-'>
       <Grid>
       <Row>
-      <Col md={8}>
+      <Col md={7}>
       <Panel className="event z-depth-5">
         {/* Event Image */}
         <div className="image-container">
