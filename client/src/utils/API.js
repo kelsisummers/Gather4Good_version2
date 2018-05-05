@@ -63,6 +63,19 @@ export default {
     return axios.get("/api/events", {params: {dateTime: selectedDate}});
   },
 
+  getUserEvents: function(userId) {
+    console.log(userId)
+    const token = localStorage.getItem("token");
+    return axios({
+      headers: { 'x-access-token': token },
+      url: "/api/events",
+      method: "get",
+      params: {
+        userId: userId,
+      }
+    });
+  },
+
   joinEvent: function(userId, eventId, action) {
     const token = localStorage.getItem("token");
     console.log("join event caused - front end");

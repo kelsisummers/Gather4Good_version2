@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import "./AuthModal.css";
 import { Row, Col, Nav, NavItem, Button, Modal, Tab } from 'react-bootstrap';
 import LoginForm from "../LoginForm";
 import RegForm from "../RegForm";

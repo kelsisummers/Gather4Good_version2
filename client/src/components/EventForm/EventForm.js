@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import "./EventForm.css";
 import moment from "moment";
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';

@@ -23,6 +23,25 @@ export const Controls = (props) => {
                   null
                 }
             <Button className="btn sort-btn" onClick={props.sortByLocation}>Location</Button>
+                <input
+                  autoComplete="random"
+                  name="USstate"
+                  list="USstates"
+                  type="text"
+                  placeholder="Select a state"
+                  id="USstate"
+                  value={props.USstate}
+                  onChange={props.handleInputChange}
+                />
+                <datalist id="USstates">
+                  {props.sortByStates.map((event) => {
+                    return(
+                      <option value={event.location_state} key={event.location_state}/>
+                    )
+                  })}
+
+                </datalist>
+
             <Button className="btn sort-btn" onClick={props.displayAllEvents}>All Events</Button>
         </Panel>
     )
