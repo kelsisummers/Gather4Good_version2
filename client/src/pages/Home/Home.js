@@ -125,7 +125,13 @@ class Home extends Component {
     const userId = this.props.authData.user_id
     API.getUserEvents(userId)
       .then((events) => {
-        console.log(events);
+        this.setState({
+          events: events.data
+        })
+      }, (error) => {
+        this.setState({
+          error
+        });
       })
   }
 
