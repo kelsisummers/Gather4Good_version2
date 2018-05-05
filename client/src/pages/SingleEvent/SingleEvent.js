@@ -70,22 +70,35 @@ class SingleEvent extends Component {
      }
 
 
-    componentDidUpdate = (prevProps, prevState, snapshot) => {
-      console.log(prevProps);
-      console.log("Component did update called");
-      console.log(prevProps.authData.user_id);
-      console.log(this.props.authData.user_id);
+    static getDerivedStateFromProps(nextProps, prevState) {
+      console.log("get derived state called");
+      console.log(prevState);
+      console.log(nextProps);
+      console.log("Previos state ");
+      console.log(nextProps.authData.isAuthenticated);
+      console.log("Previous state of origanizer id");
+      console.log(prevState.event.organizer_id);
+      console.log("Previous state of attendees");
+      console.log(prevState.event.attendees);
 
-      if(this.props.isAuthenticated === false) {
-        this.setState({isOrganizer: false, attending: false, isEditing: false});
-      } else {
-        if(prevProps.authData.user_id !== this.props.authData.user_id) {
-          this.setState({isOrganizer: (this.props.authData.user_id === this.state.event.organizer_id)})
-                        //attending: this.state.event.attendees.includes(this.props.authData.user_id)})
+
+      if(nextProps.authData.isAuthenticated === false) {
+         return {
+           isOrganizer: false,
+           attending: false,
+           isEditingEvent: false
+         }
+      } else if(nextProps.authData.isAuthenticated === true && prevState.event.attendees && prevState.event.organizer_id) {
+        return {
+          attending: (prevState.event.attendees.includes(nextProps.authData.user_id)),
+          isOrganizer: (nextProps.authData.user_id === prevState.event.organizer_id),
         }
       }
 
+      // No state update necessary
+      return null;
     }
+
 
     handleEditToggle = (event) => {
        this.setState({isEditingEvent :  !this.state.isEditingEvent}, () => {
