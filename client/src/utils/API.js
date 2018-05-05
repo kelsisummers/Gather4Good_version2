@@ -25,7 +25,7 @@ export default {
     console.log("ID IN UPDATE EVENT - FRONT END");
     console.log(id);
     console.log("UpdatedEventData in UPDATEEVENT - FRONT END");
-    console.log(updatedEventData); 
+    console.log(updatedEventData);
     return axios.put(`/api/events/${id}`, updatedEventData, { headers: { 'x-access-token': token } });
   },
 
