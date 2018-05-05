@@ -97,16 +97,12 @@ class Home extends Component {
     });
   }
 
-  sortByDate = () => {
-    // setState to Events sorted by date, need to discuss perameters for this..
-  }
-
   sortByLocation = () => {
     // setState to sort by location, by city? proximity?
   }
 
   // Runs get request obtain all events, sets state.events to all events.
-  displayAllEvents() {
+  displayAllEvents = () => {
     API.getAllEvents()
       .then((events) => {
         this.setState({
