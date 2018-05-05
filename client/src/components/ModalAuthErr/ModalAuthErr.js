@@ -1,5 +1,4 @@
 import React from "react";
-import "./ModalAuthErr.css";
 
 const ModalAuthErr = (props) => {
 

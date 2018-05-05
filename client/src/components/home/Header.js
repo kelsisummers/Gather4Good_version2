@@ -1,6 +1,5 @@
 import { Carousel } from 'react-bootstrap';
 import React, { Component } from "react";
-import "./Header.css";
 import Typed from 'react-typed';
 
 export class Header extends Component {

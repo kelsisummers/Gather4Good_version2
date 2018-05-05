@@ -6,6 +6,7 @@ const eventsController = {
     console.log(req.query);
     db.Event
       .find(req.query)
+      .populate("cause")
       .sort({ dateTime: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

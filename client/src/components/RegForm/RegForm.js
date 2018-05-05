@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import "./RegForm.css";
 import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
 
 const RegForm = (props) => {
@@ -17,7 +16,7 @@ const RegForm = (props) => {
               placeholder="First Name"
               onChange={props.handleInputChange}
               required="required"
-              pattern=".*\S+.*"/ >
+              pattern=".*\S+.*" />
           </Col>
         </FormGroup>
 

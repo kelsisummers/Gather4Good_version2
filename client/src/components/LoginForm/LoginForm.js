@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import "./LoginForm.css";
 import { Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 const LoginForm = (props) => {
