@@ -5,10 +5,10 @@ const RegForm = (props) => {
     return (
       <Form horizontal style={{marginTop: "20px"}} onSubmit={props.handleRegSubmit}>
         <FormGroup controlId="formHorizontalFirstNameInput">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={3} style={{fontWeight: 'normal', fontSize: 18}}>
             First Name
           </Col>
-          <Col sm={10}>
+          <Col sm={9}>
             <FormControl
               name="regFirstName"
               type="text"
@@ -21,10 +21,10 @@ const RegForm = (props) => {
         </FormGroup>
 
         <FormGroup controlId="formHorizontalLastNameInput">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={3} style={{fontWeight: 'normal', fontSize: 18}}>
             Last Name
           </Col>
-          <Col sm={10}>
+          <Col sm={9}>
             <FormControl
               name="regLastName"
               type="text"
@@ -37,10 +37,10 @@ const RegForm = (props) => {
         </FormGroup>
 
         <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={3} style={{fontWeight: 'normal', fontSize: 18}}>
             Email
           </Col>
-          <Col sm={10}>
+          <Col sm={9}>
             <FormControl
               name="regEmail"
               type="email"
@@ -53,10 +53,10 @@ const RegForm = (props) => {
         </FormGroup>
 
         <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={3} style={{fontWeight: 'normal', fontSize: 18}}>
             Password
           </Col>
-          <Col sm={10}>
+          <Col sm={9}>
             <FormControl
               name="regPassword"
               type="password"
@@ -69,7 +69,7 @@ const RegForm = (props) => {
         </FormGroup>
 
         <FormGroup>
-          <Col smOffset={2} sm={10}>
+          <Col smOffset={3} sm={9} style={{fontSize: 16}}>
             <Button type="submit">Register</Button>
           </Col>
         </FormGroup>

@@ -23,7 +23,7 @@ const eventsController = {
     }
 
     db.Event
-      .find(query)
+      .find(req.query)
       .populate("cause")
       .sort({ dateTime: -1 })
       .then(dbModel => res.json(dbModel))

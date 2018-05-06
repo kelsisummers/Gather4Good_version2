@@ -5,7 +5,7 @@ const LoginForm = (props) => {
     return (
       <Form horizontal style={{marginTop: "20px"}} onSubmit={props.handleLoginSubmit}>
         <FormGroup controlId="formHorizontalLoginEmail">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={2} style={{fontWeight: 'normal', fontSize: 18}}>
             Email
           </Col>
           <Col sm={10}>
@@ -21,7 +21,7 @@ const LoginForm = (props) => {
         </FormGroup>
 
         <FormGroup controlId="formHorizontalLoginPassword">
-          <Col componentClass={ControlLabel} sm={2}>
+          <Col componentClass={ControlLabel} sm={2} style={{fontWeight: 'normal', fontSize: 18}}>
             Password
           </Col>
           <Col sm={10}>
@@ -39,7 +39,7 @@ const LoginForm = (props) => {
 
         <FormGroup>
           <Col smOffset={2} sm={10}>
-            <Button type="submit">Sign in</Button>
+            <Button type="submit" style={{fontWeight: 'normal', fontSize: 16}}>Sign in</Button>
           </Col>
         </FormGroup>
       </Form>

@@ -200,7 +200,7 @@ class App extends Component {
     return (
       <div>
         <Grid>
-        {this.state.isAuthenicated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
+        {this.state.isAuthenticated ? <AuthNav handleLogout={this.handleLogout}/> : <MainNav handleModalShow={this.handleModalShow}/>}
         <AuthModal {...this.state}
             handleInputChange={this.handleInputChange}
             handleModalShow={this.handleModalShow}
