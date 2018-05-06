@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from 'react-bootstrap';
 
-export const JoinBtn = (props) => {
+const JoinBtn = (props) => {
 
     let joinBtn;
     if(props.isOrganizer) {
