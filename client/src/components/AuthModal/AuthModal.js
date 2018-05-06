@@ -13,7 +13,7 @@ const AuthModal = (props) => {
         <Modal.Header closeButton>
             <ModalCTA modalTriggerType={props.modalTriggerType}/>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{padding: 20}}>
 
           <Tab.Container
               id="tabs"
@@ -22,8 +22,8 @@ const AuthModal = (props) => {
             <Row className="clearfix">
               <Col sm={12}>
                 <Nav bsStyle="pills" style={{display: "flex", justifyContent: "center"}}>
-                  <NavItem className="text-center" style={{width: "48%"}} eventKey={1}>Login</NavItem>
-                  <NavItem className="text-center" style={{width: "48%"}} eventKey={2}>Register</NavItem>
+                  <NavItem className="text-center auth-btn" style={{width: "48%", color: '#1b1c1c'}} eventKey={1}>Login</NavItem>
+                  <NavItem className="text-center auth-btn" style={{width: "48%", color: '#1b1c1c', marginBottom: 20}} eventKey={2}>Register</NavItem>
                 </Nav>
               </Col>
               <Col sm={12}>

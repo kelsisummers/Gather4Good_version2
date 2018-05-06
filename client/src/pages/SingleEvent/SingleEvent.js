@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Event, DiscussionContainer, RelatedEvents } from "../../components/single-event";
+import { Event, DiscussionContainer} from "../../components/single-event";
 import API from "../../utils/API.js";
 import Auth from "../../utils/Auth.js";
 import moment from "moment";
-import CreateEvent from "../CreateEvent/CreateEvent.js"
+import { Row, Col, Grid } from 'react-bootstrap';
+// import CreateEvent from "../CreateEvent/CreateEvent.js"
 
 
 class SingleEvent extends Component {
@@ -259,8 +260,9 @@ class SingleEvent extends Component {
             return <div>Loading...</div>;
         } else {
             return (
-
-                <div>
+              <Grid>
+                <Row>
+                  <Col md={12} id='single-event'>
                     <Event
                         data={event}
                         editData={editEvent}
@@ -278,13 +280,9 @@ class SingleEvent extends Component {
                         focused={focused}
                         renderJoinBtn={this.renderJoinBtn}
                     />
-                    {/* <DiscussionContainer
-                    data={this.props.event}
-                    />
-                    <RelatedEvents
-                    eventCause="eventJSON.cause"
-                    /> */}
-                </div>
+                  </Col>
+                </Row>
+              </Grid>
             );
         }
     }
