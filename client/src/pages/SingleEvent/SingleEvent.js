@@ -243,6 +243,29 @@ class SingleEvent extends Component {
         })
     }
 
+    renderJoinBtn = () => {
+
+      if(this.state.isOrganizer) {
+        return null;
+      } else {
+
+        if(!this.state.attending) {
+          return (
+                 <a className="controls">
+                  <span style={{cursor: "pointer"}} onClick={this.handleButtonClick} data-type="join">Join</span>
+                 </a>
+                )
+        } else {
+          return (
+                 <a className="controls">
+                  <span onClick={this.handleButtonClick} data-type="unjoin">Unjoin</span>
+                 </a>
+               )
+        }
+
+      }
+    }
+
     render() {
         console.log("What is state?", this.state.event)
         console.log("....")
@@ -272,6 +295,7 @@ class SingleEvent extends Component {
                         handleDateFocusChange={this.handleDateFocusChange}
                         handleTimeChange={this.handleTimeChange}
                         focused={focused}
+                        renderJoinBtn={this.renderJoinBtn}
                     />
                     {/* <DiscussionContainer
                     data={this.props.event}

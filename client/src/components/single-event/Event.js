@@ -221,7 +221,7 @@ export const Event = (props) => {
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
 
-          {joinBtn}
+          {props.renderJoinBtn()}
           <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
         </Panel.Footer>

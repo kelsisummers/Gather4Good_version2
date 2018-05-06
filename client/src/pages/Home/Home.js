@@ -147,7 +147,7 @@ class Home extends Component {
     } else {
       return (
     <div>
-      <Header /> 
+      <Header />
       <Row style={{marginTop: '40px'}}>
 
         {/* Cause Filters */}
@@ -158,15 +158,14 @@ class Home extends Component {
             handleCauseButtonClick={this.handleCauseButtonClick}
           />
         </Col>
-  
+
         {/* Upcoming Events */}
         <Col md={8}>
           <Row>
             <Col md={12}>
-              <div>
+
                 <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
             {/* Controls container */}
-            <Col md={5}>
               <Controls className="filter-controls" {...this.state}
                 displayDateSelector = {this.displayDateSelector}
                 handleDateChange={this.handleDateChange}
@@ -178,6 +177,7 @@ class Home extends Component {
                 sortByStates = {this.state.events}
               />
             </Col>
+            </Row>
 
 <Row>
             {/* Featured Events container */}
