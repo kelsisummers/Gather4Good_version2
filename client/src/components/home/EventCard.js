@@ -34,6 +34,7 @@ export const EventCard = (props) => {
               </p>
               <p className='event-details'>{props.data.description}
               </p>
+
             </Panel.Body>
             </Row>
             <Row>

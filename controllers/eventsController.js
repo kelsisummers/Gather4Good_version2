@@ -59,18 +59,28 @@ const eventsController = {
     console.log("REQ.PARAMS.ID");
     console.log(req.params.id);
 
+    console.log("req.query.action: ", req.query.action);
+    console.log("req.query: ", req.query);
 
     let query;
-    if(!!req.body.attendee) {
-      query = {$addToSet: {attendees: req.body.attendee}};
-    } else if(!!req.body.description) {
-      query = req.body;
-      console.log("QUERY ON BACKEND CALLLLLLLLLEDDD");
-      console.log(query);
+    let action = req.query.action;
+    console.log(action);
+
+    switch(action) {
+      case "updateEvent":
+        query = req.body;
+        break;
+      case "join":
+        query = {$addToSet: {attendees: req.body.attendee}};
+        break;
+      case "unjoin":
+        query = {$pull: {attendees: req.body.attendee}}
+        break;
     }
 
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
+      .populate("cause")
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);

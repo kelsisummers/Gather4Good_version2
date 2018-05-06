@@ -7,6 +7,7 @@ import moment from "moment";
 import { Row, Col, Grid } from 'react-bootstrap';
 // import CreateEvent from "../CreateEvent/CreateEvent.js"
 
+
 class SingleEvent extends Component {
 
     state = {
@@ -47,6 +48,8 @@ class SingleEvent extends Component {
            editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
            editEvent.cause = event.data.cause._id;
            let editEventInitialState = {...editEvent};
+           console.log("****EVENT.DATA***");
+           console.log(event.data);
 
            this.setState({
                isLoaded: true,
@@ -117,13 +120,17 @@ class SingleEvent extends Component {
         console.log(eventId);
         switch (btnType) {
             case "join":
+            case "unjoin":
                 // logic to join an event
                 if(Auth.isTokenNullOrExpired()) {
                     this.props.authFunctions.clearAuthAndShowModal("joinEvent");
                 } else {
-                    API.joinEvent(userId, eventId)
+                    console.log("button type");
+                    console.log(btnType);
+                    API.joinEvent(userId, eventId, btnType)
                         .then((event) => {
-                          console.log( )
+                          console.log("EVENT IN JOIN BTN CLICK");
+                          console.log(event);
                             this.setState({
                                 attending: event.data.attendees.includes(this.props.authData.user_id),
                                 event: event.data
@@ -271,6 +278,7 @@ class SingleEvent extends Component {
                         handleDateFocusChange={this.handleDateFocusChange}
                         handleTimeChange={this.handleTimeChange}
                         focused={focused}
+                        renderJoinBtn={this.renderJoinBtn}
                     />
                   </Col>
                 </Row>

@@ -154,6 +154,7 @@ class Home extends Component {
       <Header /> 
       <Row style={{marginTop: '40px', marginBottom: '40px'}}>
 
+
         {/* Cause Filters */}
         <Col md={2} style={{marginLeft: '5vw',  marginRight: '5vw'}}>
           <h2 style={{marginBottom: '30px'}}>Filter by Cause</h2>
@@ -163,12 +164,13 @@ class Home extends Component {
             handleCauseButtonClick={this.handleCauseButtonClick}
           />
         </Col>
-  
+
         {/* Upcoming Events */}
         <Col md={8}>
           <Row>
             <Col md={12}>
               <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
+
             {/* Controls container */}
               <Controls className="filter-controls" {...this.state}
                 displayDateSelector = {this.displayDateSelector}

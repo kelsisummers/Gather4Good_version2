@@ -9,15 +9,10 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import StateList from "./States.js";
+import JoinBtn from "./JoinBtn.js";
 
 export const Event = (props) => {
   const dateToFormat = props.data.dateTime;
-
-  const joinBtn = !props.attending ? (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
-  ) : (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Unjoin</span></a>
-  );
 
   const editBtn = props.isOrganizer ? (
     <Button className='edit-btn' onClick={props.handleEditToggle}>{props.isEditingEvent ? `Cancel` : `Edit Event`}</Button>
@@ -71,7 +66,7 @@ export const Event = (props) => {
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
                       style={{width: "auto", border: "1px solid #1b1c1c", cursor: "pointer", textAlign: 'center', paddingLeft:'20px', marginRight: '20px'}}
-                      defaultValue={props.editData.cause.name}
+                      defaultValue={props.data.cause.name}
                       type="text"
                       name="cause"
                       placeholder="Cause Name"
@@ -236,12 +231,16 @@ export const Event = (props) => {
         </Row>
       </Panel.Body>
       <Panel.Footer style={{color:"#00b9b4"}}>
-        {joinBtn}
+        <JoinBtn 
+           handleButtonClick={props.handleButtonClick}
+           isOrganizer={props.isOrganizer}
+           attending={props.attending} />
         <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
         <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
       </Panel.Footer>
     </Panel>
     </div>
+
   </Col>
   <div>
   <Col xs={10} sm={10} md={4} className="discussion" className='daFuck2'>
