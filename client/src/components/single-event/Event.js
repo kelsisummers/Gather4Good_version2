@@ -9,15 +9,10 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import StateList from "./States.js";
+import JoinBtn from "./JoinBtn.js";
 
 export const Event = (props) => {
   const dateToFormat = props.data.dateTime;
-
-  const joinBtn = !props.attending ? (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="join">Join</span></a>
-  ) : (
-    <a className="controls"><span onClick={props.handleButtonClick} data-type="unjoin">Unjoin</span></a>
-  );
 
   const editBtn = props.isOrganizer ? (
     <Button onClick={props.handleEditToggle}>{props.isEditingEvent ? `Cancel` : `Edit Event`}</Button>
@@ -221,7 +216,10 @@ export const Event = (props) => {
         </Panel.Body>
         <Panel.Footer style={{color:"#00b9b4"}}>
 
-          {props.renderJoinBtn()}
+          <JoinBtn handleButtonClick={props.handleButtonClick}
+                   isOrganizer={props.isOrganizer}
+                   attending={props.attending}
+          />
           <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
           <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
         </Panel.Footer>

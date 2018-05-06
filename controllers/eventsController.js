@@ -80,6 +80,7 @@ const eventsController = {
 
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
+      .populate("cause")
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);

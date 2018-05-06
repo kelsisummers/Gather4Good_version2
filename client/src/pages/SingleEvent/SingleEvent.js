@@ -6,6 +6,7 @@ import Auth from "../../utils/Auth.js";
 import moment from "moment";
 import CreateEvent from "../CreateEvent/CreateEvent.js"
 
+
 class SingleEvent extends Component {
 
     state = {
@@ -46,6 +47,8 @@ class SingleEvent extends Component {
            editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
            editEvent.cause = event.data.cause._id;
            let editEventInitialState = {...editEvent};
+           console.log("****EVENT.DATA***");
+           console.log(event.data);
 
            this.setState({
                isLoaded: true,
@@ -125,7 +128,8 @@ class SingleEvent extends Component {
                     console.log(btnType);
                     API.joinEvent(userId, eventId, btnType)
                         .then((event) => {
-                          console.log( )
+                          console.log("EVENT IN JOIN BTN CLICK");
+                          console.log(event);
                             this.setState({
                                 attending: event.data.attendees.includes(this.props.authData.user_id),
                                 event: event.data
@@ -241,29 +245,6 @@ class SingleEvent extends Component {
         .catch(err => {
           console.log(err);
         })
-    }
-
-    renderJoinBtn = () => {
-
-      if(this.state.isOrganizer) {
-        return null;
-      } else {
-
-        if(!this.state.attending) {
-          return (
-                 <a className="controls">
-                  <span style={{cursor: "pointer"}} onClick={this.handleButtonClick} data-type="join">Join</span>
-                 </a>
-                )
-        } else {
-          return (
-                 <a className="controls">
-                  <span onClick={this.handleButtonClick} data-type="unjoin">Unjoin</span>
-                 </a>
-               )
-        }
-
-      }
     }
 
     render() {
