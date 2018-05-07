@@ -174,7 +174,17 @@ class Home extends Component {
               this.setState({error});
             })
       } else {
-        this.displayAllEvents();
+        API.getAllEvents()
+          .then((events) => {
+            this.setState({
+              events: events.data,
+              eventStateList: this.setEventStateList(events.data)
+            })
+          }, (error) => {
+            this.setState({
+              error
+            });
+          })
       }
     })
   }
