@@ -186,39 +186,18 @@ class Home extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-    <div>
-      <Header />
-      <Row style={{marginTop: '40px', marginBottom: '40px'}}>
+        <div>
+          <Header />
+          <Row style={{ marginTop: '40px', marginBottom: '40px' }}>
 
 
-        {/* Cause Filters */}
-        <Col md={2} style={{marginLeft: '5vw',  marginRight: '5vw'}}>
-          <h2 style={{marginBottom: '30px'}}>Filter by Cause</h2>
-          <CauseDropdown causes={causes} handleCauseButtonClick={this.handleCauseButtonClick}/>
-          <CauseButtons
-            causes={causes}
-            handleCauseButtonClick={this.handleCauseButtonClick}
-          />
-        </Col>
-
-        {/* Upcoming Events */}
-        <Col md={8}>
-          <Row>
-            <Col md={12}>
-              <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
-
-            {/* Controls container */}
-              <Controls className="filter-controls" {...this.state}
-                displayDateSelector = {this.displayDateSelector}
-                handleDateChange={this.handleDateChange}
-                handleDateFocusChange={this.handleDateFocusChange}
-                handleDateSelection={this.handleDateSelection}
-                sortByLocation = {this.sortByLocation}
-                displayAllEvents = {this.displayAllEvents}
-                myEvents = {this.myEvents}
-                sortByStates = {this.state.events}
-                handleInputChange={this.handleInputChange}
-                eventStateList={this.state.eventStateList}
+            {/* Cause Filters */}
+            <Col md={2} style={{ marginLeft: '5vw', marginRight: '5vw' }}>
+              <h2 style={{ marginBottom: '30px' }}>Filter by Cause</h2>
+              <CauseDropdown causes={causes} handleCauseButtonClick={this.handleCauseButtonClick} />
+              <CauseButtons
+                causes={causes}
+                handleCauseButtonClick={this.handleCauseButtonClick}
               />
             </Col>
 
@@ -226,8 +205,8 @@ class Home extends Component {
             <Col md={8}>
               <Row>
                 <Col md={12}>
-
                   <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Upcoming Events</h1>
+
                   {/* Controls container */}
                   <Controls className="filter-controls" {...this.state}
                     displayDateSelector={this.displayDateSelector}
@@ -238,36 +217,29 @@ class Home extends Component {
                     displayAllEvents={this.displayAllEvents}
                     myEvents={this.myEvents}
                     sortByStates={this.state.events}
+                    handleInputChange={this.handleInputChange}
+                    eventStateList={this.state.eventStateList}
                   />
                 </Col>
+                  <Col md={12}>
+                    <div>
+                      {events.map((event) => {
+                        return (
+                          <EventCard
+                            key={event._id}
+                            data={event}
+                            handleJoinEventButtonClick={this.handleJoinEventButtonClick}
+                            userId={this.props.authData.user_id}
+                          />
+                        )
+                      })}
+                    </div>
+                  </Col>
+                
               </Row>
-
-              {/* <Row> */}
-                {/* Featured Events container */}
-                {/* <Col md={5}>
-                  <FeaturedEvents
-                    data={featured}
-                  />
-                </Col>
-              </Row> */}
-
-              <Col md={12}>
-                <div>
-                  {events.map((event) => {
-                    return (
-                      <EventCard
-                        key={event._id}
-                        data={event}
-                        handleJoinEventButtonClick={this.handleJoinEventButtonClick}
-                        userId={this.props.authData.user_id}
-                      />
-                    )
-                  })}
-                </div>
-              </Col>
             </Col>
           </Row>
-        </div>
+      </div>
       );
     }
   }
