@@ -28,7 +28,7 @@ const eventsController = {
     db.Event
       .find(query)
       .populate("cause")
-      .sort({ dateTime: -1 })
+      .sort({ dateTime: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
