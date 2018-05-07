@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SingleEvent.css";
-import { Event, DiscussionContainer} from "../../components/single-event";
+import { Event } from "../../components/single-event";
 import API from "../../utils/API.js";
 import Auth from "../../utils/Auth.js";
 import moment from "moment";
@@ -16,22 +16,37 @@ class SingleEvent extends Component {
         event: [],
         //full list of causes to populate drop-down when editing event
         causes: [],
+        commentInput: "",
         attending: false,
         isOrganizer: false,
         isEditingEvent: false,
         editEvent: {},
         editEventInitialState: {},
         //handles focus of Calendar to edit event
-        focused: false
-    };
+    focused: false
+  };
 
-    // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
-    //  through props), updates state, and renders SingleEvent with the data.
-    componentDidMount() {
+  // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
+  //  through props), updates state, and renders SingleEvent with the data.
+  componentDidMount() {
 
-      this.getEventData();
+    this.getEventData();
 
-    }
+  }
+
+
+
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("get derived state called");
+    console.log(prevState);
+    console.log(nextProps);
+    console.log("Previos state ");
+    console.log(nextProps.authData.isAuthenticated);
+    console.log("Previous state of origanizer id");
+    console.log(prevState.event.organizer_id);
+    console.log("Previous state of attendees");
+    console.log(prevState.event.attendees);
 
      getEventData = () => {
        let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
@@ -73,44 +88,31 @@ class SingleEvent extends Component {
 
      }
 
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-      console.log("get derived state called");
-      console.log(prevState);
-      console.log(nextProps);
-      console.log("Previos state ");
-      console.log(nextProps.authData.isAuthenticated);
-      console.log("Previous state of origanizer id");
-      console.log(prevState.event.organizer_id);
-      console.log("Previous state of attendees");
-      console.log(prevState.event.attendees);
-
-
-      if(nextProps.authData.isAuthenticated === false) {
-         return {
-           isOrganizer: false,
-           attending: false,
-           isEditingEvent: false
-         }
-      } else if(nextProps.authData.isAuthenticated === true && prevState.event.attendees && prevState.event.organizer_id) {
-        return {
-          attending: (prevState.event.attendees.includes(nextProps.authData.user_id)),
-          isOrganizer: (nextProps.authData.user_id === prevState.event.organizer_id),
-        }
+    if (nextProps.authData.isAuthenticated === false) {
+      return {
+        isOrganizer: false,
+        attending: false,
+        isEditingEvent: false
       }
-
-      // No state update necessary
-      return null;
+    } else if (nextProps.authData.isAuthenticated === true && prevState.event.attendees && prevState.event.organizer_id) {
+      return {
+        attending: (prevState.event.attendees.includes(nextProps.authData.user_id)),
+        isOrganizer: (nextProps.authData.user_id === prevState.event.organizer_id),
+      }
     }
 
+    // No state update necessary
+    return null;
+  }
 
-    handleEditToggle = (event) => {
-       this.setState({isEditingEvent :  !this.state.isEditingEvent}, () => {
-         if(!this.state.isEditingEvent) {
-          this.setState({editEvent: this.state.editEventInitialState})
-         }
-       })
-    }
+
+  handleEditToggle = (event) => {
+    this.setState({ isEditingEvent: !this.state.isEditingEvent }, () => {
+      if (!this.state.isEditingEvent) {
+        this.setState({ editEvent: this.state.editEventInitialState })
+      }
+    })
+  }
 
     handleButtonClick = (event) => {
         let btnType = event.target.dataset.type;
@@ -248,18 +250,47 @@ class SingleEvent extends Component {
         })
     }
 
+    handleCommentInputChange = (event) => {
+      const { value } = event.target;
+      this.setState({ commentInput: value });
+    }
+
+    handleCommentFormSubmit = (event) => {
+      event.preventDefault();
+      if (Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("createComment");
+      } else {
+        let newComment = {
+          body: this.state.commentInput,
+          userId: this.props.authData.user_id,
+          eventId: this.state.event._id
+        }
+        console.log(newComment);
+        API.submitComment(newComment)
+          .then(res => {
+            console.log("event updated, new comment created")
+            console.log(res);
+            this.getEventData();
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+    }
+  
     render() {
         console.log("What is state?", this.state.event)
         console.log("....")
         console.log(this.state.attending);
         console.log("Is organizer:", this.state.isOrganizer);
-        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent, causes, focused } = this.state;
+        const { error, isLoaded, event, attending, isOrganizer, editEvent, isEditingEvent, causes, focused, comments } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
+
               <Grid>
                 <Row>
                   <Col md={12} id='single-event'>
@@ -278,6 +309,11 @@ class SingleEvent extends Component {
                         handleDateFocusChange={this.handleDateFocusChange}
                         handleTimeChange={this.handleTimeChange}
                         focused={focused}
+                        handleCommentInputChange={this.handleCommentInputChange}
+                        handleCommentFormSubmit={this.handleCommentFormSubmit}
+                        commentFormInputValue={this.state.commentInput}
+                        authData={this.props.authData}
+                        authFunctios={this.props.authFunctions}
                         renderJoinBtn={this.renderJoinBtn}
                     />
                   </Col>

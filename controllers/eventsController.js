@@ -1,10 +1,9 @@
 const db = require("../models");
 
-// Defining methods for the booksController
 const eventsController = {
   findAll: function(req, res) {
     console.log(req.query);
-    console.log("Datetime in quer", req.query.dateTime);
+    console.log("Datetime in query", req.query.dateTime);
     let query = { dateTime: { $gte: Date.now() } }
 
     if (req.query.dateTime) {
@@ -23,7 +22,8 @@ const eventsController = {
     }
 
     db.Event
-      .find(req.query)
+
+      .find(query)
       .populate("cause")
       .sort({ dateTime: -1 })
       .then(dbModel => res.json(dbModel))
@@ -33,7 +33,7 @@ const eventsController = {
   findById: function(req, res) {
     db.Event
       .findById(req.params.id)
-      .populate("cause")
+      .populate("cause comments attendees")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

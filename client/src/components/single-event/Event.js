@@ -1,7 +1,7 @@
 import React from "react";
 import { Panel, Badge, Row, Col, Grid, FormControl, Button, Label } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { DiscussionContainer } from "../single-event/";
+import { Discussion } from "./Discussion/Discussion";
 import moment from "moment";
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
@@ -178,35 +178,36 @@ export const Event = (props) => {
           </h4>
           <h4>
             {props.isEditingEvent ? (
-              <FormControl
-                name="location_city"
-                type="text"
-                value={props.editData.location_city}
-                placeholder="City"
-                onChange={props.handleEdit}/>
-            ) : (
-              <span>{props.data.location_city}, </span>
-            )}
-            {props.isEditingEvent ? (
-              <select
-                style={{width: "auto", border: "1px solid #ccc", cursor: "pointer"}}
-                value={props.editData.location_state}
-                type="text"
-                name="location_state"
-                placeholder="State"
-                onChange={props.handleEdit}
-              >
-                {StateList.map(state => (
-                  <option
-                    value={state}
-                    key={state}>
-                    {state}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <span>{props.data.location_state}</span>
-             )}
+
+                          <FormControl
+                          name="location_city"
+                          type="text"
+                          value={props.editData.location_city}
+                          placeholder="City"
+                          onChange={props.handleEdit}/>
+                        ) : (
+                          <span>{props.data.location_city}, </span>
+                        )}
+                      {props.isEditingEvent ? (
+                        <select
+                          style={{ width: "auto", border: "1px solid #ccc", cursor: "pointer" }}
+                          value={props.editData.location_state}
+                          type="text"
+                          name="location_state"
+                          placeholder="State"
+                          onChange={props.handleEdit}>
+                          {StateList.map(state => (
+                            <option
+                              value={state}
+                              key={state}>
+                              {state}
+                            </option>
+                          ))}
+                        </select>
+                        ) : (
+                          <span>{props.data.location_state}</span>
+                        )}
+
             {props.isEditingEvent ? (
               <FormControl
                 name="location_zip"
