@@ -14,8 +14,22 @@ export const Controls = (props) => {
           <Col md={4}>
             <Button className="sort-btn" onClick={props.myEvents}>My Events</Button>
           </Col>
-          <Col md={2}>
+          <Col style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} md={2}>
             <Button className="sort-btn" onClick={props.displayDateSelector}>Date</Button>
+
+              {props.dateSelect ?
+                <Row style={{marginBottom: '30px'}}>
+                  <Col style={{marginLeft: '20px', display: 'flex', justifyContent: 'center'}}>
+                    <SingleDatePicker
+                      date={props.date}
+                      onDateChange={props.handleDateChange}
+                      focused={props.focused}
+                      onFocusChange={props.handleDateFocusChange}
+                      numberOfMonths={1}
+                    />
+                  </Col>
+                </Row > : null}
+
           </Col>
           <Col md={4}>
             <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>
@@ -25,18 +39,7 @@ export const Controls = (props) => {
           </Col>
         </Row>
 
-        {props.dateSelect ?
-          <Row style={{marginBottom: '30px'}}>
-            <Col>
-              <SingleDatePicker
-                date={props.date}
-                onDateChange={props.handleDateChange}
-                focused={props.focused}
-                onFocusChange={props.handleDateFocusChange}
-                numberOfMonths={1}
-              />
-            </Col>
-          </Row > : null}
+
 
         {props.locationSelect ?
           <Row>
