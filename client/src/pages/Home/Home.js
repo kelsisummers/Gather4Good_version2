@@ -141,7 +141,9 @@ class Home extends Component {
       API.getUserEvents(userId)
         .then((events) => {
           this.setState({
-            events: events.data
+            events: events.data,
+            locationSelect: false,
+            dateSelect: false
           })
         }, (error) => {
           this.setState({
