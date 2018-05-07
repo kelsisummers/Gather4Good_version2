@@ -233,9 +233,9 @@ export const Event = (props) => {
       </Panel.Body>
       <Panel.Footer style={{color:"#00b9b4"}}>
         <JoinBtn 
-           handleButtonClick={props.handleButtonClick}
-           isOrganizer={props.isOrganizer}
-           attending={props.attending} />
+                handleButtonClick={props.handleButtonClick}
+                isOrganizer={props.isOrganizer}
+                attending={props.attending} />
         <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
         <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
       </Panel.Footer>
@@ -245,7 +245,7 @@ export const Event = (props) => {
   </Col>
   <div>
   <Col xs={10} sm={10} md={4} className="discussion" className='daFuck2'>
-    <DiscussionContainer {...props}/>
+    <Discussion {...props}/>
   </Col>
   </div>
   </section>
