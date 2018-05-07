@@ -33,10 +33,17 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
 
+  //{path: 'Members', options: { sort: { 'created_at': -1 } } }
+
   findById: function(req, res) {
     db.Event
       .findById(req.params.id)
-      .populate("cause comments attendees")
+      .populate("cause attendees")
+      .populate({
+        path: 'comments', 
+        populate: { path: 'userId' },
+        options: { sort: { 'created_at': -1 } },
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -83,7 +90,7 @@ const eventsController = {
 
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
-      .populate("cause")
+      .populate("cause comments")
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);

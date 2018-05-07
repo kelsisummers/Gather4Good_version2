@@ -13,10 +13,15 @@ export const Discussion = (props) => {
                     <CommentForm {...props} />
                     <br />
                     {props.data.comments.map((comment, i) => {
+                        console.log(comment.userId);
                         return (
                             <CommentCard
                                 key={i}
+                                id={comment._id}
                                 body={comment.body}
+                                author={comment.userId.name}
+                                authorid={comment.userId._id}
+                                deleteCommentButton={props.deleteCommentButton}
                             />
                         )
                     })}

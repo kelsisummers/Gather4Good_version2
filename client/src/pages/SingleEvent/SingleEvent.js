@@ -59,7 +59,8 @@ class SingleEvent extends Component {
             editEventInitialState,
             attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
             isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
-            causes: causes.data
+            causes: causes.data,
+            commentInput: ""
           }, () => {
             if (this.state.isEditingEvent) {
               this.setState({ isEditingEvent: false });
@@ -273,6 +274,28 @@ class SingleEvent extends Component {
           })
       }
     }
+
+    deleteComment = (event) => {
+      const commentId = event.target.id;
+      const authorId = event.target.getAttribute("authorid");
+      const eventId = this.state.event._id;
+      const userId = this.props.authData.user_id;
+      console.log(userId);
+      console.log(commentId);
+      console.log(authorId);
+      if (Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("deleteComment");
+      } else if (userId !== authorId) {
+        alert("You can't delete comments you haven't written!");
+      } else {
+      API.deleteComment(commentId, eventId)
+        .then(res => {
+          console.log("event updated, new comment deleted")
+          console.log(res);
+          this.getEventData();
+        })
+      }
+    }
   
     render() {
         console.log("What is state?", this.state.event)
@@ -308,6 +331,7 @@ class SingleEvent extends Component {
                         handleCommentInputChange={this.handleCommentInputChange}
                         handleCommentFormSubmit={this.handleCommentFormSubmit}
                         commentFormInputValue={this.state.commentInput}
+                        deleteCommentButton={this.deleteComment}
                         authData={this.props.authData}
                         authFunctios={this.props.authFunctions}
                         renderJoinBtn={this.renderJoinBtn}

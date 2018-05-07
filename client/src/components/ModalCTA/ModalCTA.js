@@ -16,6 +16,9 @@ const ModalCTA = (props) => {
         case "createComment":
             CTA = <div className="modalCTA">{`Login or register to post your comment`}</div>
             break;
+        case "deleteComment":
+            CTA = <div className="modalCTA">{`Login or register to delete a comment`}</div>
+            break;
         default:
             CTA = null;
     }
