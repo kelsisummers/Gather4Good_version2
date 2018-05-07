@@ -276,9 +276,16 @@ class SingleEvent extends Component {
 
     deleteComment = (event) => {
       const commentId = event.target.id;
+      const authorId = event.target.getAttribute("authorid");
       const eventId = this.state.event._id;
+      const userId = this.props.authData.user_id;
+      console.log(userId);
+      console.log(commentId);
+      console.log(authorId);
       if (Auth.isTokenNullOrExpired()) {
         this.props.authFunctions.clearAuthAndShowModal("deleteComment");
+      } else if (userId !== authorId) {
+        alert("You can't delete comments you haven't written!");
       } else {
       API.deleteComment(commentId, eventId)
         .then(res => {

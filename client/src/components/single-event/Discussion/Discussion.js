@@ -20,6 +20,7 @@ export const Discussion = (props) => {
                                 id={comment._id}
                                 body={comment.body}
                                 author={comment.userId.name}
+                                authorid={comment.userId._id}
                                 deleteCommentButton={props.deleteCommentButton}
                             />
                         )

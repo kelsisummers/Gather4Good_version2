@@ -13,7 +13,7 @@ const CommentCard = (props) => {
                     <br/>
                     <div>
                         <small>{props.author}</small>
-                        <Button style={style} onClick={props.deleteCommentButton} id={props.id} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="erase" className="glyphicon" /></Button>
+                        <Button style={style} onClick={props.deleteCommentButton} id={props.id} authorid={props.authorid} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="erase" className="glyphicon" /></Button>
                     </div>
                 </Panel.Body>
             </Panel>
