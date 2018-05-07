@@ -49,6 +49,10 @@ const eventSchema = new Schema({
   attendees: [{
     type: Schema.Types.ObjectId,
     ref: "User"
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: "Comment"
   }]
 });
 

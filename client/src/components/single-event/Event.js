@@ -1,7 +1,7 @@
 import React from "react";
 import { Panel, Badge, Row, Col, Grid, FormControl, Button, Label } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { DiscussionContainer } from "../single-event/";
+import { Discussion } from "./Discussion/Discussion";
 import moment from "moment";
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
@@ -176,22 +176,22 @@ export const Event = (props) => {
                         ) : (
                           <span>{props.data.location_city}, </span>
                         )}
-            {props.isEditingEvent ? (
-                     <select
-                       style={{width: "auto", border: "1px solid #ccc", cursor: "pointer"}}
-                       value={props.editData.location_state}
-                       type="text"
-                       name="location_state"
-                       placeholder="State"
-                       onChange={props.handleEdit}>
-                           {StateList.map(state => (
-                             <option
-                               value={state}
-                               key={state}>
-                               {state}
-                             </option>
-                           ))}
-                       </select>
+                      {props.isEditingEvent ? (
+                        <select
+                          style={{ width: "auto", border: "1px solid #ccc", cursor: "pointer" }}
+                          value={props.editData.location_state}
+                          type="text"
+                          name="location_state"
+                          placeholder="State"
+                          onChange={props.handleEdit}>
+                          {StateList.map(state => (
+                            <option
+                              value={state}
+                              key={state}>
+                              {state}
+                            </option>
+                          ))}
+                        </select>
                         ) : (
                           <span>{props.data.location_state}</span>
                         )}
@@ -228,7 +228,7 @@ export const Event = (props) => {
       </Panel>
       </Col>
       <Col sm={8} md={4} className="discussion">
-      <DiscussionContainer {...props}/>
+      <Discussion {...props}/>
       </Col>
       </Row>
       </Grid>
