@@ -59,7 +59,8 @@ class SingleEvent extends Component {
             editEventInitialState,
             attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
             isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
-            causes: causes.data
+            causes: causes.data,
+            commentInput: ""
           }, () => {
             if (this.state.isEditingEvent) {
               this.setState({ isEditingEvent: false });
