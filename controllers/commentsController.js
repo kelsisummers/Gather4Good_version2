@@ -19,10 +19,26 @@ const commentsController = {
             })
             .catch(err => res.status(422).json(err));
     },
+
+    remove: function(req, res) {
+        console.log("Delete comment called - back end");
+        console.log(req.query.commentId);
+        db.Comment
+            .findByIdAndRemove(req.query.commentId, (err) => {
+                if (err) return res.status(500).send(err);
+                db.Event
+                    .findOneAndUpdate({ _id: req.params.id }, { $pull: {comments: req.query.commentId}})
+                    .then((dbEventModel) => {
+                        console.log(dbEventModel);
+                        res.json(dbEventModel);
+                    })
+            })
+    },
+
     getCommentsByEvent: function(req, res) {
         let eventId = req.params.id;
         db.Comment
-            .find({ eventId : eventId })
+            .find({ query: { eventId: eventId }, $orderby: { dateAdded: -1 }})
             .then(dbModel => {
                 console.log(dbModel);
                 res.json(dbModel);

@@ -36,7 +36,11 @@ const eventsController = {
   findById: function(req, res) {
     db.Event
       .findById(req.params.id)
-      .populate("cause comments attendees")
+      .populate("cause attendees")
+      .populate({
+        path: 'comments',
+        populate: { path: 'userId' }
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -83,7 +87,7 @@ const eventsController = {
 
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
-      .populate("cause")
+      .populate("cause comments")
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);

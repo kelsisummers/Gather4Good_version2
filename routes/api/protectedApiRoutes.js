@@ -8,7 +8,7 @@ const authController = require("../../controllers/authController");
 // DELETE a comment for an event by :id -- pass comment :id in query string
 router.route("/events/:id/comments")
   .post(commentsController.create)
-  //.delete(commentsController.remove)
+  .delete(commentsController.remove)
 
 // PUT - Edit an event, including adding/removing attendees
 // DELETE an event

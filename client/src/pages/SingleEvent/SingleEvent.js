@@ -273,6 +273,21 @@ class SingleEvent extends Component {
           })
       }
     }
+
+    deleteComment = (event) => {
+      const commentId = event.target.id;
+      const eventId = this.state.event._id;
+      if (Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("deleteComment");
+      } else {
+      API.deleteComment(commentId, eventId)
+        .then(res => {
+          console.log("event updated, new comment deleted")
+          console.log(res);
+          this.getEventData();
+        })
+      }
+    }
   
     render() {
         console.log("What is state?", this.state.event)
@@ -308,6 +323,7 @@ class SingleEvent extends Component {
                         handleCommentInputChange={this.handleCommentInputChange}
                         handleCommentFormSubmit={this.handleCommentFormSubmit}
                         commentFormInputValue={this.state.commentInput}
+                        deleteCommentButton={this.deleteComment}
                         authData={this.props.authData}
                         authFunctios={this.props.authFunctions}
                         renderJoinBtn={this.renderJoinBtn}

@@ -54,6 +54,19 @@ export default {
     });
   },
 
+  deleteComment: function(commentId, eventId) {
+    console.log("delete comment called - front end");
+    const token = localStorage.getItem("token"); 
+    return axios({
+      headers: { 'x-access-token': token },
+      url: `/api/events/${eventId}/comments`,
+      method: "delete",
+      params: {
+        commentId: commentId
+      }
+    });
+  },
+
   // Retrieves all events from db
   getAllEvents: function() {
     console.log("get events called - front end");
