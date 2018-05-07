@@ -5,6 +5,7 @@ import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
 import moment from "moment";
+import Auth from "../../utils/Auth.js";
 
 // Can also be included with a regular script tag
 
@@ -22,7 +23,8 @@ class Home extends Component {
     locationSelect: false,
     date: moment(),
     focused: false,
-    USstate: ""
+    USstate: "",
+    eventStateList: []
   };
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
@@ -32,10 +34,12 @@ class Home extends Component {
     Promise.all(promises)
       .then((values) => {
         console.log(values);
+
         this.setState({
           isLoaded: true,
           events: values[0].data,
-          causes: values[1].data
+          causes: values[1].data,
+          eventStateList: this.setEventStateList(values[0].data)
         })
       }, (error) => {
         this.setState({
@@ -118,25 +122,42 @@ class Home extends Component {
       })
   }
 
+  setEventStateList = (events) => {
+    const uniqueStates = events.map(event => event.location_state)
+                              .filter((v, i, a) => a.indexOf(v) === i);
+    return uniqueStates;
+  }
+
   myEvents = () => {
     // setState to hold events user is attending or has organized.
     // Need to discuss how to handle this..
-    const userId = this.props.authData.user_id
-    API.getUserEvents(userId)
-      .then((events) => {
-        this.setState({
-          events: events.data
+    if(Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("getMyEvents");
+    } else {
+      const userId = this.props.authData.user_id
+      API.getUserEvents(userId)
+        .then((events) => {
+          this.setState({
+            events: events.data
+          })
+        }, (error) => {
+          this.setState({
+            error
+          });
         })
-      }, (error) => {
-        this.setState({
-          error
-        });
-      })
+    }
+
+
   }
 
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
-    this.setState({[name]: value});
+    console.log("Handle input change called");
+    console.log("Name: " + name);
+    console.log("Value: " + value);
+    this.setState({[name]: value}, () => {
+      console.log(this.state.USstate);
+    });
   }
 
   render() {
@@ -151,7 +172,7 @@ class Home extends Component {
     } else {
       return (
     <div>
-      <Header /> 
+      <Header />
       <Row style={{marginTop: '40px', marginBottom: '40px'}}>
 
 
@@ -181,6 +202,7 @@ class Home extends Component {
                 displayAllEvents = {this.displayAllEvents}
                 myEvents = {this.myEvents}
                 sortByStates = {this.state.events}
+                handleInputChange={this.handleInputChange}
               />
             </Col>
             </Row>

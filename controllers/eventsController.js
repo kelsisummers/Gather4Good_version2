@@ -4,7 +4,7 @@ const db = require("../models");
 const eventsController = {
   findAll: function(req, res) {
     console.log(req.query);
-    console.log("Datetime in quer", req.query.dateTime);
+    console.log(req.query.dateTime);
     let query = { dateTime: { $gte: Date.now() } }
 
     if (req.query.dateTime) {
@@ -23,7 +23,7 @@ const eventsController = {
     }
 
     db.Event
-      .find(req.query)
+      .find(query)
       .populate("cause")
       .sort({ dateTime: -1 })
       .then(dbModel => res.json(dbModel))
