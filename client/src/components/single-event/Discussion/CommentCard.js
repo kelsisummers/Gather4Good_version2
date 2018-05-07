@@ -1,9 +1,14 @@
 import React from "react";
+import { Panel } from "react-bootstrap";
+
+
 
 const CommentCard = (props) => {
     return (
-        <div className="miniComment">
-            <h4>{props.title}</h4>
+        <div>
+            <Panel>
+                <Panel.Body>{props.body}</Panel.Body>
+            </Panel>
         </div>
     )
 }

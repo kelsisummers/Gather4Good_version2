@@ -43,6 +43,17 @@ export default {
     return axios.get(`/api/events/${id}/comments`);
   },
 
+  submitComment: function(comment) {
+    console.log("post comment called - front end");
+    const token = localStorage.getItem("token"); 
+    return axios({
+      headers: { 'x-access-token': token },
+      url: `/api/events/${comment.eventId}/comments`,
+      method: "post",
+      data: comment
+    });
+  },
+
   // Retrieves all events from db
   getAllEvents: function() {
     console.log("get events called - front end");
