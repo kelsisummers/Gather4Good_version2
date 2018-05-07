@@ -32,7 +32,7 @@ export const Controls = (props) => {
 
           </Col>
           <Col md={4}>
-            <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>
+            <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>    
           </Col>
           <Col md={2}>
             <Button className="sort-btn" onClick={props.displayAllEvents}>All Events</Button>

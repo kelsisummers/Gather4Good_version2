@@ -74,7 +74,7 @@ class Home extends Component {
   };
 
   displayDateSelector = () => {
-    this.setState({ dateSelect: !this.state.dateSelect });
+    this.setState({ dateSelect: !this.state.dateSelect, locationSelect: false });
     console.log(this.state.date._d);
   }
 
@@ -105,7 +105,7 @@ class Home extends Component {
 
   sortByLocation = () => {
     // setState to sort by location, by city? proximity?
-    this.setState({ locationSelect : !this.state.locationSelect });
+    this.setState({ locationSelect : !this.state.locationSelect, dateSelect: false });
   }
 
   // Runs get request obtain all events, sets state.events to all events.
@@ -113,7 +113,9 @@ class Home extends Component {
     API.getAllEvents()
       .then((events) => {
         this.setState({
-          events: events.data
+          events: events.data,
+          locationSelect: false,
+          dateSelect: false
         })
       }, (error) => {
         this.setState({
@@ -235,7 +237,7 @@ class Home extends Component {
                       })}
                     </div>
                   </Col>
-                
+
               </Row>
             </Col>
           </Row>
