@@ -52,9 +52,9 @@ export const Controls = (props) => {
                 onChange={props.handleInputChange}
               />
               <datalist id="USstates">
-                {props.sortByStates.map((event, i) => {
+                {props.eventStateList.map((state, i) => {
                   return(
-                    <option value={event.location_state} key={i}/>
+                    <option value={state} key={i}/>
                   )
                 })}
               </datalist>

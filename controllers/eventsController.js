@@ -10,6 +10,9 @@ const eventsController = {
     if (req.query.dateTime) {
       query.dateTime.$gte = req.query.dateTime
     }
+    if (req.query.location) {
+      query.location_state = req.query.location
+    }
     if (req.query.cause) {
       query.cause = req.query.cause
     }

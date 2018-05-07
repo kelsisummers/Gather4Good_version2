@@ -124,7 +124,8 @@ class Home extends Component {
 
   setEventStateList = (events) => {
     const uniqueStates = events.map(event => event.location_state)
-                              .filter((v, i, a) => a.indexOf(v) === i);
+                              .filter((v, i, a) => a.indexOf(v) === i)
+                              .sort();
     return uniqueStates;
   }
 
@@ -155,9 +156,23 @@ class Home extends Component {
     console.log("Handle input change called");
     console.log("Name: " + name);
     console.log("Value: " + value);
+
     this.setState({[name]: value}, () => {
       console.log(this.state.USstate);
-    });
+      if(name === "USstate" && this.state.eventStateList.includes(this.state.USstate)) {
+        API.getEventsByLocation(this.state.USstate)
+           .then((events) => {
+              console.log("RETURNED EVENTS BASED ON LOCATION SEARCH");
+              console.log(events.data);
+              this.setState({events: events.data})
+            }, (error) => {
+              console.log(error);
+              this.setState({error});
+            })
+      } else {
+        this.displayAllEvents();
+      }
+    })
   }
 
   render() {
@@ -203,6 +218,7 @@ class Home extends Component {
                 myEvents = {this.myEvents}
                 sortByStates = {this.state.events}
                 handleInputChange={this.handleInputChange}
+                eventStateList={this.state.eventStateList}
               />
             </Col>
             </Row>
