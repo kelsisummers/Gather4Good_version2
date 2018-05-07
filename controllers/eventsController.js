@@ -33,13 +33,16 @@ const eventsController = {
       .catch(err => res.status(422).json(err));
   },
 
+  //{path: 'Members', options: { sort: { 'created_at': -1 } } }
+
   findById: function(req, res) {
     db.Event
       .findById(req.params.id)
       .populate("cause attendees")
       .populate({
-        path: 'comments',
-        populate: { path: 'userId' }
+        path: 'comments', 
+        populate: { path: 'userId' },
+        options: { sort: { 'created_at': -1 } },
       })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
