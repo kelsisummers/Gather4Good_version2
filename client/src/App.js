@@ -211,7 +211,7 @@ class App extends Component {
         />
         <Router>
           <Switch>
-            <Route exact path="/" render={(props) => <Home {...props} authData={authData} />}/>
+            <Route exact path="/" render={(props) => <Home {...props} authData={authData} authFunctions={authFunctions} />}/>
             <Route exact path="/create" render={(props) => <CreateEvent {...props} authData={authData} authFunctions={authFunctions} />} />
             <Route path="/event/:id" render={(props) => <SingleEvent {...props} authData={authData} authFunctions={authFunctions} />} />
           </Switch>

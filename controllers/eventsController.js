@@ -3,11 +3,15 @@ const db = require("../models");
 const eventsController = {
   findAll: function(req, res) {
     console.log(req.query);
-    console.log("Datetime in query", req.query.dateTime);
+    console.log(req.query.dateTime);
+
     let query = { dateTime: { $gte: Date.now() } }
 
     if (req.query.dateTime) {
       query.dateTime.$gte = req.query.dateTime
+    }
+    if (req.query.location) {
+      query.location_state = req.query.location
     }
     if (req.query.cause) {
       query.cause = req.query.cause
@@ -22,7 +26,6 @@ const eventsController = {
     }
 
     db.Event
-
       .find(query)
       .populate("cause")
       .sort({ dateTime: -1 })

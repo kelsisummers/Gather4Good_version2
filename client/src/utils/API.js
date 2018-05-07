@@ -74,6 +74,11 @@ export default {
     return axios.get("/api/events", {params: {dateTime: selectedDate}});
   },
 
+  getEventsByLocation: function(location) {
+    console.log("Selected location front end", location);
+    return axios.get("/api/events", {params: {location: location}});
+  },
+
   getUserEvents: function(userId) {
     console.log(userId)
     const token = localStorage.getItem("token");

@@ -23,7 +23,7 @@ export const Event = (props) => {
   ) : null;
 
   return (
-    
+
 <section>
       <Col md={6} style={{marginRight: '5vw'}} className='daFuck'>
       <div>
@@ -44,11 +44,11 @@ export const Event = (props) => {
 
           {/* Event Title & Cause Badge */}
           {/* <Panel.Heading className="single-event-title" > */}
-            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'relative', bottom: '70px'}}>
+            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'relative', bottom: '70px', zIndex: 2}}>
               {props.isEditingEvent ? (
                 <Col>
                   <FormControl
-                  style={{backgroundColor: "transparent", display: "inline-block", color: "#1b1c1c", fontSize: "30px", zIndex:2, border:"1px solid #ccc", marginLeft: 25, width: '90%' }}
+                  style={{backgroundColor: "transparent", display: "inline-block", color: "#1b1c1c", fontSize: "30px", zIndex:100, border:"1px solid #ccc", marginLeft: 25, width: '90%' }}
                   name="title"
                   type="text"
                   value={props.editData.title}
@@ -113,7 +113,7 @@ export const Event = (props) => {
                 )}
               </h4>
             </Col>
-          
+
           {/* Date */}
           <Col xs={6}>
             <h4 className="header">Date:</h4>
@@ -128,7 +128,7 @@ export const Event = (props) => {
               ) : (
                 <h4><Moment format="M/D/YYYY">{dateToFormat}</Moment></h4>
               )}
-            
+
             {/* Time */}
             <h4 className="header">Time:</h4>
               {props.isEditingEvent ? (
@@ -232,7 +232,7 @@ export const Event = (props) => {
         </Row>
       </Panel.Body>
       <Panel.Footer style={{color:"#00b9b4"}}>
-        <JoinBtn 
+        <JoinBtn
            handleButtonClick={props.handleButtonClick}
            isOrganizer={props.isOrganizer}
            attending={props.attending} />
