@@ -2,12 +2,10 @@
 .video-container {
   text-align: center;
   height: 25%;
-  /* width: 100%; */
   position: relative;
 }
 
 .v-header {
-  /* width: 100vw; */
   max-height: 25vw;
   min-height: 300px;
   display: flex;
@@ -18,14 +16,12 @@
 
 .video-overlay {
   height: 100%;
-  /* width: 100vw; */
   position: absolute;
   top: 0;
   left: 0;
   background: #222;
   opacity: 0.50;
   z-index: 0;
-  /* text-align: center; */
   display: flex;
   align-items: center;
 }
@@ -75,7 +71,6 @@
 
 .sort-controls{
   text-align: center;
-  /* border: none; */
   margin-bottom: 30px;
   background-color: transparent;
   -webkit-box-shadow: none;
@@ -83,25 +78,7 @@
 }
 
 
-
-/* .btn-success {
-  background-color: #00b9b4;
-  border: none;
-  font-size: 18px;
-  border-radius: 2px;
-  margin: 10px;
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-}
-
-/*  */
-
-/* .btn-success:hover, .btn-success:active:visited, .btn-success:visited, .btn-success:active:focus, .btn-success:active:hover, .btn-success:focus {
-  background-color: #00b9b4;
-  opacity: .8;
-  border: none;
-} */
-
+/* Event Cards */
 .eventCard{
   border-radius: 0px;
   border: none;
@@ -110,12 +87,135 @@
   background-color: white;
 }
 
-
-
 .event-details {
   font-size: 18px;
 }
 
+/* Badges */
+#organizer-attendee {
+  padding: '5px';
+  color: 'white';
+  opacity: '.5';
+  border-radius: '2px'
+}
 
 
+/* MicroInteractions */
+.sort-btn:active, .sort-btn:hover, .sort-btn:focus{
+  font-weight: 400;
 
+}
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+  color: #00b9b4;
+  background-color: transparent;
+  border-color: #8c8c8c;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+  outline: none;
+  outline-offset: 0px;
+}
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+  background-image: none;
+
+}
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+  color: #00b9b4;
+  background-color: transparent;
+  border-color: none;
+  letter-spacing: 1px
+}
+.btn-default:hover {
+  color: #00b9b4;
+  background-color: transparent;
+  border-color: none;
+}
+.btn-default.focus, .btn-default:focus {
+  color: #00b9b4;
+  background-color: transparent;
+  border-color: none;
+  letter-spacing: 1px
+}
+.btn.active, .btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  letter-spacing: 1px
+}
+.btn.focus, .btn:focus, .btn:hover {
+  color: #00b9b4;
+  text-decoration: none;
+}
+
+/* Cause Dropdown Initial Display None */
+.cause-dropdown{
+  display: none;
+  width: 80vw; 
+  margin-bottom: 10px;
+}
+
+.btn-group>.btn:first-child {
+  margin-left: 6%;
+}
+
+.dropdown-menu {
+  left: 15px;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px
+}
+
+/* Media Queries */
+@media only screen and (max-width: 950px) {
+  .video-text {
+    left: 35%
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .video-text {
+    left: 30%
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .video-text {
+    left: 25%
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .video-text {
+    left: 20%
+  }
+    /* Hides Buttons For Mobile */
+    .cause-buttons {
+      display: none;
+  }
+
+  /* Displays Dropdown */
+  .cause-dropdown{
+      display: block;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .video-text {
+    left: 15%
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .video-text {
+    left: 10%
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .video-text {
+    left: 1%
+  }
+}

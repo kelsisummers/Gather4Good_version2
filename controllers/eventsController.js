@@ -22,7 +22,9 @@ const eventsController = {
     }
 
     db.Event
+
       .find(query)
+      .populate("cause")
       .sort({ dateTime: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -78,6 +80,7 @@ const eventsController = {
 
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, query, { new: true })
+      .populate("cause")
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);

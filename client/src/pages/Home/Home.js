@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from 'react-bootstrap';
 import API from "../../utils/API.js";
-import { Header, CauseButtons, EventCard, Controls, FeaturedEvents } from "../../components/Home";
+import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../components/Home";
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
 import moment from "moment";
@@ -19,6 +19,7 @@ class Home extends Component {
     causes: [],
     featured: tempFeatured,
     dateSelect: false,
+    locationSelect: false,
     date: moment(),
     focused: false,
     USstate: ""
@@ -100,6 +101,7 @@ class Home extends Component {
 
   sortByLocation = () => {
     // setState to sort by location, by city? proximity?
+    this.setState({ locationSelect : !this.state.locationSelect });
   }
 
   // Runs get request obtain all events, sets state.events to all events.
@@ -139,6 +141,8 @@ class Home extends Component {
 
   render() {
     const { error, isLoaded, events, indicators, controls, causes, featured } = this.state;
+
+    console.log("State is?", this.state)
 
     if (error) {
       return <div>Error: {error.message}</div>;

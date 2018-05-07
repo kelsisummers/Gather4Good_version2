@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Panel, Row, Col } from 'react-bootstrap';
 import moment from "moment";
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
@@ -8,41 +8,58 @@ import * as Datetime from 'react-datetime';
 
 export const Controls = (props) => {
     return (
-        <Panel className='sort-controls'>
-            <h1 style={{marginTop: "0px"}}>Filter By</h1>
-            <Button className="btn sort-btn" onClick={props.myEvents}>My Events</Button>
-            <Button className="btn sort-btn" onClick={props.displayDateSelector}>Date</Button>
-                {props.dateSelect ?
-                  <SingleDatePicker
-                    date={props.date}
-                    onDateChange={props.handleDateChange}
-                    focused={props.focused}
-                    onFocusChange={props.handleDateFocusChange}
-                    numberOfMonths={1}
-                  /> :
-                  null
-                }
-            <Button className="btn sort-btn" onClick={props.sortByLocation}>Location</Button>
-                <input
-                  autoComplete="random"
-                  name="USstate"
-                  list="USstates"
-                  type="text"
-                  placeholder="Select a state"
-                  id="USstate"
-                  value={props.USstate}
-                  onChange={props.handleInputChange}
-                />
-                <datalist id="USstates">
-                  {props.sortByStates.map((event, i) => {
-                    return(
-                      <option value={event.location_state} key={i}/>
-                    )
-                  })}
+      <Panel className='sort-controls'>
+        <h3 style={{marginTop: "0px"}}>Filter By</h3>
+        <Row>
+          <Col md={4}>
+            <Button className="sort-btn" onClick={props.myEvents}>My Events</Button>
+          </Col>
+          <Col md={2}>
+            <Button className="sort-btn" onClick={props.displayDateSelector}>Date</Button>
+          </Col>
+          <Col md={4}>
+            <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>
+          </Col>
+          <Col md={2}>
+            <Button className="sort-btn" onClick={props.displayAllEvents}>All Events</Button>
+          </Col>
+        </Row>
 
-                </datalist>
+        {props.dateSelect ?  
+          <Row style={{marginBottom: '30px'}}>
+            <Col>
+              <SingleDatePicker
+                date={props.date}
+                onDateChange={props.handleDateChange}
+                focused={props.focused}
+                onFocusChange={props.handleDateFocusChange}
+                numberOfMonths={1}
+              />
+            </Col>
+          </Row > : null}
 
-            <Button className="btn sort-btn" onClick={props.displayAllEvents}>All Events</Button>
+        {props.locationSelect ?  
+          <Row>
+            <Col>
+              <input
+                autoComplete="random"
+                name="USstate"
+                list="USstates"
+                type="text"
+                placeholder="Select a state"
+                id="USstate"
+                value={props.USstate}
+                onChange={props.handleInputChange}
+              />
+              <datalist id="USstates">
+                {props.sortByStates.map((event, i) => {
+                  return(
+                    <option value={event.location_state} key={i}/>
+                  )
+                })}
+              </datalist>
+            </Col>
+          </Row> : null }
         </Panel>
     )
 }

@@ -6,7 +6,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import * as Datetime from 'react-datetime';
-import { Grid, Row, Col, Button, Panel, Glyphicon, PanelGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Panel, Glyphicon, PanelGroup, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 const EventForm = (props) => {
@@ -18,7 +18,7 @@ const EventForm = (props) => {
         <div className="form-container">
           <form autoComplete="random" onSubmit={props.handleFormSubmit}>
 
-            <PanelGroup accordion >
+            <PanelGroup accordion id='create-event-form'>
             <Panel eventKey='1'>
               <Panel.Heading>
                 <Panel.Title toggle>
@@ -55,35 +55,35 @@ const EventForm = (props) => {
               </Panel.Heading>
                 <Panel.Body collapsible>
                   <div className="form-step-wrapper">
-    {/* <DropdownButton 
-      defaultValue="Choose Your Cause"
-      name='causeType'
-      type='text'
-      placeholder='Event Cause'
-      onChange={props.handleInputChange}
-    >
-      {props.causes.map(cause => {
-          return 
-            <MenuItem
-              value={cause.name}
-              data-cause-id={cause._id}
-              key={cause._id}
-            >
-              {cause.name}
-              </MenuItem>
-      })
-                        
-    </DropdownButton> */}
-                    <select
+                  {/* <Dropdown causes={props.causes} /> */}
+
+          {/* <ButtonToolbar >
+      <DropdownButton
+        className='dropdown'
+        title="Select A Cause"
+        id="dropdown-size-large"
+        style={{width:'25vw'}}
+      >
+        {props.causes.map((cause, i) => {
+            return (
+                
+                <MenuItem eventKey={i} value={cause.name} data-cause-id={cause._id} key={cause._id} causeid={cause._id} style={{width: '25vw', padding: 5}}>{cause.name}</MenuItem>
+            )
+        })
+      }
+      </DropdownButton>
+    </ButtonToolbar> */}
+                    <select id='option-select'
                       defaultValue="Choose Your Cause"
                       type="text"
                       name="causeType"
                       placeholder="Event Name"
                       onChange={props.handleInputChange}>
 
-                        <option data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}>Choose Your Cause</option>
+                        <option id='option-select' data-cause-id="" key="default" value="Choose Your Cause" disabled={true} hidden={true}>Choose Your Cause</option>
                         {props.causes.map(cause => (
                           <option
+
                             value={cause.name}
                             data-cause-id={cause._id}
                             key={cause._id}>
@@ -206,7 +206,9 @@ const EventForm = (props) => {
 
             <button
               type="submit"
-              className="btn btn-success">
+              className="btn btn-success"
+              style={{backgroundColor:'#00b9b4', border: 'none', borderRadius: '2px', color: 'white', letterSpacing: 0, marginLeft: '45px', fontSize: '16px'}}
+            >
                 Create Event
             </button>
 
