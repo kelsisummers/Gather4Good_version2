@@ -5,6 +5,7 @@ import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
 import moment from "moment";
+import Auth from "../../utils/Auth.js";
 
 // Can also be included with a regular script tag
 
@@ -22,7 +23,8 @@ class Home extends Component {
     locationSelect: false,
     date: moment(),
     focused: false,
-    USstate: ""
+    USstate: "",
+    eventStateList: []
   };
 
   // After componenet mounts, makes API call to query for all events and causes. Once received, updates state and loads child components.
@@ -32,10 +34,12 @@ class Home extends Component {
     Promise.all(promises)
       .then((values) => {
         console.log(values);
+
         this.setState({
           isLoaded: true,
           events: values[0].data,
-          causes: values[1].data
+          causes: values[1].data,
+          eventStateList: this.setEventStateList(values[0].data)
         })
       }, (error) => {
         this.setState({
@@ -118,25 +122,57 @@ class Home extends Component {
       })
   }
 
+  setEventStateList = (events) => {
+    const uniqueStates = events.map(event => event.location_state)
+                              .filter((v, i, a) => a.indexOf(v) === i)
+                              .sort();
+    return uniqueStates;
+  }
+
   myEvents = () => {
     // setState to hold events user is attending or has organized.
     // Need to discuss how to handle this..
-    const userId = this.props.authData.user_id
-    API.getUserEvents(userId)
-      .then((events) => {
-        this.setState({
-          events: events.data
+    if(Auth.isTokenNullOrExpired()) {
+        this.props.authFunctions.clearAuthAndShowModal("getMyEvents");
+    } else {
+      const userId = this.props.authData.user_id
+      API.getUserEvents(userId)
+        .then((events) => {
+          this.setState({
+            events: events.data
+          })
+        }, (error) => {
+          this.setState({
+            error
+          });
         })
-      }, (error) => {
-        this.setState({
-          error
-        });
-      })
+    }
+
+
   }
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    console.log("Handle input change called");
+    console.log("Name: " + name);
+    console.log("Value: " + value);
+
+    this.setState({[name]: value}, () => {
+      console.log(this.state.USstate);
+      if(name === "USstate" && this.state.eventStateList.includes(this.state.USstate)) {
+        API.getEventsByLocation(this.state.USstate)
+           .then((events) => {
+              console.log("RETURNED EVENTS BASED ON LOCATION SEARCH");
+              console.log(events.data);
+              this.setState({events: events.data})
+            }, (error) => {
+              console.log(error);
+              this.setState({error});
+            })
+      } else {
+        this.displayAllEvents();
+      }
+    })
   }
 
   render() {
@@ -150,16 +186,39 @@ class Home extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
-          <Header />
-          <Row style={{ marginTop: '40px' }}>
+    <div>
+      <Header />
+      <Row style={{marginTop: '40px', marginBottom: '40px'}}>
 
-            {/* Cause Filters */}
-            <Col md={2} style={{ marginLeft: '5vw', marginRight: '5vw' }}>
-              <h2 style={{ marginBottom: '30px' }}>Filter by Cause</h2>
-              <CauseButtons
-                causes={causes}
-                handleCauseButtonClick={this.handleCauseButtonClick}
+
+        {/* Cause Filters */}
+        <Col md={2} style={{marginLeft: '5vw',  marginRight: '5vw'}}>
+          <h2 style={{marginBottom: '30px'}}>Filter by Cause</h2>
+          <CauseDropdown causes={causes} handleCauseButtonClick={this.handleCauseButtonClick}/>
+          <CauseButtons
+            causes={causes}
+            handleCauseButtonClick={this.handleCauseButtonClick}
+          />
+        </Col>
+
+        {/* Upcoming Events */}
+        <Col md={8}>
+          <Row>
+            <Col md={12}>
+              <h1 style={{textAlign:'center', marginBottom: '30px'}}>Upcoming Events</h1>
+
+            {/* Controls container */}
+              <Controls className="filter-controls" {...this.state}
+                displayDateSelector = {this.displayDateSelector}
+                handleDateChange={this.handleDateChange}
+                handleDateFocusChange={this.handleDateFocusChange}
+                handleDateSelection={this.handleDateSelection}
+                sortByLocation = {this.sortByLocation}
+                displayAllEvents = {this.displayAllEvents}
+                myEvents = {this.myEvents}
+                sortByStates = {this.state.events}
+                handleInputChange={this.handleInputChange}
+                eventStateList={this.state.eventStateList}
               />
             </Col>
 

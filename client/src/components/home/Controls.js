@@ -25,7 +25,7 @@ export const Controls = (props) => {
           </Col>
         </Row>
 
-        {props.dateSelect ?  
+        {props.dateSelect ?
           <Row style={{marginBottom: '30px'}}>
             <Col>
               <SingleDatePicker
@@ -38,11 +38,11 @@ export const Controls = (props) => {
             </Col>
           </Row > : null}
 
-        {props.locationSelect ?  
+        {props.locationSelect ?
           <Row>
             <Col>
               <input
-                autoComplete="random"
+                autoComplete="off"
                 name="USstate"
                 list="USstates"
                 type="text"
@@ -52,9 +52,9 @@ export const Controls = (props) => {
                 onChange={props.handleInputChange}
               />
               <datalist id="USstates">
-                {props.sortByStates.map((event, i) => {
+                {props.eventStateList.map((state, i) => {
                   return(
-                    <option value={event.location_state} key={i}/>
+                    <option value={state} key={i}/>
                   )
                 })}
               </datalist>
