@@ -34,10 +34,46 @@ class SingleEvent extends Component {
 
   }
 
+    getEventData = () => {
+      let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
 
+      Promise.all(promises)
+        .then((values) => {
+          console.log("VALUES");
+          console.log(values);
+          const event = values[0];
+          const causes = values[1];
 
+          let editEvent = { ...event.data };
+          editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
+          editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
+          editEvent.cause = event.data.cause._id;
+          let editEventInitialState = { ...editEvent };
+          console.log("****EVENT.DATA***");
+          console.log(event.data);
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+          this.setState({
+            isLoaded: true,
+            event: event.data,
+            editEvent,
+            editEventInitialState,
+            attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
+            isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
+            causes: causes.data
+          }, () => {
+            if (this.state.isEditingEvent) {
+              this.setState({ isEditingEvent: false });
+            }
+          });
+        }, (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        })
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
     console.log("get derived state called");
     console.log(prevState);
     console.log(nextProps);
@@ -47,46 +83,6 @@ class SingleEvent extends Component {
     console.log(prevState.event.organizer_id);
     console.log("Previous state of attendees");
     console.log(prevState.event.attendees);
-
-     getEventData = () => {
-       let promises = [API.getEvent(this.props.match.params.id), API.getCauses()];
-
-       Promise.all(promises)
-         .then((values) => {
-           console.log("VALUES");
-           console.log(values);
-           const event = values[0];
-           const causes = values[1];
-
-           let editEvent = {...event.data};
-           editEvent.date = moment(event.data.dateTime, moment.ISO_8601);
-           editEvent.time = moment(event.data.dateTime, moment.ISO_8601);
-           editEvent.cause = event.data.cause._id;
-           let editEventInitialState = {...editEvent};
-           console.log("****EVENT.DATA***");
-           console.log(event.data);
-
-           this.setState({
-               isLoaded: true,
-               event: event.data,
-               editEvent,
-               editEventInitialState,
-               attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
-               isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
-               causes: causes.data
-           }, () => {
-             if(this.state.isEditingEvent) {
-               this.setState({isEditingEvent: false});
-             }
-           });
-         }, (error) => {
-           this.setState({
-             isLoaded: true,
-             error
-           });
-         })
-
-     }
 
     if (nextProps.authData.isAuthenticated === false) {
       return {
