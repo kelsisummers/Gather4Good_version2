@@ -10,6 +10,14 @@ import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import StateList from "./States.js";
 import JoinBtn from "./JoinBtn.js";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  EmailShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  EmailIcon
+} from 'react-share';
 
 export const Event = (props) => {
   const dateToFormat = props.data.dateTime;
@@ -231,15 +239,38 @@ export const Event = (props) => {
           </Col>
         </Row>
       </Panel.Body>
-      <Panel.Footer style={{color:"#00b9b4"}}>
+      <Panel.Footer style={{color:"#00b9b4", display: 'flex', alignItems: 'center'}}>
 
-        <JoinBtn 
+        <JoinBtn
                 handleButtonClick={props.handleButtonClick}
                 isOrganizer={props.isOrganizer}
                 attending={props.attending} />
-
-        <a className="controls"><span onClick={props.handleButtonClick} data-type="share">Share</span></a>
         <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
+
+        <div style={{float: 'right', display: 'flex', alignItems: 'center', flexGrow: 8, justifyContent: 'flex-end'}}>
+          <div style={{marginLeft:'5px'}} className="facebook-share">
+            <FacebookShareButton
+              url={props.shareUrl}
+              quote={props.shareQuote}>
+              <FacebookIcon size={28} round={true} />
+            </FacebookShareButton>
+          </div>
+          <div style={{marginLeft:'5px'}} className="twitter-share">
+            <TwitterShareButton
+              url={props.shareUrl}
+              quote={props.shareQuote}>
+              <TwitterIcon size={28} round={true} />
+            </TwitterShareButton>
+          </div>
+          <div style={{marginLeft:'5px'}} className="email-share">
+            <EmailShareButton
+              url={props.shareUrl}
+              quote={props.shareQuote}>
+              <EmailIcon size={28} round={true} />
+            </EmailShareButton>
+          </div>
+        </div>
+
       </Panel.Footer>
     </Panel>
     </div>

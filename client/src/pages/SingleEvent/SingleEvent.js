@@ -23,7 +23,9 @@ class SingleEvent extends Component {
         editEvent: {},
         editEventInitialState: {},
         //handles focus of Calendar to edit event
-    focused: false
+        focused: false,
+        shareUrl: "https://www.google.com/",
+        shareQuote: ""
   };
 
   // Once Container mounts, sends request to server to retrieve events (will probably want to query for a single event by id, obtained
@@ -60,7 +62,10 @@ class SingleEvent extends Component {
             attending: event.data.attendees.includes(this.props.authData.user_id), // Checks if userId matches any in Attendee array.
             isOrganizer: (this.props.authData.user_id === event.data.organizer_id),
             causes: causes.data,
-            commentInput: ""
+            commentInput: "",
+            shareQuote: event.data.title,
+            //need to update to live URL - for testing, replace with any valid url
+            shareUrl: "http://localhost:3000/event/" + event.data._id
           }, () => {
             if (this.state.isEditingEvent) {
               this.setState({ isEditingEvent: false });
@@ -296,7 +301,7 @@ class SingleEvent extends Component {
         })
       }
     }
-  
+
     render() {
         console.log("What is state?", this.state.event)
         console.log("....")
@@ -335,6 +340,8 @@ class SingleEvent extends Component {
                         authData={this.props.authData}
                         authFunctios={this.props.authFunctions}
                         renderJoinBtn={this.renderJoinBtn}
+                        shareUrl={this.state.shareUrl}
+                        shareQuote={this.state.shareQuote}
                     />
                   </Col>
                 </Row>
