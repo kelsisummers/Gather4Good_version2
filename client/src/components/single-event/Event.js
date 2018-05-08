@@ -34,13 +34,13 @@ export const Event = (props) => {
 
 <section>
       <Col md={6} style={{marginRight: '5vw'}} className='daFuck'>
-      <div style={{position:'relative'}}>
+      <div>
         <Panel className="event z-depth-5">
           {/* Event Image */}
           <div className="image-container">
             {props.isEditingEvent ? (
               <FormControl
-                style={{position: "absolute", width: "40%", backgroundColor: "rgba(255,255,255, 0.8)", color: "#1b1c1c", top:'10px', right:'10px', position: 'absolute'}}
+                style={{position: "absolute", width: "40%", backgroundColor: "rgba(255,255,255, 0.8)", color: "#1b1c1c", top:'10px', right:'10px'}}
                 name="img_url"
                 type="text"
                 value={props.editData.img_url}
@@ -65,13 +65,13 @@ export const Event = (props) => {
                   onChange={props.handleEdit}/>
                 </Col>
               ) : (
-                <Col xs={4} sm={4} md={8} style={{ color: 'white', position: 'absolute', zIndex: 2, fontSize: '30px'}} id='single-event-title'>
+                <Col xs={4} sm={4} md={8} style={{ color: 'white', position: 'relative', zIndex: 2, fontSize: '30px'}} id='single-event-title'>
                 {props.data.title}
                 </Col>
               )}
 
               {props.isEditingEvent ? (
-                <Col style={{zIndex: 4, position: 'absolute'}}>
+                <Col style={{zIndex: 4, position: 'relative'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
                       style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'50px', marginRight: '20px'}}
@@ -95,7 +95,7 @@ export const Event = (props) => {
                 </Col>
               ) : (
                 <Col sm={3} md={3} style={{float:'right'}}>
-                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'absolute'}}>
+                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'relative'}}>
                   {props.data.cause.name}</Badge>
                 </Col>
               )}
