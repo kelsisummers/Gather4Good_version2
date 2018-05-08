@@ -12,6 +12,10 @@ const commentSchema = new Schema({
   eventId: {
     type: Schema.Types.ObjectId,
     ref: "Event"
+  },
+  dateTime: {
+    type: Date,
+    default: Date.now
   }
 });
 

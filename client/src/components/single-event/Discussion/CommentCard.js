@@ -2,7 +2,8 @@ import React from "react";
 import { Panel, Button, Glyphicon } from "react-bootstrap";
 
 const style = {
-    float: "right"
+    float: "right",
+    textAlign: "center"
 }
 
 const CommentCard = (props) => {
@@ -13,7 +14,7 @@ const CommentCard = (props) => {
                     <br/>
                     <div>
                         <small>{props.author}</small>
-                        <Button style={style} onClick={props.deleteCommentButton} id={props.id} authorid={props.authorid} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="erase" className="glyphicon" /></Button>
+                        <Button style={style} onClick={props.deleteCommentButton} id={props.id} authorid={props.authorid}  bsSize="xsmall"><Glyphicon style={{color: 'red', marginRight: 0}} glyph="remove" className="glyphicon" /></Button>
                     </div>
                 </Panel.Body>
             </Panel>

@@ -27,7 +27,7 @@ export const EventCard = (props) => {
             <Panel.Body>
               <p className="event-details">
                 <span style={{fontSize: '22px', color: '#00b9b4'}}>Date: </span> 
-                <Moment format="MM/DD/YYYY @ hh:mm A">{props.data.dateTime}</Moment>
+                <Moment format="M/D/YYYY @ h:mm a">{props.data.dateTime}</Moment>
               </p>
               <p className='event-details'>
                 <span style={{fontSize: '22px', color: '#00b9b4'}}>Location: </span> {props.data.location_city}, {props.data.location_state}
