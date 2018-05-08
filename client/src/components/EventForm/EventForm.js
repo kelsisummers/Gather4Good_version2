@@ -176,21 +176,21 @@ const EventForm = (props) => {
                       value={props.city}
                       onChange={props.handleInputChange}
                     />
-                    <input
-                      autoComplete="random"
-                      name="USstate"
-                      list="USstates"
+                    <select
                       type="text"
-                      placeholder="Select a state"
-                      id="USstate"
+                      name="USstate"
+                      id='USstate'
                       value={props.USstate}
-                      onChange={props.handleInputChange}
-                    />
-                    <datalist id="USstates">
-                      {props.stateList.map(state => (
-                        <option value={state} key={state} />
-                      ))}
-                    </datalist>
+                      placeholder="Select a State"
+                      onChange={props.handleInputChange}>
+
+                        <option id='option-select' key="default" value="Select a State" disabled={true} hidden={true}>Select a State</option>
+                        {props.stateList.map(state => (
+                          <option value={state} key={state}> {state}
+                          </option>
+                        ))}
+
+                    </select>
                     <input
                       type="text"
                       name="zipcode"

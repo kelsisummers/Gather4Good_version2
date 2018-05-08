@@ -34,10 +34,11 @@ export const Event = (props) => {
 
 <section>
       <Col md={6} style={{marginRight: '5vw'}} className='daFuck'>
-      <div>
+      <div style={{position:'relative'}}>
         <Panel className="event z-depth-5">
           {/* Event Image */}
-          <div className="image-container">
+          <div className='image-container' style={{position: 'absolute'}}> 
+          <div className="image-overlay">
             {props.isEditingEvent ? (
               <FormControl
                 style={{position: "absolute", width: "40%", backgroundColor: "rgba(255,255,255, 0.8)", color: "#1b1c1c", top:'10px', right:'10px', position: 'absolute'}}
@@ -52,7 +53,7 @@ export const Event = (props) => {
 
           {/* Event Title & Cause Badge */}
           {/* <Panel.Heading className="single-event-title" > */}
-            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'relative', bottom: '70px', zIndex: 2}}>
+            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'absolute', bottom: '70px', zIndex: 2}}>
               {props.isEditingEvent ? (
                 <Col>
                   <FormControl
@@ -70,7 +71,7 @@ export const Event = (props) => {
               )}
 
               {props.isEditingEvent ? (
-                <Col style={{zIndex: 4, position: 'relative'}}>
+                <Col style={{zIndex: 4, position: 'absolute'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
                       style={{width: "auto", border: "1px solid #1b1c1c", cursor: "pointer", textAlign: 'center', paddingLeft:'20px', marginRight: '20px'}}
@@ -94,12 +95,13 @@ export const Event = (props) => {
                 </Col>
               ) : (
                 <Col sm={3} md={3} style={{float:'right'}}>
-                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'relative'}}>
+                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'absolute'}}>
                   {props.data.cause.name}</Badge>
                 </Col>
               )}
             </Row>
           {/* </Panel.Heading> */}
+        </div>
         </div>
         {/* Event Description */}
         <Panel.Body>
