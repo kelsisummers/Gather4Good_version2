@@ -34,7 +34,7 @@ export const Event = (props) => {
 
 <section>
       <Col md={6} style={{marginRight: '5vw'}} className='daFuck'>
-      <div>
+      <div style={{position:'relative'}}>
         <Panel className="event z-depth-5">
           {/* Event Image */}
           <div className="image-container">
@@ -71,7 +71,7 @@ export const Event = (props) => {
               )}
 
               {props.isEditingEvent ? (
-                <Col style={{zIndex: 4, position: 'relative'}}>
+                <Col style={{zIndex: 4, position: 'absolute'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
                       style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'50px', marginRight: '20px'}}
@@ -95,7 +95,7 @@ export const Event = (props) => {
                 </Col>
               ) : (
                 <Col sm={3} md={3} style={{float:'right'}}>
-                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'relative'}}>
+                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'absolute'}}>
                   {props.data.cause.name}</Badge>
                 </Col>
               )}

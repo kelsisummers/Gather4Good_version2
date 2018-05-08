@@ -50,8 +50,8 @@
 }
 
 /* Single Event Image Gradient */
-.image-container {
-    position: relative;
+.image-overlay {
+    position: absolute;
     overflow: hidden;
 }
 
