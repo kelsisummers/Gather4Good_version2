@@ -37,8 +37,7 @@ export const Event = (props) => {
       <div style={{position:'relative'}}>
         <Panel className="event z-depth-5">
           {/* Event Image */}
-          <div className='image-container' style={{position: 'absolute'}}> 
-          <div className="image-overlay">
+          <div className="image-container">
             {props.isEditingEvent ? (
               <FormControl
                 style={{position: "absolute", width: "40%", backgroundColor: "rgba(255,255,255, 0.8)", color: "#1b1c1c", top:'10px', right:'10px', position: 'absolute'}}
@@ -53,11 +52,12 @@ export const Event = (props) => {
 
           {/* Event Title & Cause Badge */}
           {/* <Panel.Heading className="single-event-title" > */}
-            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'absolute', bottom: '70px', zIndex: 2}}>
+            <Row style={{position: 'absolute', bottom: '40px', left: '15px', zIndex: 2, width: "100%"}}>
               {props.isEditingEvent ? (
-                <Col>
+                <Col xs={12} sm={12} md={8}>
                   <FormControl
-                  style={{backgroundColor: "transparent", display: "inline-block", color: "#1b1c1c", fontSize: "30px", zIndex:100, border:"1px solid #ccc", marginLeft: 25, width: '90%' }}
+                  id="eventTitle"
+                  style={{backgroundColor: "transparent", position: "absolute", display: "block", color: "white", fontSize: "20px", zIndex:100, border:"1px solid white", marginLeft: 25, width: '60%', padding: "10px 20px", paddingRight: "0px"}}
                   name="title"
                   type="text"
                   value={props.editData.title}
@@ -74,7 +74,7 @@ export const Event = (props) => {
                 <Col style={{zIndex: 4, position: 'absolute'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
-                      style={{width: "auto", border: "1px solid #1b1c1c", cursor: "pointer", textAlign: 'center', paddingLeft:'20px', marginRight: '20px'}}
+                      style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'50px', marginRight: '20px'}}
                       defaultValue={props.data.cause.name}
                       type="text"
                       name="cause"
@@ -101,7 +101,6 @@ export const Event = (props) => {
               )}
             </Row>
           {/* </Panel.Heading> */}
-        </div>
         </div>
         {/* Event Description */}
         <Panel.Body>
