@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Well } from 'react-bootstrap';
 import API from "../../utils/API.js";
 import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../components/Home";
 import tempFeatured from "./tempFeaturedEvents.json";
@@ -237,16 +237,20 @@ class Home extends Component {
                 </Col>
                   <Col md={12}>
                     <div>
-                      {events.map((event) => {
-                        return (
-                          <EventCard
-                            key={event._id}
-                            data={event}
-                            handleJoinEventButtonClick={this.handleJoinEventButtonClick}
-                            userId={this.props.authData.user_id}
-                          />
+                      {(events.length !== 0) ?
+                        (events.map((event) => {
+                          return (
+                            <EventCard
+                              key={event._id}
+                              data={event}
+                              handleJoinEventButtonClick={this.handleJoinEventButtonClick}
+                              userId={this.props.authData.user_id}
+                            />
+                          )
+                        })) : (
+                          <Well bsSize="large">There are no events to display!</Well>
                         )
-                      })}
+                      }
                     </div>
                   </Col>
 
