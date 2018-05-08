@@ -34,7 +34,7 @@ export const Event = (props) => {
 
 <section>
       <Col md={6} style={{marginRight: '5vw'}} className='daFuck'>
-      <div>
+      <div style={{position:'relative'}}>
         <Panel className="event z-depth-5">
           {/* Event Image */}
           <div className="image-container">
@@ -52,11 +52,12 @@ export const Event = (props) => {
 
           {/* Event Title & Cause Badge */}
           {/* <Panel.Heading className="single-event-title" > */}
-            <Row style={{marginBottom: '10px', marginLeft: '20px', marginRight:'20px', position: 'relative', bottom: '70px', zIndex: 2}}>
+            <Row style={{position: 'absolute', bottom: '40px', left: '15px', zIndex: 2, width: "100%"}}>
               {props.isEditingEvent ? (
-                <Col>
+                <Col xs={12} sm={12} md={8}>
                   <FormControl
-                  style={{backgroundColor: "transparent", display: "inline-block", color: "#1b1c1c", fontSize: "30px", zIndex:100, border:"1px solid #ccc", marginLeft: 25, width: '90%' }}
+                  id="eventTitle"
+                  style={{backgroundColor: "transparent", position: "absolute", display: "block", color: "white", fontSize: "20px", zIndex:100, border:"1px solid white", marginLeft: 25, width: '60%', padding: "10px 20px", paddingRight: "0px"}}
                   name="title"
                   type="text"
                   value={props.editData.title}
@@ -70,10 +71,10 @@ export const Event = (props) => {
               )}
 
               {props.isEditingEvent ? (
-                <Col style={{zIndex: 4, position: 'relative'}}>
+                <Col style={{zIndex: 4, position: 'absolute'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
-                      style={{width: "auto", border: "1px solid #1b1c1c", cursor: "pointer", textAlign: 'center', paddingLeft:'20px', marginRight: '20px'}}
+                      style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'50px', marginRight: '20px'}}
                       defaultValue={props.data.cause.name}
                       type="text"
                       name="cause"
@@ -94,7 +95,7 @@ export const Event = (props) => {
                 </Col>
               ) : (
                 <Col sm={3} md={3} style={{float:'right'}}>
-                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'relative'}}>
+                  <Badge style={{padding: '10px', borderRadius: 2, backgroundColor: '#00b9b4', fontSize: 14, color: 'white', float: 'right', zIndex: 3, position: 'absolute'}}>
                   {props.data.cause.name}</Badge>
                 </Col>
               )}

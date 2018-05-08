@@ -19,7 +19,7 @@ export const Controls = (props) => {
 
               {props.dateSelect ?
                 <Row style={{marginBottom: '30px'}}>
-                  <Col style={{marginLeft: '20px', display: 'flex', justifyContent: 'center'}}>
+                  <Col style={{marginLeft: '25px', display: 'flex', justifyContent: 'center'}}>
                     <SingleDatePicker
                       date={props.date}
                       onDateChange={props.handleDateChange}
@@ -44,23 +44,19 @@ export const Controls = (props) => {
         {props.locationSelect ?
           <Row>
             <Col>
-              <input
-                autoComplete="off"
-                name="USstate"
-                list="USstates"
-                type="text"
-                placeholder="Select a state"
-                id="USstate"
-                value={props.USstate}
-                onChange={props.handleInputChange}
-              />
-              <datalist id="USstates">
-                {props.eventStateList.map((state, i) => {
-                  return(
-                    <option value={state} key={i}/>
-                  )
-                })}
-              </datalist>
+            <select
+                      type="text"
+                      name="USstate"
+                      id='USstate'
+                      value={props.USstate}
+                      placeholder="Select a State"
+                      onChange={props.handleInputChange}>
+
+                        <option id='option-select' key="default" value="Select a State" disabled={true} hidden={true}>Select a State</option>
+                        {props.eventStateList.map((state, i) => (
+                          <option value={state} key={i}>{state}</option>
+                        ))}
+                    </select>
             </Col>
           </Row> : null }
         </Panel>

@@ -20,7 +20,7 @@ const commentsController = {
             .catch(err => res.status(422).json(err));
     },
 
-    remove: function(req, res) {
+    remove: function (req, res) {
         console.log("Delete comment called - back end");
         console.log(req.query.commentId);
         console.log("^^^^commentId");
