@@ -38,7 +38,8 @@ const commentsController = {
     getCommentsByEvent: function(req, res) {
         let eventId = req.params.id;
         db.Comment
-            .find({ query: { eventId: eventId }, $orderby: { dateAdded: -1 }})
+            .find({ query: { eventId: eventId }})
+            .sort({ dateTime: -1 })
             .then(dbModel => {
                 console.log(dbModel);
                 res.json(dbModel);
