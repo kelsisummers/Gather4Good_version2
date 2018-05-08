@@ -285,8 +285,9 @@ class SingleEvent extends Component {
       const authorId = event.target.getAttribute("authorid");
       const eventId = this.state.event._id;
       const userId = this.props.authData.user_id;
+      console.log("user id::::")
       console.log(userId);
-      console.log(commentId);
+      console.log("authorid::::")
       console.log(authorId);
       if (Auth.isTokenNullOrExpired()) {
         this.props.authFunctions.clearAuthAndShowModal("deleteComment");
