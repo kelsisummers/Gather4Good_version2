@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Well } from 'react-bootstrap';
 import API from "../../utils/API.js";
-import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../components/Home";
+import { Header, CauseButtons, EventCard, Controls, CauseDropdown } from "../../components/HomeComps";
 import tempFeatured from "./tempFeaturedEvents.json";
 import "./Home.css";
 import moment from "moment";
