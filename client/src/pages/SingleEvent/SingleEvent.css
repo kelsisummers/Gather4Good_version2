@@ -72,6 +72,18 @@
   z-index: 0;
 }
 
+/* Greg */
+
+#comment-submit-btn:hover,
+#comment-submit-btn:active,
+#comment-submit-btn:focus {
+  color: white;
+}
+
+#comment-submit-btn:hover {
+  box-shadow: 2px 2px 2px gray;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 1400px) {
   #single-event-title {
