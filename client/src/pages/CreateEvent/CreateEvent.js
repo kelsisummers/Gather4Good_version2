@@ -160,8 +160,8 @@ class CreateEvent extends Component {
 
     handleFormSubmit = (event) =>  {
       event.preventDefault();
-      const { causeType, eventName, eventDescription, streetAddress, city, Usstate, zipcode } = this.state
-      let fields = [...causeType, eventName, eventDescription, streetAddress, city, Usstate, zipcode];
+      const { causeType, eventName, eventDescription, streetAddress, city, USstate, zipcode } = this.state
+      let fields = [...causeType, eventName, eventDescription, streetAddress, city, USstate, zipcode];
       for (let i = 0; i < fields.length; i++) {
         if (fields[i].length === 0) {
           alert("Please fill out all the required fields.");
