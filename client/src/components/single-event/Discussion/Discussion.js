@@ -13,7 +13,7 @@ export const Discussion = (props) => {
                     <CommentForm {...props} />
                     <br />
                     {props.data.comments.map((comment, i) => {
-                        console.log(comment.userId);
+                        console.log(comment);
                         return (
                             <CommentCard
                                 key={i}
