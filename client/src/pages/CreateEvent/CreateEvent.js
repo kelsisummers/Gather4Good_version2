@@ -189,7 +189,10 @@ class CreateEvent extends Component {
 
   render() {
       return (
-        <Grid fluid className="background">
+        <Grid fluid className="background"
+                    style={{display: 'flex',
+                    minHeight: 'calc(100vh - 135px)',
+                    flexDirection: 'column'}}>
           <Row>
             <Col md={3} />
             <Col xs={12} md={6}>
