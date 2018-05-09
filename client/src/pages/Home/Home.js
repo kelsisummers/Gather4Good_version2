@@ -74,7 +74,7 @@ class Home extends Component {
   };
 
   displayDateSelector = () => {
-    this.setState({ dateSelect: !this.state.dateSelect, locationSelect: false });
+    this.setState({ dateSelect: !this.state.dateSelect, locationSelect: false, USstate: "" });
     console.log(this.state.date._d);
   }
 
@@ -115,7 +115,8 @@ class Home extends Component {
         this.setState({
           events: events.data,
           locationSelect: false,
-          dateSelect: false
+          dateSelect: false,
+          USstate: "",
         })
       }, (error) => {
         this.setState({
@@ -143,7 +144,8 @@ class Home extends Component {
           this.setState({
             events: events.data,
             locationSelect: false,
-            dateSelect: false
+            dateSelect: false,
+            USstate: "",
           })
         }, (error) => {
           this.setState({

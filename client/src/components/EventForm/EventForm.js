@@ -45,7 +45,7 @@ const EventForm = (props) => {
         				  </div>
                 </Panel.Body>
                 </Panel>
-            
+
 
             <Panel eventKey='2'>
               <Panel.Heading>
@@ -66,7 +66,7 @@ const EventForm = (props) => {
       >
         {props.causes.map((cause, i) => {
             return (
-                
+
                 <MenuItem eventKey={i} value={cause.name} data-cause-id={cause._id} key={cause._id} causeid={cause._id} style={{width: '25vw', padding: 5}}>{cause.name}</MenuItem>
             )
         })
@@ -74,6 +74,7 @@ const EventForm = (props) => {
       </DropdownButton>
     </ButtonToolbar> */}
                     <select id='option-select'
+                      style={{cursor: "pointer"}}
                       defaultValue="Choose Your Cause"
                       type="text"
                       name="causeType"
@@ -178,13 +179,14 @@ const EventForm = (props) => {
                     />
                     <select
                       type="text"
+                      style={{cursor: "pointer"}}
                       name="USstate"
                       id='USstate'
                       value={props.USstate}
-                      placeholder="Select a State"
+                      defaultValue=""
                       onChange={props.handleInputChange}>
 
-                        <option id='option-select' key="default" value="Select a State" disabled={true} hidden={true}>Select a State</option>
+                        <option id='option-select' key="default" value="" hidden={true}>Select a State</option>
                         {props.stateList.map(state => (
                           <option value={state} key={state}> {state}
                           </option>

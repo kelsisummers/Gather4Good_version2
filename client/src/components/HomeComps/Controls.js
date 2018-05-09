@@ -32,7 +32,7 @@ export const Controls = (props) => {
 
           </Col>
           <Col md={4}>
-            <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>    
+            <Button className="sort-btn" onClick={props.sortByLocation} >Location</Button>
           </Col>
           <Col md={2}>
             <Button className="sort-btn" onClick={props.displayAllEvents}>All Events</Button>
@@ -45,14 +45,16 @@ export const Controls = (props) => {
           <Row>
             <Col>
             <select
+                      className="homepage-select"
+                      style={{borderRadius: 0, cursor: "pointer"}}
                       type="text"
                       name="USstate"
                       id='USstate'
                       value={props.USstate}
-                      placeholder="Select a State"
+                      defaultValue=""
                       onChange={props.handleInputChange}>
 
-                        <option id='option-select' key="default" value="Select a State" disabled={true} hidden={true}>Select a State</option>
+                        <option id='option-select' key="default" value="" hidden={true}>Select a State</option>
                         {props.eventStateList.map((state, i) => (
                           <option value={state} key={i}>{state}</option>
                         ))}
