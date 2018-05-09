@@ -168,7 +168,7 @@ class CreateEvent extends Component {
           return
         }
       }
-      if (causeType || eventName )
+
       if(Auth.isTokenNullOrExpired()) {
         this.props.authFunctions.clearAuthAndShowModal("createEvent");
       } else {
