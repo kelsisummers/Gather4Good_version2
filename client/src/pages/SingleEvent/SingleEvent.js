@@ -281,8 +281,8 @@ class SingleEvent extends Component {
     }
 
     deleteComment = (event) => {
-      const commentId = event.target.id;
-      const authorId = event.target.getAttribute("authorid");
+      const commentId = event.currentTarget.id;
+      const authorId = event.currentTarget.getAttribute("authorid");
       const eventId = this.state.event._id;
       const userId = this.props.authData.user_id;
       console.log("user id::::")
