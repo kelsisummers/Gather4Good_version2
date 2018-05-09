@@ -65,7 +65,7 @@ class SingleEvent extends Component {
             commentInput: "",
             shareQuote: event.data.title,
             //need to update to live URL - for testing, replace with any valid url
-            shareUrl: "https://calm-taiga-53512.herokuapp.com/" + event.data._id
+            shareUrl: "https://calm-taiga-53512.herokuapp.com/event" + event.data._id
           }, () => {
             if (this.state.isEditingEvent) {
               this.setState({ isEditingEvent: false });
