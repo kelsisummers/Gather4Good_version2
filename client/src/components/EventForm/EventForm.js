@@ -214,6 +214,9 @@ const EventForm = (props) => {
                 Create Event
             </button>
 
+            {props.emptyFieldError ? (
+              <div style={{fontSize: "14px", color: "red", marginTop: "10px"}}> Please complete all fields before creating your event </div>
+            ) : null}
 
           </form>
         </div>

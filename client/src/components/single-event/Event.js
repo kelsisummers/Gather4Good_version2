@@ -74,7 +74,7 @@ export const Event = (props) => {
                 <Col style={{zIndex: 4, position: 'relative'}}>
                   <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <select
-                      style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'50px', marginRight: '20px'}}
+                      style={{width: "200px", border: "1px solid white", color: "white", cursor: "pointer", textAlign: 'center', paddingLeft:'35px', marginRight: '20px'}}
                       defaultValue={props.data.cause.name}
                       type="text"
                       name="cause"
@@ -199,7 +199,7 @@ export const Event = (props) => {
                         )}
                       {props.isEditingEvent ? (
                         <select
-                          style={{ width: "auto", border: "1px solid #ccc", cursor: "pointer" }}
+                          style={{ width: "auto", border: "1px solid #ccc", cursor: "pointer", padding: "6px 12px", fontSize: "14px"}}
                           value={props.editData.location_state}
                           type="text"
                           name="location_state"
@@ -246,7 +246,7 @@ export const Event = (props) => {
                 handleButtonClick={props.handleButtonClick}
                 isOrganizer={props.isOrganizer}
                 attending={props.attending} />
-        <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a>
+        { /* <a className="controls"><span onClick={props.handleButtonClick} data-type="contact">Contact Organizer</span></a> */}
 
         <div style={{float: 'right', display: 'flex', alignItems: 'center', flexGrow: 8, justifyContent: 'flex-end'}}>
           <div style={{marginLeft:'5px'}} className="facebook-share">

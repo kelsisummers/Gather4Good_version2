@@ -27,7 +27,8 @@ class CreateEvent extends Component {
     causes: [],
     open: false,
     newEventId: "",
-    attendees: []
+    attendees: [],
+    emptyFieldError: false,
   };
 
 
@@ -58,13 +59,13 @@ class CreateEvent extends Component {
   handleInputChange = (event) =>  {
     const { name, value } = event.target;
 
-    this.setState({[name]: value});
+    this.setState({[name]: value, emptyFieldError: false});
 
     if(name === "causeType") {
       const option = event.target.options[event.target.selectedIndex];
       const causeId = option.attributes.getNamedItem("data-cause-id").value;
 
-      this.setState({causeId: causeId}, () => {
+      this.setState({causeId: causeId, emptyFieldError: false}, () => {
         console.log("Update CauseId State:");
         console.log(this.state.causeId);
       });
@@ -161,11 +162,11 @@ class CreateEvent extends Component {
     handleFormSubmit = (event) =>  {
       event.preventDefault();
       const { causeType, eventName, eventDescription, streetAddress, city, USstate, zipcode } = this.state
-      let fields = [...causeType, eventName, eventDescription, streetAddress, city, USstate, zipcode];
+      let fields = [causeType, eventName, eventDescription, streetAddress, city, USstate, zipcode];
       for (let i = 0; i < fields.length; i++) {
         if (fields[i].length === 0) {
-          alert("Please fill out all the required fields.");
-          return
+          this.setState({emptyFieldError: true})
+          return;
         }
       }
 
