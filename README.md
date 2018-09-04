@@ -3,7 +3,7 @@
 ## Introduction
 Gather4Good is a web application that allows users to connect and create communities around social, political, and charitable causes by organizing and joining events. The second version of this application includes added features that allow users to "unjoin" events; filter events by date, location, or "joined" events, add and delete comments on specific events; and social sharing ability.
 
-## Heroku Link
+## Hosted App Link
 https://calm-taiga-53512.herokuapp.com/
 
 ## Built With
