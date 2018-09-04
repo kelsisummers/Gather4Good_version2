@@ -8,11 +8,9 @@ https://calm-taiga-53512.herokuapp.com/
 
 ## Built With
 * React
-* Node.js
 * Express
 * MongoDB
 * JSON Web Tokens
-* Heroku
 
 ## Key Functionality
 * View all events or view events using filter options: By Cause, By Date, By Location, My Events.
