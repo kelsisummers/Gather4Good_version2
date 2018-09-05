@@ -14,13 +14,15 @@ export class Header extends Component {
             <div>
                 <div className="video-container">
                   <div className="v-header">
-                    <video src="../assets/video-bkgd.mp4" autoPlay="true" loop="true"></video>
+                    <video autoplay muted
+                    src="../assets/video-bkgd-small.mp4" autoPlay="true" loop="true"></video>
                   </div>
                   <div className="video-overlay"></div>
                   <div className="video-text">
                   <h1><Typed style={{fontFamily: "Architects Daughter, cursive", fontSize: "48px"}}
                     strings={['Volunteer.', 'Rally.', 'March.', 'Protest.', 'Gather4Good.']} 
                     typeSpeed={170}
+                    startDelay={1000}
                 /></h1> 
                   </div>
                 </div>
