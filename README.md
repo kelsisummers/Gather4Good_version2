@@ -8,6 +8,9 @@ https://calm-taiga-53512.herokuapp.com/
 
 ## Built With
 * React
+* JavaScript
+* HTML
+* CSS
 * Express
 * MongoDB
 * JSON Web Tokens
